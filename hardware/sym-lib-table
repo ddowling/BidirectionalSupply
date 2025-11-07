@@ -1,0 +1,4 @@
+(sym_lib_table
+  (version 7)
+  (lib (name "BC-lib")(type "KiCad")(uri "${KIPRJMOD}/BC-lib")(options "")(descr ""))
+)

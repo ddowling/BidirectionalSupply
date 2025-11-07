@@ -4,6 +4,11 @@
 	(generator_version "8.0")
 	(uuid "e5771ea0-f106-4b1c-9531-189f5725062b")
 	(paper "A4")
+	(title_block
+		(date "2025-11-07")
+		(rev "1.0")
+		(company "Open Source Solutions Pty Ltd")
+	)
 	(lib_symbols)
 	(sheet
 		(at 36.83 33.02)
@@ -39,6 +44,44 @@
 			(project "BidirectionalSupply"
 				(path "/e5771ea0-f106-4b1c-9531-189f5725062b"
 					(page "2")
+				)
+			)
+		)
+	)
+	(sheet
+		(at 38.1 68.58)
+		(size 26.67 8.89)
+		(fields_autoplaced yes)
+		(stroke
+			(width 0.1524)
+			(type solid)
+		)
+		(fill
+			(color 0 0 0 0.0000)
+		)
+		(uuid "8fb5840d-6761-4aaf-a535-e125a9b8d99d")
+		(property "Sheetname" "Power & Connectors"
+			(at 38.1 67.8684 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left bottom)
+			)
+		)
+		(property "Sheetfile" "connectors.kicad_sch"
+			(at 38.1 78.0546 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+			)
+		)
+		(instances
+			(project "BidirectionalSupply"
+				(path "/e5771ea0-f106-4b1c-9531-189f5725062b"
+					(page "4")
 				)
 			)
 		)

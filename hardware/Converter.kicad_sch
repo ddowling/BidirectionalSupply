@@ -4,6 +4,12 @@
 	(generator_version "8.0")
 	(uuid "ca6b622c-03a2-4c7c-92c7-c0c70fca337c")
 	(paper "A4")
+	(title_block
+		(title "Converter")
+		(date "2025-11-07")
+		(rev "1.0")
+		(company "Open Source Solutions Pty Ltd")
+	)
 	(lib_symbols
 		(symbol "BC-lib:BQ25758"
 			(exclude_from_sim no)
@@ -2306,6 +2312,102 @@
 				)
 			)
 		)
+		(symbol "power:PWR_FLAG"
+			(power)
+			(pin_numbers hide)
+			(pin_names
+				(offset 0) hide)
+			(exclude_from_sim no)
+			(in_bom yes)
+			(on_board yes)
+			(property "Reference" "#FLG"
+				(at 0 1.905 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Value" "PWR_FLAG"
+				(at 0 3.81 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Footprint" ""
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Datasheet" "~"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Description" "Special symbol for telling ERC where power comes from"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "ki_keywords" "flag power"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(symbol "PWR_FLAG_0_0"
+				(pin power_out line
+					(at 0 0 90)
+					(length 0)
+					(name "~"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+			)
+			(symbol "PWR_FLAG_0_1"
+				(polyline
+					(pts
+						(xy 0 0) (xy 0 1.27) (xy -1.016 1.905) (xy 0 2.54) (xy 1.016 1.905) (xy 0 1.27)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+			)
+		)
 	)
 	(junction
 		(at 209.55 62.23)
@@ -2420,12 +2522,6 @@
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "4403f936-f4e9-4aa5-9b10-d0bcaff4450c")
-	)
-	(junction
-		(at 57.15 101.6)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "461a0a16-3ad4-4b8e-9844-c9b9a3cb0e76")
 	)
 	(junction
 		(at 219.71 40.64)
@@ -2584,6 +2680,12 @@
 		(uuid "b51ea81c-e62a-4ca3-87c9-f9ebebbcdfa1")
 	)
 	(junction
+		(at 57.15 100.33)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "b8524d4e-3347-4af2-9da1-4baa945752e7")
+	)
+	(junction
 		(at 237.49 161.29)
 		(diameter 0)
 		(color 0 0 0 0)
@@ -2618,6 +2720,12 @@
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "cc90194a-1a60-44fc-bcb1-e6ef6709ba71")
+	)
+	(junction
+		(at 68.58 100.33)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "ce186718-0b3d-4bca-a0fc-400271fd3c61")
 	)
 	(junction
 		(at 165.1 40.64)
@@ -2668,16 +2776,16 @@
 		(uuid "dc8b783a-dc75-4a72-acc5-37712e267a73")
 	)
 	(junction
-		(at 66.04 101.6)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "e3483283-a102-4458-8caf-c2269210bcd0")
-	)
-	(junction
 		(at 74.93 19.05)
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "e3cc7cc4-012a-4606-a021-b1159e9bfc10")
+	)
+	(junction
+		(at 116.84 113.03)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "e40e054b-95cb-4625-8b0b-f389bebe479f")
 	)
 	(junction
 		(at 80.01 158.75)
@@ -2807,6 +2915,16 @@
 	)
 	(wire
 		(pts
+			(xy 100.33 109.22) (xy 100.33 110.49)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "0955a92c-3020-49b0-b2e2-05f7750a1017")
+	)
+	(wire
+		(pts
 			(xy 186.69 62.23) (xy 186.69 95.25)
 		)
 		(stroke
@@ -2887,6 +3005,16 @@
 	)
 	(wire
 		(pts
+			(xy 116.84 113.03) (xy 127 113.03)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "0f64513c-f20b-4970-88b9-eda6ad83ceed")
+	)
+	(wire
+		(pts
 			(xy 165.1 40.64) (xy 165.1 43.18)
 		)
 		(stroke
@@ -2957,6 +3085,16 @@
 	)
 	(wire
 		(pts
+			(xy 100.33 110.49) (xy 127 110.49)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "163e25b8-60c8-46cc-927a-941ded4902bf")
+	)
+	(wire
+		(pts
 			(xy 165.1 19.05) (xy 165.1 40.64)
 		)
 		(stroke
@@ -2997,6 +3135,16 @@
 	)
 	(wire
 		(pts
+			(xy 102.87 113.03) (xy 109.22 113.03)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "19eb9ade-a64e-4a61-8bf2-8aea11bb02f8")
+	)
+	(wire
+		(pts
 			(xy 102.87 48.26) (xy 102.87 50.8)
 		)
 		(stroke
@@ -3027,7 +3175,7 @@
 	)
 	(wire
 		(pts
-			(xy 57.15 40.64) (xy 57.15 101.6)
+			(xy 57.15 40.64) (xy 57.15 100.33)
 		)
 		(stroke
 			(width 0)
@@ -3064,16 +3212,6 @@
 			(type default)
 		)
 		(uuid "1d559418-54d6-4f3b-974b-2dbbfae4013d")
-	)
-	(wire
-		(pts
-			(xy 66.04 101.6) (xy 66.04 104.14)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "1f844221-151e-4be2-9c36-dd8ac479774d")
 	)
 	(wire
 		(pts
@@ -3617,6 +3755,16 @@
 	)
 	(wire
 		(pts
+			(xy 116.84 107.95) (xy 116.84 113.03)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "4f86c268-ba32-4afd-a812-bcfa3d598776")
+	)
+	(wire
+		(pts
 			(xy 172.72 163.83) (xy 172.72 166.37)
 		)
 		(stroke
@@ -3757,7 +3905,7 @@
 	)
 	(wire
 		(pts
-			(xy 190.5 102.87) (xy 198.12 102.87)
+			(xy 195.58 102.87) (xy 198.12 102.87)
 		)
 		(stroke
 			(width 0)
@@ -3937,7 +4085,7 @@
 	)
 	(wire
 		(pts
-			(xy 50.8 101.6) (xy 57.15 101.6)
+			(xy 52.07 100.33) (xy 57.15 100.33)
 		)
 		(stroke
 			(width 0)
@@ -4017,16 +4165,6 @@
 	)
 	(wire
 		(pts
-			(xy 100.33 110.49) (xy 127 110.49)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "76ef8907-c2b7-47f7-bf39-96250116327a")
-	)
-	(wire
-		(pts
 			(xy 163.83 127) (xy 172.72 127)
 		)
 		(stroke
@@ -4047,7 +4185,7 @@
 	)
 	(wire
 		(pts
-			(xy 124.46 104.14) (xy 124.46 101.6)
+			(xy 124.46 104.14) (xy 124.46 100.33)
 		)
 		(stroke
 			(width 0)
@@ -4237,7 +4375,7 @@
 	)
 	(wire
 		(pts
-			(xy 66.04 111.76) (xy 66.04 114.3)
+			(xy 68.58 111.76) (xy 68.58 114.3)
 		)
 		(stroke
 			(width 0)
@@ -4447,7 +4585,7 @@
 	)
 	(wire
 		(pts
-			(xy 50.8 104.14) (xy 50.8 101.6)
+			(xy 52.07 104.14) (xy 52.07 100.33)
 		)
 		(stroke
 			(width 0)
@@ -4497,13 +4635,23 @@
 	)
 	(wire
 		(pts
-			(xy 57.15 101.6) (xy 66.04 101.6)
+			(xy 57.15 100.33) (xy 68.58 100.33)
 		)
 		(stroke
 			(width 0)
 			(type default)
 		)
 		(uuid "aa27b6c9-4a50-4a1e-86d3-8bc8811dae21")
+	)
+	(wire
+		(pts
+			(xy 68.58 100.33) (xy 68.58 104.14)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "aad00848-9e50-4d41-9d85-b651466d26cf")
 	)
 	(wire
 		(pts
@@ -5047,6 +5195,16 @@
 	)
 	(wire
 		(pts
+			(xy 102.87 109.22) (xy 102.87 113.03)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "e11fc654-896a-4982-b4bd-931cfc8fe1e5")
+	)
+	(wire
+		(pts
 			(xy 72.39 124.46) (xy 127 124.46)
 		)
 		(stroke
@@ -5167,7 +5325,7 @@
 	)
 	(wire
 		(pts
-			(xy 124.46 101.6) (xy 66.04 101.6)
+			(xy 124.46 100.33) (xy 68.58 100.33)
 		)
 		(stroke
 			(width 0)
@@ -5217,7 +5375,17 @@
 	)
 	(wire
 		(pts
-			(xy 50.8 111.76) (xy 50.8 114.3)
+			(xy 52.07 124.46) (xy 52.07 125.73)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "f300739c-f1ec-4a21-8377-6e2e908afeca")
+	)
+	(wire
+		(pts
+			(xy 52.07 111.76) (xy 52.07 114.3)
 		)
 		(stroke
 			(width 0)
@@ -5307,7 +5475,7 @@
 	)
 	(wire
 		(pts
-			(xy 109.22 113.03) (xy 127 113.03)
+			(xy 109.22 113.03) (xy 116.84 113.03)
 		)
 		(stroke
 			(width 0)
@@ -5432,10 +5600,10 @@
 		)
 		(uuid "d5360e84-16b6-4f87-a2eb-1987ee40eaba")
 	)
-	(text_box "NOTE:\n- DRV_SUP and REGN external 5V regulator? Have 5V for MCU\n- I^{2}C pullups of 10k as a starting point\n- Pullup for ~{CE} so regulator is off if no control from MCU"
+	(text_box "- I^{2}C pullups of 10k as a starting point\n- Pullup for ~{CE} so regulator is off if no driven control from MCU"
 		(exclude_from_sim no)
-		(at 97.79 172.72 0)
-		(size 57.15 17.78)
+		(at 54.61 167.64 0)
+		(size 78.74 5.08)
 		(stroke
 			(width 0)
 			(type default)
@@ -5461,6 +5629,46 @@
 		)
 		(uuid "11007a32-6cc4-4c66-81e0-5cde6cf96e40")
 	)
+	(text "VIIN"
+		(exclude_from_sim no)
+		(at 254.508 152.654 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+		)
+		(uuid "245600a8-5312-4bf8-8dad-32d2b4c5b505")
+	)
+	(text "TS"
+		(exclude_from_sim no)
+		(at 181.61 163.83 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+		)
+		(uuid "55327ee9-a9c6-4ee7-83b4-3098eae34d05")
+	)
+	(text "VIOUT"
+		(exclude_from_sim no)
+		(at 220.98 152.4 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+		)
+		(uuid "ce24d510-b376-4018-be7e-6fb9b49bb35e")
+	)
+	(text "INT_DRV_SUP"
+		(exclude_from_sim no)
+		(at 101.6 101.854 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+		)
+		(uuid "e0903825-1db5-42d4-b84b-2edeab406dff")
+	)
 	(text "Kelvin connection to R1"
 		(exclude_from_sim no)
 		(at 86.36 36.068 0)
@@ -5470,26 +5678,6 @@
 			)
 		)
 		(uuid "e7d18827-1aa2-414c-ad61-534eac62c90e")
-	)
-	(label "VAC"
-		(at 59.69 101.6 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left bottom)
-		)
-		(uuid "5ace591b-4262-4139-9371-39ed4dc1ddfb")
-	)
-	(label "VAC"
-		(at 190.5 102.87 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left bottom)
-		)
-		(uuid "a72375bc-b9a8-460e-87bb-6c8839b0fcc5")
 	)
 	(global_label "~{BQ_CE}"
 		(shape input)
@@ -5504,6 +5692,28 @@
 		(uuid "22bb7158-89bd-4c8a-a821-5de9cef12438")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
 			(at 34.2077 166.37 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+				(hide yes)
+			)
+		)
+	)
+	(global_label "CNV_VIN"
+		(shape input)
+		(at 195.58 102.87 180)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "24380e09-0983-4349-bbdf-8f990a3ac414")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 184.9142 102.87 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5641,7 +5851,7 @@
 				(justify right)
 			)
 		)
-		(property "Value" "GREEN"
+		(property "Value" "WHITE"
 			(at 49.276 145.288 90)
 			(effects
 				(font
@@ -5669,6 +5879,15 @@
 			)
 		)
 		(property "Description" "Light emitting diode"
+			(at 46.99 142.24 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "JLCPCB" "C2290"
 			(at 46.99 142.24 0)
 			(effects
 				(font
@@ -5800,7 +6019,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Capacitor_SMD:C_1206_3216Metric"
 			(at 111.4552 26.67 0)
 			(effects
 				(font
@@ -5819,6 +6038,15 @@
 			)
 		)
 		(property "Description" "Unpolarized capacitor"
+			(at 110.49 22.86 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "JLCPCB" "C1945"
 			(at 110.49 22.86 0)
 			(effects
 				(font
@@ -5936,7 +6164,7 @@
 				)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Capacitor_SMD:C_0603_1608Metric"
 			(at 201.93 61.2648 0)
 			(effects
 				(font
@@ -5955,6 +6183,15 @@
 			)
 		)
 		(property "Description" "Unpolarized capacitor"
+			(at 205.74 62.23 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "JLCPCB" "C1623"
 			(at 205.74 62.23 0)
 			(effects
 				(font
@@ -6005,7 +6242,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Capacitor_SMD:C_0603_1608Metric"
 			(at 140.6652 64.77 0)
 			(effects
 				(font
@@ -6024,6 +6261,15 @@
 			)
 		)
 		(property "Description" "Unpolarized capacitor"
+			(at 139.7 60.96 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "JLCPCB" "C1590"
 			(at 139.7 60.96 0)
 			(effects
 				(font
@@ -6075,7 +6321,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Resistor_SMD:R_0603_1608Metric"
 			(at 170.942 153.67 90)
 			(effects
 				(font
@@ -6094,6 +6340,15 @@
 			)
 		)
 		(property "Description" "Resistor"
+			(at 172.72 153.67 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "JLCPCB" "C25804"
 			(at 172.72 153.67 0)
 			(effects
 				(font
@@ -6142,7 +6397,7 @@
 				)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Resistor_SMD:R_2512_6332Metric"
 			(at 86.36 42.418 90)
 			(effects
 				(font
@@ -6161,6 +6416,15 @@
 			)
 		)
 		(property "Description" "Resistor"
+			(at 86.36 40.64 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "JLCPCB" "C49483"
 			(at 86.36 40.64 0)
 			(effects
 				(font
@@ -6212,7 +6476,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Resistor_SMD:R_0603_1608Metric"
 			(at 211.328 50.8 90)
 			(effects
 				(font
@@ -6231,6 +6495,15 @@
 			)
 		)
 		(property "Description" "Resistor"
+			(at 209.55 50.8 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "JLCPCB" "C22859"
 			(at 209.55 50.8 0)
 			(effects
 				(font
@@ -6552,7 +6825,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Resistor_SMD:R_0603_1608Metric"
 			(at 55.372 132.08 90)
 			(effects
 				(font
@@ -6571,6 +6844,15 @@
 			)
 		)
 		(property "Description" "Resistor"
+			(at 57.15 132.08 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "JLCPCB" "C21190"
 			(at 57.15 132.08 0)
 			(effects
 				(font
@@ -6621,7 +6903,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Resistor_SMD:R_0603_1608Metric"
 			(at 183.642 128.27 90)
 			(effects
 				(font
@@ -6640,6 +6922,15 @@
 			)
 		)
 		(property "Description" "Resistor"
+			(at 185.42 128.27 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "JLCPCB" "C23082"
 			(at 185.42 128.27 0)
 			(effects
 				(font
@@ -6688,7 +6979,7 @@
 				)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Capacitor_SMD:C_0603_1608Metric"
 			(at 90.17 61.2648 0)
 			(effects
 				(font
@@ -6707,6 +6998,15 @@
 			)
 		)
 		(property "Description" "Unpolarized capacitor"
+			(at 86.36 62.23 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "JLCPCB" "C1623"
 			(at 86.36 62.23 0)
 			(effects
 				(font
@@ -6757,7 +7057,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Capacitor_SMD:C_1206_3216Metric"
 			(at 218.1352 121.92 0)
 			(effects
 				(font
@@ -6776,6 +7076,15 @@
 			)
 		)
 		(property "Description" "Unpolarized capacitor"
+			(at 217.17 118.11 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "JLCPCB" "C1945"
 			(at 217.17 118.11 0)
 			(effects
 				(font
@@ -6827,7 +7136,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Capacitor_SMD:CP_Elec_6.3x7.7"
 			(at 231.4448 26.67 0)
 			(effects
 				(font
@@ -6846,6 +7155,15 @@
 			)
 		)
 		(property "Description" "Unpolarized capacitor"
+			(at 232.41 22.86 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "JLCPCB" "C19077968"
 			(at 232.41 22.86 0)
 			(effects
 				(font
@@ -6896,7 +7214,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Capacitor_SMD:CP_Elec_10x10.5"
 			(at 47.9552 48.26 0)
 			(effects
 				(font
@@ -6923,6 +7241,15 @@
 				(hide yes)
 			)
 		)
+		(property "JLCPCB" "C128515"
+			(at 46.99 44.45 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "1"
 			(uuid "a29ac863-e928-4a60-9b54-a1cfba62e2bf")
 		)
@@ -6940,7 +7267,7 @@
 	)
 	(symbol
 		(lib_id "power:GND")
-		(at 50.8 114.3 0)
+		(at 52.07 114.3 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -6949,7 +7276,7 @@
 		(fields_autoplaced yes)
 		(uuid "23bf31ef-b69e-4d22-984d-393c31387b52")
 		(property "Reference" "#PWR043"
-			(at 50.8 120.65 0)
+			(at 52.07 120.65 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -6958,7 +7285,7 @@
 			)
 		)
 		(property "Value" "GND"
-			(at 50.8 119.38 0)
+			(at 52.07 119.38 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -6967,7 +7294,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 50.8 114.3 0)
+			(at 52.07 114.3 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -6976,7 +7303,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 50.8 114.3 0)
+			(at 52.07 114.3 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -6985,7 +7312,7 @@
 			)
 		)
 		(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
-			(at 50.8 114.3 0)
+			(at 52.07 114.3 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -7369,7 +7696,7 @@
 				(justify right)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Resistor_SMD:R_0603_1608Metric"
 			(at 151.638 76.2 90)
 			(effects
 				(font
@@ -7388,6 +7715,15 @@
 			)
 		)
 		(property "Description" "Resistor"
+			(at 149.86 76.2 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "JLCPCB" "C21189"
 			(at 149.86 76.2 0)
 			(effects
 				(font
@@ -7438,7 +7774,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Capacitor_SMD:C_0603_1608Metric"
 			(at 152.0952 64.77 0)
 			(effects
 				(font
@@ -7457,6 +7793,15 @@
 			)
 		)
 		(property "Description" "Unpolarized capacitor"
+			(at 151.13 60.96 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "JLCPCB" "C1590"
 			(at 151.13 60.96 0)
 			(effects
 				(font
@@ -7507,7 +7852,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Resistor_SMD:R_0603_1608Metric"
 			(at 174.752 128.27 90)
 			(effects
 				(font
@@ -7526,6 +7871,15 @@
 			)
 		)
 		(property "Description" "Resistor"
+			(at 176.53 128.27 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "JLCPCB" "C21189"
 			(at 176.53 128.27 0)
 			(effects
 				(font
@@ -7577,7 +7931,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Capacitor_SMD:C_1206_3216Metric"
 			(at 178.1048 26.67 0)
 			(effects
 				(font
@@ -7596,6 +7950,15 @@
 			)
 		)
 		(property "Description" "Unpolarized capacitor"
+			(at 179.07 22.86 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "JLCPCB" "C1945"
 			(at 179.07 22.86 0)
 			(effects
 				(font
@@ -7673,6 +8036,15 @@
 				(hide yes)
 			)
 		)
+		(property "JLCPCB" "C2286"
+			(at 57.15 142.24 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "2"
 			(uuid "607459bf-f9ae-4856-af0b-13817a4703cd")
 		)
@@ -7716,7 +8088,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Capacitor_SMD:CP_Elec_6.3x7.7"
 			(at 195.8848 26.67 0)
 			(effects
 				(font
@@ -7735,6 +8107,15 @@
 			)
 		)
 		(property "Description" "Unpolarized capacitor"
+			(at 196.85 22.86 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "JLCPCB" "C970653"
 			(at 196.85 22.86 0)
 			(effects
 				(font
@@ -7786,7 +8167,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Resistor_SMD:R_0603_1608Metric"
 			(at 225.552 146.05 90)
 			(effects
 				(font
@@ -7805,6 +8186,15 @@
 			)
 		)
 		(property "Description" "Resistor"
+			(at 227.33 146.05 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "JLCPCB" "C4177"
 			(at 227.33 146.05 0)
 			(effects
 				(font
@@ -7835,7 +8225,7 @@
 		(exclude_from_sim no)
 		(in_bom yes)
 		(on_board yes)
-		(dnp no)
+		(dnp yes)
 		(fields_autoplaced yes)
 		(uuid "3b0ac41e-a7c1-4e30-96f2-6ed0fd63c4e3")
 		(property "Reference" "J4"
@@ -7847,16 +8237,17 @@
 				(justify left)
 			)
 		)
-		(property "Value" "VIOUT"
+		(property "Value" "CON2"
 			(at 218.44 152.3999 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 				(justify left)
+				(hide yes)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Connector_PinHeader_2.54mm:PinHeader_1x02_P2.54mm_Vertical"
 			(at 215.9 149.86 0)
 			(effects
 				(font
@@ -7926,7 +8317,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Capacitor_SMD:C_0603_1608Metric"
 			(at 192.0748 160.02 0)
 			(effects
 				(font
@@ -7945,6 +8336,15 @@
 			)
 		)
 		(property "Description" "Unpolarized capacitor"
+			(at 193.04 156.21 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "JLCPCB" "C1590"
 			(at 193.04 156.21 0)
 			(effects
 				(font
@@ -8064,7 +8464,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Resistor_SMD:R_0603_1608Metric"
 			(at 196.342 118.11 90)
 			(effects
 				(font
@@ -8200,7 +8600,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Capacitor_SMD:C_1206_3216Metric"
 			(at 83.5152 74.93 0)
 			(effects
 				(font
@@ -8219,6 +8619,15 @@
 			)
 		)
 		(property "Description" "Unpolarized capacitor"
+			(at 82.55 71.12 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "JLCPCB" "C1945"
 			(at 82.55 71.12 0)
 			(effects
 				(font
@@ -8270,7 +8679,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Capacitor_SMD:C_1206_3216Metric"
 			(at 200.9648 74.93 0)
 			(effects
 				(font
@@ -8289,6 +8698,15 @@
 			)
 		)
 		(property "Description" "Unpolarized capacitor"
+			(at 201.93 71.12 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "JLCPCB" "C1945"
 			(at 201.93 71.12 0)
 			(effects
 				(font
@@ -8408,7 +8826,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Capacitor_SMD:C_1206_3216Metric"
 			(at 186.9948 26.67 0)
 			(effects
 				(font
@@ -8435,6 +8853,15 @@
 				(hide yes)
 			)
 		)
+		(property "JLCPCB" "C13832"
+			(at 187.96 22.86 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "2"
 			(uuid "4291bdec-8259-44a1-8eaa-b0b6d6305c8b")
 		)
@@ -8445,6 +8872,71 @@
 			(project "BidirectionalSupply"
 				(path "/e5771ea0-f106-4b1c-9531-189f5725062b/d5ee1f61-f823-41e8-bbc3-367cca9f3789"
 					(reference "C55")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "power:PWR_FLAG")
+		(at 116.84 107.95 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "5482fa30-f06b-4d98-bbec-165b6e8b8895")
+		(property "Reference" "#FLG04"
+			(at 116.84 106.045 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "PWR_REGN"
+			(at 117.094 103.886 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 116.84 107.95 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 116.84 107.95 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Special symbol for telling ERC where power comes from"
+			(at 116.84 107.95 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "6bc63d60-9463-4598-8e7f-a3011a54d66e")
+		)
+		(instances
+			(project ""
+				(path "/e5771ea0-f106-4b1c-9531-189f5725062b/d5ee1f61-f823-41e8-bbc3-367cca9f3789"
+					(reference "#FLG04")
 					(unit 1)
 				)
 			)
@@ -8545,7 +9037,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Capacitor_SMD:C_1206_3216Metric"
 			(at 245.4148 48.26 0)
 			(effects
 				(font
@@ -8564,6 +9056,15 @@
 			)
 		)
 		(property "Description" "Unpolarized capacitor"
+			(at 246.38 44.45 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "JLCPCB" "C1945"
 			(at 246.38 44.45 0)
 			(effects
 				(font
@@ -8749,7 +9250,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Capacitor_SMD:C_0805_2012Metric"
 			(at 169.2148 26.67 0)
 			(effects
 				(font
@@ -8768,6 +9269,15 @@
 			)
 		)
 		(property "Description" "Unpolarized capacitor"
+			(at 170.18 22.86 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "JLCPCB" "C37456"
 			(at 170.18 22.86 0)
 			(effects
 				(font
@@ -8951,7 +9461,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Capacitor_SMD:CP_Elec_6.3x7.7"
 			(at 58.1152 26.67 0)
 			(effects
 				(font
@@ -8970,6 +9480,15 @@
 			)
 		)
 		(property "Description" "Unpolarized capacitor"
+			(at 57.15 22.86 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "JLCPCB" "C19077968"
 			(at 57.15 22.86 0)
 			(effects
 				(font
@@ -9021,7 +9540,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Resistor_SMD:R_0603_1608Metric"
 			(at 45.212 132.08 90)
 			(effects
 				(font
@@ -9040,6 +9559,15 @@
 			)
 		)
 		(property "Description" "Resistor"
+			(at 46.99 132.08 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "JLCPCB" "C21190"
 			(at 46.99 132.08 0)
 			(effects
 				(font
@@ -9090,7 +9618,7 @@
 				(justify right)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Resistor_SMD:R_0603_1608Metric"
 			(at 142.748 76.2 90)
 			(effects
 				(font
@@ -9109,6 +9637,15 @@
 			)
 		)
 		(property "Description" "Resistor"
+			(at 140.97 76.2 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "JLCPCB" "C21189"
 			(at 140.97 76.2 0)
 			(effects
 				(font
@@ -9157,7 +9694,7 @@
 				)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Resistor_SMD:R_0603_1608Metric"
 			(at 95.25 112.268 90)
 			(effects
 				(font
@@ -9176,6 +9713,15 @@
 			)
 		)
 		(property "Description" "Resistor"
+			(at 95.25 110.49 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "JLCPCB" "C21189"
 			(at 95.25 110.49 0)
 			(effects
 				(font
@@ -9291,7 +9837,7 @@
 				)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Diode_SMD:D_SMF"
 			(at 83.82 115.57 0)
 			(effects
 				(font
@@ -9310,6 +9856,15 @@
 			)
 		)
 		(property "Description" "Schottky diode"
+			(at 83.82 115.57 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "JLCPCB" "C3758930"
 			(at 83.82 115.57 0)
 			(effects
 				(font
@@ -9359,7 +9914,7 @@
 				)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Inductor_SMD:L_Wuerth_HCM-1350"
 			(at 146.05 55.88 0)
 			(effects
 				(font
@@ -9378,6 +9933,15 @@
 			)
 		)
 		(property "Description" "Inductor"
+			(at 146.05 55.88 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "JLCPCB" "C17459880"
 			(at 146.05 55.88 0)
 			(effects
 				(font
@@ -9429,7 +9993,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Capacitor_SMD:C_0805_2012Metric"
 			(at 254.3048 48.26 0)
 			(effects
 				(font
@@ -9448,6 +10012,15 @@
 			)
 		)
 		(property "Description" "Unpolarized capacitor"
+			(at 255.27 44.45 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "JLCPCB" "C15177"
 			(at 255.27 44.45 0)
 			(effects
 				(font
@@ -9478,7 +10051,7 @@
 		(exclude_from_sim no)
 		(in_bom yes)
 		(on_board yes)
-		(dnp no)
+		(dnp yes)
 		(fields_autoplaced yes)
 		(uuid "7874727b-9b74-4580-88b0-3e55e2136e34")
 		(property "Reference" "J5"
@@ -9490,16 +10063,17 @@
 				(justify left)
 			)
 		)
-		(property "Value" "VIIN"
+		(property "Value" "CON2"
 			(at 252.73 152.3999 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 				(justify left)
+				(hide yes)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Connector_PinHeader_2.54mm:PinHeader_1x02_P2.54mm_Vertical"
 			(at 250.19 149.86 0)
 			(effects
 				(font
@@ -9568,7 +10142,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Resistor_SMD:R_0603_1608Metric"
 			(at 78.232 152.4 90)
 			(effects
 				(font
@@ -9587,6 +10161,15 @@
 			)
 		)
 		(property "Description" "Resistor"
+			(at 80.01 152.4 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "JLCPCB" "C25804"
 			(at 80.01 152.4 0)
 			(effects
 				(font
@@ -9637,7 +10220,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Capacitor_SMD:C_0805_2012Metric"
 			(at 120.3452 26.67 0)
 			(effects
 				(font
@@ -9656,6 +10239,15 @@
 			)
 		)
 		(property "Description" "Unpolarized capacitor"
+			(at 119.38 22.86 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "JLCPCB" "C37456"
 			(at 119.38 22.86 0)
 			(effects
 				(font
@@ -9841,7 +10433,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Capacitor_SMD:CP_Elec_10x10.5"
 			(at 65.7352 48.26 0)
 			(effects
 				(font
@@ -9860,6 +10452,15 @@
 			)
 		)
 		(property "Description" "Polarized capacitor"
+			(at 64.77 44.45 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "JLCPCB" "C128515"
 			(at 64.77 44.45 0)
 			(effects
 				(font
@@ -9978,7 +10579,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Capacitor_SMD:C_1206_3216Metric"
 			(at 208.5848 74.93 0)
 			(effects
 				(font
@@ -9997,6 +10598,15 @@
 			)
 		)
 		(property "Description" "Unpolarized capacitor"
+			(at 209.55 71.12 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "JLCPCB" "C1945"
 			(at 209.55 71.12 0)
 			(effects
 				(font
@@ -10089,7 +10699,7 @@
 	)
 	(symbol
 		(lib_id "power:GND")
-		(at 66.04 114.3 0)
+		(at 68.58 114.3 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -10098,7 +10708,7 @@
 		(fields_autoplaced yes)
 		(uuid "8c26c09e-5c7d-4f03-8d8c-7c9fa4121f20")
 		(property "Reference" "#PWR044"
-			(at 66.04 120.65 0)
+			(at 68.58 120.65 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -10107,7 +10717,7 @@
 			)
 		)
 		(property "Value" "GND"
-			(at 66.04 119.38 0)
+			(at 68.58 119.38 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -10116,7 +10726,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 66.04 114.3 0)
+			(at 68.58 114.3 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -10125,7 +10735,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 66.04 114.3 0)
+			(at 68.58 114.3 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -10134,7 +10744,7 @@
 			)
 		)
 		(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
-			(at 66.04 114.3 0)
+			(at 68.58 114.3 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -10156,7 +10766,7 @@
 	)
 	(symbol
 		(lib_id "Device:C")
-		(at 66.04 107.95 0)
+		(at 68.58 107.95 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -10164,7 +10774,7 @@
 		(dnp no)
 		(uuid "8f4ecd49-5b9f-4962-a124-c6f6c60b4fe2")
 		(property "Reference" "C36"
-			(at 66.802 105.918 0)
+			(at 69.342 105.918 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -10173,7 +10783,7 @@
 			)
 		)
 		(property "Value" "100nF/100VW"
-			(at 59.436 110.49 0)
+			(at 61.976 110.49 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -10181,8 +10791,8 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
-			(at 67.0052 111.76 0)
+		(property "Footprint" "Capacitor_SMD:C_1206_3216Metric"
+			(at 69.5452 111.76 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -10191,7 +10801,7 @@
 			)
 		)
 		(property "Datasheet" "~"
-			(at 66.04 107.95 0)
+			(at 68.58 107.95 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -10200,7 +10810,16 @@
 			)
 		)
 		(property "Description" "Unpolarized capacitor"
-			(at 66.04 107.95 0)
+			(at 68.58 107.95 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "JLCPCB" "C1945"
+			(at 68.58 107.95 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -10310,7 +10929,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "~"
+		(property "Value" "BQ25758"
 			(at 149.5141 138.43 0)
 			(effects
 				(font
@@ -10319,7 +10938,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "BidirectionalSupply:QFN-36_L6.0-W5.0-P0.50-BL-EP-1"
 			(at 144.78 91.44 0)
 			(effects
 				(font
@@ -10338,6 +10957,15 @@
 			)
 		)
 		(property "Description" ""
+			(at 144.78 91.44 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "JLCPCB" "C33222334"
 			(at 144.78 91.44 0)
 			(effects
 				(font
@@ -10491,7 +11119,7 @@
 				)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Diode_SMD:D_SMF"
 			(at 83.82 106.68 0)
 			(effects
 				(font
@@ -10510,6 +11138,15 @@
 			)
 		)
 		(property "Description" "Schottky diode"
+			(at 83.82 106.68 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "JLCPCB" "C3758930"
 			(at 83.82 106.68 0)
 			(effects
 				(font
@@ -10694,7 +11331,7 @@
 				)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Resistor_SMD:R_2512_6332Metric"
 			(at 205.74 42.418 90)
 			(effects
 				(font
@@ -10713,6 +11350,15 @@
 			)
 		)
 		(property "Description" "Resistor"
+			(at 205.74 40.64 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "JLCPCB" "C49483"
 			(at 205.74 40.64 0)
 			(effects
 				(font
@@ -10764,7 +11410,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Resistor_SMD:R_0603_1608Metric"
 			(at 191.262 146.05 90)
 			(effects
 				(font
@@ -10783,6 +11429,15 @@
 			)
 		)
 		(property "Description" "Resistor"
+			(at 193.04 146.05 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "JLCPCB" "C4177"
 			(at 193.04 146.05 0)
 			(effects
 				(font
@@ -10833,7 +11488,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Capacitor_SMD:C_1206_3216Metric"
 			(at 102.5652 26.67 0)
 			(effects
 				(font
@@ -10852,6 +11507,15 @@
 			)
 		)
 		(property "Description" "Unpolarized capacitor"
+			(at 101.6 22.86 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "JLCPCB" "C13832"
 			(at 101.6 22.86 0)
 			(effects
 				(font
@@ -10903,7 +11567,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Capacitor_SMD:CP_Elec_10x10.5"
 			(at 103.8352 48.26 0)
 			(effects
 				(font
@@ -10922,6 +11586,15 @@
 			)
 		)
 		(property "Description" "Polarized capacitor"
+			(at 102.87 44.45 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "JLCPCB" "C128515"
 			(at 102.87 44.45 0)
 			(effects
 				(font
@@ -10973,7 +11646,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Capacitor_SMD:CP_Elec_10x10.5"
 			(at 218.7448 48.26 0)
 			(effects
 				(font
@@ -10992,6 +11665,15 @@
 			)
 		)
 		(property "Description" "Polarized capacitor"
+			(at 219.71 44.45 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "JLCPCB" "C128515"
 			(at 219.71 44.45 0)
 			(effects
 				(font
@@ -11043,7 +11725,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Capacitor_SMD:CP_Elec_6.3x7.7"
 			(at 213.6648 26.67 0)
 			(effects
 				(font
@@ -11070,6 +11752,15 @@
 				(hide yes)
 			)
 		)
+		(property "JLCPCB" "C19077968"
+			(at 214.63 22.86 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "2"
 			(uuid "f01824c1-f8aa-444a-b137-395ad5a12ec3")
 		)
@@ -11087,7 +11778,7 @@
 	)
 	(symbol
 		(lib_id "Device:C")
-		(at 50.8 107.95 0)
+		(at 52.07 107.95 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -11095,7 +11786,7 @@
 		(dnp no)
 		(uuid "a5a8472b-83b9-41a4-81b1-210f073910e2")
 		(property "Reference" "C37"
-			(at 51.562 105.918 0)
+			(at 52.832 105.918 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -11104,7 +11795,7 @@
 			)
 		)
 		(property "Value" "1uF/100VW"
-			(at 46.736 109.982 0)
+			(at 48.006 109.982 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -11112,8 +11803,8 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
-			(at 51.7652 111.76 0)
+		(property "Footprint" "Capacitor_SMD:C_1206_3216Metric"
+			(at 53.0352 111.76 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -11122,7 +11813,7 @@
 			)
 		)
 		(property "Datasheet" "~"
-			(at 50.8 107.95 0)
+			(at 52.07 107.95 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -11131,7 +11822,16 @@
 			)
 		)
 		(property "Description" "Unpolarized capacitor"
-			(at 50.8 107.95 0)
+			(at 52.07 107.95 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "JLCPCB" "C13832"
+			(at 52.07 107.95 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -11249,7 +11949,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Resistor_SMD:R_0603_1608Metric"
 			(at 201.422 151.13 90)
 			(effects
 				(font
@@ -11268,6 +11968,15 @@
 			)
 		)
 		(property "Description" "Resistor"
+			(at 203.2 151.13 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "JLCPCB" "C2692815"
 			(at 203.2 151.13 0)
 			(effects
 				(font
@@ -11310,7 +12019,7 @@
 				(hide yes)
 			)
 		)
-		(property "Value" "+5V"
+		(property "Value" "REGN"
 			(at 172.72 143.51 0)
 			(effects
 				(font
@@ -11452,7 +12161,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Capacitor_SMD:CP_Elec_6.3x7.7"
 			(at 84.7852 26.67 0)
 			(effects
 				(font
@@ -11471,6 +12180,15 @@
 			)
 		)
 		(property "Description" "Unpolarized capacitor"
+			(at 83.82 22.86 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "JLCPCB" "C970653"
 			(at 83.82 22.86 0)
 			(effects
 				(font
@@ -11671,7 +12389,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Capacitor_SMD:CP_Elec_10x10.5"
 			(at 227.6348 48.26 0)
 			(effects
 				(font
@@ -11690,6 +12408,15 @@
 			)
 		)
 		(property "Description" "Polarized capacitor"
+			(at 228.6 44.45 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "JLCPCB" "C128515"
 			(at 228.6 44.45 0)
 			(effects
 				(font
@@ -11740,7 +12467,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Capacitor_SMD:CP_Elec_6.3x7.7"
 			(at 75.8952 26.67 0)
 			(effects
 				(font
@@ -11759,6 +12486,15 @@
 			)
 		)
 		(property "Description" "Unpolarized capacitor"
+			(at 74.93 22.86 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "JLCPCB" "C19077968"
 			(at 74.93 22.86 0)
 			(effects
 				(font
@@ -11809,7 +12545,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Capacitor_SMD:CP_Elec_6.3x7.7"
 			(at 93.6752 26.67 0)
 			(effects
 				(font
@@ -11828,6 +12564,15 @@
 			)
 		)
 		(property "Description" "Unpolarized capacitor"
+			(at 92.71 22.86 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "JLCPCB" "C970653"
 			(at 92.71 22.86 0)
 			(effects
 				(font
@@ -11946,7 +12691,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Resistor_SMD:R_0603_1608Metric"
 			(at 93.472 152.4 90)
 			(effects
 				(font
@@ -11965,6 +12710,15 @@
 			)
 		)
 		(property "Description" "Resistor"
+			(at 95.25 152.4 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "JLCPCB" "C25804"
 			(at 95.25 152.4 0)
 			(effects
 				(font
@@ -12015,7 +12769,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Resistor_SMD:R_0603_1608Metric"
 			(at 85.852 152.4 90)
 			(effects
 				(font
@@ -12034,6 +12788,15 @@
 			)
 		)
 		(property "Description" "Resistor"
+			(at 87.63 152.4 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "JLCPCB" "C25804"
 			(at 87.63 152.4 0)
 			(effects
 				(font
@@ -12084,7 +12847,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Resistor_SMD:R_0603_1608Metric"
 			(at 101.092 152.4 90)
 			(effects
 				(font
@@ -12103,6 +12866,15 @@
 			)
 		)
 		(property "Description" "Resistor"
+			(at 102.87 152.4 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "JLCPCB" "C25804"
 			(at 102.87 152.4 0)
 			(effects
 				(font
@@ -12451,7 +13223,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Capacitor_SMD:C_1206_3216Metric"
 			(at 91.1352 74.93 0)
 			(effects
 				(font
@@ -12478,6 +13250,15 @@
 				(hide yes)
 			)
 		)
+		(property "JLCPCB" "C1945"
+			(at 90.17 71.12 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "1"
 			(uuid "797b9f92-1c9b-406d-91c5-dbab638c36b2")
 		)
@@ -12495,7 +13276,7 @@
 	)
 	(symbol
 		(lib_id "power:+5V")
-		(at 52.07 125.73 0)
+		(at 52.07 124.46 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -12504,7 +13285,7 @@
 		(fields_autoplaced yes)
 		(uuid "ccf3ec6d-b4bf-4fc5-a979-afe1c048392a")
 		(property "Reference" "#PWR046"
-			(at 52.07 129.54 0)
+			(at 52.07 128.27 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -12512,8 +13293,8 @@
 				(hide yes)
 			)
 		)
-		(property "Value" "+5V"
-			(at 52.07 120.65 0)
+		(property "Value" "REGN"
+			(at 52.07 119.38 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -12521,7 +13302,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 52.07 125.73 0)
+			(at 52.07 124.46 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -12530,7 +13311,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 52.07 125.73 0)
+			(at 52.07 124.46 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -12539,7 +13320,7 @@
 			)
 		)
 		(property "Description" "Power symbol creates a global label with name \"+5V\""
-			(at 52.07 125.73 0)
+			(at 52.07 124.46 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -12587,7 +13368,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Resistor_SMD:R_0603_1608Metric"
 			(at 196.342 107.95 90)
 			(effects
 				(font
@@ -12606,6 +13387,15 @@
 			)
 		)
 		(property "Description" "Resistor"
+			(at 198.12 107.95 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "JLCPCB" "C21189"
 			(at 198.12 107.95 0)
 			(effects
 				(font
@@ -12792,7 +13582,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Capacitor_SMD:C_0603_1608Metric"
 			(at 226.3648 160.02 0)
 			(effects
 				(font
@@ -12811,6 +13601,15 @@
 			)
 		)
 		(property "Description" "Unpolarized capacitor"
+			(at 227.33 156.21 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "JLCPCB" "C1590"
 			(at 227.33 156.21 0)
 			(effects
 				(font
@@ -12861,7 +13660,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Capacitor_SMD:C_0805_2012Metric"
 			(at 101.2952 118.11 0)
 			(effects
 				(font
@@ -12880,6 +13679,15 @@
 			)
 		)
 		(property "Description" "Polarized capacitor"
+			(at 100.33 114.3 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "JLCPCB" "C1779"
 			(at 100.33 114.3 0)
 			(effects
 				(font
@@ -12930,7 +13738,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Capacitor_SMD:C_0805_2012Metric"
 			(at 110.1852 120.65 0)
 			(effects
 				(font
@@ -12949,6 +13757,15 @@
 			)
 		)
 		(property "Description" "Polarized capacitor"
+			(at 109.22 116.84 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "JLCPCB" "C1779"
 			(at 109.22 116.84 0)
 			(effects
 				(font
@@ -13000,7 +13817,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Capacitor_SMD:CP_Elec_6.3x7.7"
 			(at 222.5548 26.67 0)
 			(effects
 				(font
@@ -13019,6 +13836,15 @@
 			)
 		)
 		(property "Description" "Unpolarized capacitor"
+			(at 223.52 22.86 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "JLCPCB" "C19077968"
 			(at 223.52 22.86 0)
 			(effects
 				(font
@@ -13069,7 +13895,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Resistor_SMD:R_0603_1608Metric"
 			(at 88.392 50.8 90)
 			(effects
 				(font
@@ -13088,6 +13914,15 @@
 			)
 		)
 		(property "Description" "Resistor"
+			(at 90.17 50.8 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "JLCPCB" "C22859"
 			(at 90.17 50.8 0)
 			(effects
 				(font
@@ -13315,12 +14150,82 @@
 	)
 	(symbol
 		(lib_id "Connector_Generic:Conn_01x02")
+		(at 100.33 104.14 90)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp yes)
+		(uuid "dccc3c94-52b9-48c8-bac5-bd1411c5fb44")
+		(property "Reference" "J7"
+			(at 103.378 107.188 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(property "Value" "CON2"
+			(at 95.758 101.6 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+				(hide yes)
+			)
+		)
+		(property "Footprint" "Connector_PinHeader_2.54mm:PinHeader_1x02_P2.54mm_Vertical"
+			(at 100.33 104.14 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 100.33 104.14 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Generic connector, single row, 01x02, script generated (kicad-library-utils/schlib/autogen/connector/)"
+			(at 100.33 104.14 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "fe0df8e1-a64e-4b70-b93d-d321a709ef91")
+		)
+		(pin "2"
+			(uuid "a5c249ab-8920-4088-bcaf-e2a7b9764bd9")
+		)
+		(instances
+			(project "BidirectionalSupply"
+				(path "/e5771ea0-f106-4b1c-9531-189f5725062b/d5ee1f61-f823-41e8-bbc3-367cca9f3789"
+					(reference "J7")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Connector_Generic:Conn_01x02")
 		(at 177.8 161.29 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
 		(on_board yes)
-		(dnp no)
+		(dnp yes)
 		(fields_autoplaced yes)
 		(uuid "dcde3ec8-c59c-4de3-850b-ca2dd39c4c46")
 		(property "Reference" "J3"
@@ -13332,16 +14237,17 @@
 				(justify left)
 			)
 		)
-		(property "Value" "~"
+		(property "Value" "CON2"
 			(at 180.34 163.8299 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 				(justify left)
+				(hide yes)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Connector_PinHeader_2.54mm:PinHeader_1x02_P2.54mm_Vertical"
 			(at 177.8 161.29 0)
 			(effects
 				(font
@@ -13410,7 +14316,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Capacitor_SMD:C_1206_3216Metric"
 			(at 210.5152 132.08 0)
 			(effects
 				(font
@@ -13429,6 +14335,15 @@
 			)
 		)
 		(property "Description" "Unpolarized capacitor"
+			(at 209.55 128.27 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "JLCPCB" "C1945"
 			(at 209.55 128.27 0)
 			(effects
 				(font
@@ -13615,7 +14530,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Capacitor_SMD:CP_Elec_6.3x7.7"
 			(at 204.7748 26.67 0)
 			(effects
 				(font
@@ -13634,6 +14549,15 @@
 			)
 		)
 		(property "Description" "Unpolarized capacitor"
+			(at 205.74 22.86 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "JLCPCB" "C970653"
 			(at 205.74 22.86 0)
 			(effects
 				(font
@@ -13753,7 +14677,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Capacitor_SMD:CP_Elec_10x10.5"
 			(at 186.3852 48.26 0)
 			(effects
 				(font
@@ -13772,6 +14696,15 @@
 			)
 		)
 		(property "Description" "Polarized capacitor"
+			(at 185.42 44.45 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "JLCPCB" "C128515"
 			(at 185.42 44.45 0)
 			(effects
 				(font
@@ -13822,7 +14755,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Resistor_SMD:R_0603_1608Metric"
 			(at 80.772 50.8 90)
 			(effects
 				(font
@@ -13841,6 +14774,15 @@
 			)
 		)
 		(property "Description" "Resistor"
+			(at 82.55 50.8 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "JLCPCB" "C22859"
 			(at 82.55 50.8 0)
 			(effects
 				(font
@@ -13960,7 +14902,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Resistor_SMD:R_0603_1608Metric"
 			(at 196.342 128.27 90)
 			(effects
 				(font
@@ -13979,6 +14921,15 @@
 			)
 		)
 		(property "Description" "Resistor"
+			(at 198.12 128.27 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "JLCPCB" "C21189"
 			(at 198.12 128.27 0)
 			(effects
 				(font
@@ -14029,7 +14980,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Capacitor_SMD:CP_Elec_6.3x7.7"
 			(at 67.0052 26.67 0)
 			(effects
 				(font
@@ -14048,6 +14999,15 @@
 			)
 		)
 		(property "Description" "Unpolarized capacitor"
+			(at 66.04 22.86 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "JLCPCB" "C19077968"
 			(at 66.04 22.86 0)
 			(effects
 				(font
@@ -14079,7 +15039,6 @@
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(fields_autoplaced yes)
 		(uuid "fc423405-6714-42bd-9835-8b5617480ceb")
 		(property "Reference" "#PWR048"
 			(at 109.22 111.76 0)
@@ -14090,8 +15049,8 @@
 				(hide yes)
 			)
 		)
-		(property "Value" "+5V"
-			(at 109.22 102.87 0)
+		(property "Value" "REGN"
+			(at 108.966 103.886 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -14165,7 +15124,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Resistor_SMD:R_0603_1608Metric"
 			(at 203.708 50.8 90)
 			(effects
 				(font
@@ -14184,6 +15143,15 @@
 			)
 		)
 		(property "Description" "Resistor"
+			(at 201.93 50.8 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "JLCPCB" "C22859"
 			(at 201.93 50.8 0)
 			(effects
 				(font
@@ -14235,7 +15203,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Capacitor_SMD:C_1206_3216Metric"
 			(at 236.5248 48.26 0)
 			(effects
 				(font
@@ -14254,6 +15222,15 @@
 			)
 		)
 		(property "Description" "Unpolarized capacitor"
+			(at 237.49 44.45 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "JLCPCB" "C13832"
 			(at 237.49 44.45 0)
 			(effects
 				(font
@@ -14305,7 +15282,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Resistor_SMD:R_0603_1608Metric"
 			(at 235.712 151.13 90)
 			(effects
 				(font
@@ -14324,6 +15301,15 @@
 			)
 		)
 		(property "Description" "Resistor"
+			(at 237.49 151.13 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "JLCPCB" "C2692815"
 			(at 237.49 151.13 0)
 			(effects
 				(font

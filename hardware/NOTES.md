@@ -11,4 +11,5 @@ Install
 Grab footprint and 3d model
 
     easyeda2kicad  --footprint --3d --lcsc_id=C33222334
+    easyeda2kicad --lcsc_id C559500 --symbol --footprint --3d --project-relative --output /mnt/hgfs/dpd/Documents/Open\ Source\ Solutions/BidirectionalSupply/hardware/BidirectionalSupply.kicad_sym
 

@@ -49,6 +49,44 @@
 		)
 	)
 	(sheet
+		(at 38.735 88.9)
+		(size 27.305 16.51)
+		(fields_autoplaced yes)
+		(stroke
+			(width 0.1524)
+			(type solid)
+		)
+		(fill
+			(color 0 0 0 0.0000)
+		)
+		(uuid "3161ebaa-00e6-42e6-a826-aee599f59803")
+		(property "Sheetname" "Ideal Diode Switch"
+			(at 38.735 88.1884 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left bottom)
+			)
+		)
+		(property "Sheetfile" "Ideal Diode Switch.kicad_sch"
+			(at 38.735 105.9946 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+			)
+		)
+		(instances
+			(project "BidirectionalSupply"
+				(path "/e5771ea0-f106-4b1c-9531-189f5725062b"
+					(page "5")
+				)
+			)
+		)
+	)
+	(sheet
 		(at 38.1 68.58)
 		(size 26.67 8.89)
 		(fields_autoplaced yes)

@@ -1,6 +1,6 @@
 \#auto_saved_files#
-*.bak
 BidirectionalSupply-backups/*.zip
 fp-info-cache
 _autosave-*.kicad_sch
+*.bak
 *~

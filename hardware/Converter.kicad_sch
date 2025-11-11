@@ -11,7 +11,7 @@
 		(company "Open Source Solutions Pty Ltd")
 	)
 	(lib_symbols
-		(symbol "BC-lib:BQ25758"
+		(symbol "BidirectionalSupply:BQ25758"
 			(exclude_from_sim no)
 			(in_bom yes)
 			(on_board yes)
@@ -58,7 +58,7 @@
 					(hide yes)
 				)
 			)
-			(symbol "BQ25758_0_1"
+			(symbol "BQ25758_1_1"
 				(rectangle
 					(start -15.24 6.35)
 					(end 16.51 -43.18)
@@ -67,11 +67,9 @@
 						(type default)
 					)
 					(fill
-						(type none)
+						(type background)
 					)
 				)
-			)
-			(symbol "BQ25758_1_1"
 				(pin input line
 					(at -17.78 -25.4 0)
 					(length 2.54)
@@ -740,51 +738,36 @@
 				)
 			)
 		)
-		(symbol "BC-lib:BUK7Y4R8-60E"
-			(pin_names hide)
+		(symbol "BidirectionalSupply:SIR880BDP"
 			(exclude_from_sim no)
 			(in_bom yes)
 			(on_board yes)
 			(property "Reference" "Q"
-				(at 5.08 1.905 0)
+				(at 1.27 3.81 0)
 				(effects
 					(font
 						(size 1.27 1.27)
 					)
-					(justify left)
 				)
 			)
-			(property "Value" "BUK9M53-60EX"
-				(at 5.08 0 0)
+			(property "Value" "SIR880BDP"
+				(at 6.35 -3.81 0)
 				(effects
 					(font
 						(size 1.27 1.27)
 					)
-					(justify left)
 				)
 			)
-			(property "Footprint" "Package_TO_SOT_SMD:LFPAK33"
-				(at 5.08 -1.905 0)
+			(property "Footprint" "BidirectionalSupply:POWERPAK-SO-8_L6.2-W5.2-P1.27-BL-EP"
+				(at 0 -12.7 0)
 				(effects
 					(font
 						(size 1.27 1.27)
-						(italic yes)
 					)
-					(justify left)
 					(hide yes)
 				)
 			)
-			(property "Datasheet" "https://assets.nexperia.com/documents/data-sheet/BUK9M53-60E.pdf"
-				(at 5.08 -3.81 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(justify left)
-					(hide yes)
-				)
-			)
-			(property "Description" "17A Id, 60V Vds, N-Channel TrenchMOS MOSFET, 46mOhm Ron, 6nC Qqd, -55 to 175 °C, LFPAK33"
+			(property "Datasheet" ""
 				(at 0 0 0)
 				(effects
 					(font
@@ -793,7 +776,7 @@
 					(hide yes)
 				)
 			)
-			(property "ki_keywords" "Power MOSFET N-MOS"
+			(property "Description" ""
 				(at 0 0 0)
 				(effects
 					(font
@@ -802,8 +785,8 @@
 					(hide yes)
 				)
 			)
-			(property "ki_fp_filters" "LFPAK33*"
-				(at 0 0 0)
+			(property "LCSC Part" "C5900133"
+				(at 0 -15.24 0)
 				(effects
 					(font
 						(size 1.27 1.27)
@@ -811,141 +794,9 @@
 					(hide yes)
 				)
 			)
-			(symbol "BUK7Y4R8-60E_0_1"
-				(polyline
-					(pts
-						(xy 0.254 0) (xy -2.54 0)
-					)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(polyline
-					(pts
-						(xy 0.254 1.905) (xy 0.254 -1.905)
-					)
-					(stroke
-						(width 0.254)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(polyline
-					(pts
-						(xy 0.762 -1.27) (xy 0.762 -2.286)
-					)
-					(stroke
-						(width 0.254)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(polyline
-					(pts
-						(xy 0.762 0.508) (xy 0.762 -0.508)
-					)
-					(stroke
-						(width 0.254)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(polyline
-					(pts
-						(xy 0.762 2.286) (xy 0.762 1.27)
-					)
-					(stroke
-						(width 0.254)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(polyline
-					(pts
-						(xy 2.54 2.54) (xy 2.54 1.778)
-					)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(polyline
-					(pts
-						(xy 2.54 -2.54) (xy 2.54 0) (xy 0.762 0)
-					)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(polyline
-					(pts
-						(xy 0.762 -1.778) (xy 3.302 -1.778) (xy 3.302 1.778) (xy 0.762 1.778)
-					)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(polyline
-					(pts
-						(xy 1.016 0) (xy 2.032 0.381) (xy 2.032 -0.381) (xy 1.016 0)
-					)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type outline)
-					)
-				)
-				(polyline
-					(pts
-						(xy 2.794 0.508) (xy 2.921 0.381) (xy 3.683 0.381) (xy 3.81 0.254)
-					)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(polyline
-					(pts
-						(xy 3.302 0.381) (xy 2.921 -0.254) (xy 3.683 -0.254) (xy 3.302 0.381)
-					)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
+			(symbol "SIR880BDP_0_1"
 				(circle
-					(center 1.651 0)
+					(center -0.889 0)
 					(radius 2.794)
 					(stroke
 						(width 0.254)
@@ -956,7 +807,7 @@
 					)
 				)
 				(circle
-					(center 2.54 -1.778)
+					(center 0 -1.778)
 					(radius 0.254)
 					(stroke
 						(width 0)
@@ -966,8 +817,140 @@
 						(type outline)
 					)
 				)
+				(polyline
+					(pts
+						(xy -2.286 0) (xy -5.08 0)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy -2.286 1.905) (xy -2.286 -1.905)
+					)
+					(stroke
+						(width 0.254)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy -1.778 -1.27) (xy -1.778 -2.286)
+					)
+					(stroke
+						(width 0.254)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy -1.778 0.508) (xy -1.778 -0.508)
+					)
+					(stroke
+						(width 0.254)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy -1.778 2.286) (xy -1.778 1.27)
+					)
+					(stroke
+						(width 0.254)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 0 2.54) (xy 0 1.778)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 0 -2.54) (xy 0 0) (xy -1.778 0)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy -1.778 -1.778) (xy 0.762 -1.778) (xy 0.762 1.778) (xy -1.778 1.778)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy -1.524 0) (xy -0.508 0.381) (xy -0.508 -0.381) (xy -1.524 0)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type outline)
+					)
+				)
+				(polyline
+					(pts
+						(xy 0.254 0.508) (xy 0.381 0.381) (xy 1.143 0.381) (xy 1.27 0.254)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 0.762 0.381) (xy 0.381 -0.254) (xy 1.143 -0.254) (xy 0.762 0.381)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
 				(circle
-					(center 2.54 1.778)
+					(center 0 1.778)
 					(radius 0.254)
 					(stroke
 						(width 0)
@@ -978,14 +961,14 @@
 					)
 				)
 			)
-			(symbol "BUK7Y4R8-60E_1_1"
+			(symbol "SIR880BDP_1_1"
 				(pin passive line
-					(at 2.54 -5.08 90)
+					(at 0 -5.08 90)
 					(length 2.54)
 					(name "S"
 						(effects
 							(font
-								(size 1.27 1.27)
+								(size 0 0)
 							)
 						)
 					)
@@ -998,7 +981,7 @@
 					)
 				)
 				(pin passive line
-					(at 2.54 -5.08 90)
+					(at 0 -5.08 90)
 					(length 2.54) hide
 					(name "S"
 						(effects
@@ -1016,7 +999,7 @@
 					)
 				)
 				(pin passive line
-					(at 2.54 -5.08 90)
+					(at 0 -5.08 90)
 					(length 2.54) hide
 					(name "S"
 						(effects
@@ -1034,12 +1017,12 @@
 					)
 				)
 				(pin passive line
-					(at -5.08 0 0)
+					(at -6.35 0 0)
 					(length 2.54)
 					(name "G"
 						(effects
 							(font
-								(size 1.27 1.27)
+								(size 0 0)
 							)
 						)
 					)
@@ -1052,8 +1035,26 @@
 					)
 				)
 				(pin passive line
-					(at 2.54 5.08 270)
+					(at 0 5.08 270)
 					(length 2.54)
+					(name "D"
+						(effects
+							(font
+								(size 0 0)
+							)
+						)
+					)
+					(number "5"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 0 5.08 270)
+					(length 2.54) hide
 					(name "D"
 						(effects
 							(font
@@ -1061,7 +1062,61 @@
 							)
 						)
 					)
-					(number "5"
+					(number "6"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 0 5.08 270)
+					(length 2.54) hide
+					(name "D"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "7"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 0 5.08 270)
+					(length 2.54) hide
+					(name "D"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "8"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 0 5.08 270)
+					(length 2.54) hide
+					(name "EP"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "9"
 						(effects
 							(font
 								(size 1.27 1.27)
@@ -2885,6 +2940,16 @@
 	)
 	(wire
 		(pts
+			(xy 116.84 62.23) (xy 118.11 62.23)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "0540e09e-2cd2-40fe-97f5-cad756c353ad")
+	)
+	(wire
+		(pts
 			(xy 196.85 26.67) (xy 196.85 30.48)
 		)
 		(stroke
@@ -4055,16 +4120,6 @@
 	)
 	(wire
 		(pts
-			(xy 172.72 48.26) (xy 175.26 48.26)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "6d07fcc9-45ef-4d57-bf1b-4bc36f293e0d")
-	)
-	(wire
-		(pts
 			(xy 149.86 55.88) (xy 151.13 55.88)
 		)
 		(stroke
@@ -4212,6 +4267,16 @@
 			(type default)
 		)
 		(uuid "7985c6a3-f377-4ac5-a5fa-78ca1eb53965")
+	)
+	(wire
+		(pts
+			(xy 171.45 48.26) (xy 175.26 48.26)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "7a0bcef1-1f3f-49a1-a1ad-8b228c85aedc")
 	)
 	(wire
 		(pts
@@ -4915,7 +4980,17 @@
 	)
 	(wire
 		(pts
-			(xy 116.84 48.26) (xy 114.3 48.26)
+			(xy 171.45 62.23) (xy 172.72 62.23)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "ba91fd2d-cfbd-4090-8809-20fdf2d5d5f3")
+	)
+	(wire
+		(pts
+			(xy 114.3 48.26) (xy 118.11 48.26)
 		)
 		(stroke
 			(width 0)
@@ -5012,6 +5087,16 @@
 			(type default)
 		)
 		(uuid "c5bfc6e6-2310-4c23-976a-6c28d3144d16")
+	)
+	(polyline
+		(pts
+			(xy 100.33 101.6) (xy 102.87 101.6)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "c7e40eeb-140b-4cf8-8101-5f8e64289718")
 	)
 	(wire
 		(pts
@@ -5222,6 +5307,26 @@
 			(type default)
 		)
 		(uuid "e3617bdc-b2f3-4298-9fb6-16eb5878a723")
+	)
+	(polyline
+		(pts
+			(xy 100.33 102.235) (xy 100.33 101.6)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "e4765a59-5c6e-4962-8359-c32becd6da0d")
+	)
+	(polyline
+		(pts
+			(xy 102.87 101.6) (xy 102.87 102.235)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "e53fd78e-d0e3-4c6e-8e56-e75261aeec00")
 	)
 	(wire
 		(pts
@@ -5600,10 +5705,10 @@
 		)
 		(uuid "d5360e84-16b6-4f87-a2eb-1987ee40eaba")
 	)
-	(text_box "- I^{2}C pullups of 10k as a starting point\n- Pullup for ~{CE} so regulator is off if no driven control from MCU"
+	(text_box "- I^{2}C pullups of 10k as a starting point\n- Pullup for ~{CE} so regulator is off if no driven control from MCU\n\nTODO:\n- Add some level shifters to TS header and more pins for smart battery control"
 		(exclude_from_sim no)
 		(at 54.61 167.64 0)
-		(size 78.74 5.08)
+		(size 78.74 14.605)
 		(stroke
 			(width 0)
 			(type default)
@@ -5659,9 +5764,9 @@
 		)
 		(uuid "ce24d510-b376-4018-be7e-6fb9b49bb35e")
 	)
-	(text "INT_DRV_SUP"
+	(text "INT_DRV"
 		(exclude_from_sim no)
-		(at 101.6 101.854 0)
+		(at 94.996 104.394 0)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -5906,87 +6011,6 @@
 			(project ""
 				(path "/e5771ea0-f106-4b1c-9531-189f5725062b/d5ee1f61-f823-41e8-bbc3-367cca9f3789"
 					(reference "D3")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "BC-lib:BUK7Y4R8-60E")
-		(at 121.92 62.23 0)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(uuid "02a81f2d-e9ef-450b-b13b-b330304db4e6")
-		(property "Reference" "Q2"
-			(at 125.222 58.674 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Value" "BUK9M53-60EX"
-			(at 107.442 67.056 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Footprint" "Package_TO_SOT_SMD:LFPAK33"
-			(at 127 64.135 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-					(italic yes)
-				)
-				(justify left)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" "https://assets.nexperia.com/documents/data-sheet/BUK9M53-60E.pdf"
-			(at 127 66.04 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-				(hide yes)
-			)
-		)
-		(property "Description" "17A Id, 60V Vds, N-Channel TrenchMOS MOSFET, 46mOhm Ron, 6nC Qqd, -55 to 175 °C, LFPAK33"
-			(at 121.92 62.23 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "4"
-			(uuid "71668dee-1633-4fb8-82e7-5cba6005e961")
-		)
-		(pin "1"
-			(uuid "ab91e65c-4a10-43bf-a4fb-16a2cd57791c")
-		)
-		(pin "5"
-			(uuid "e896935a-423f-4891-b86c-4f86cf453114")
-		)
-		(pin "3"
-			(uuid "0ba7b37b-ca11-4b8e-8cb8-69bc58fd6bd3")
-		)
-		(pin "2"
-			(uuid "1a75d1a3-6862-4117-bc98-f4f75a68deab")
-		)
-		(instances
-			(project ""
-				(path "/e5771ea0-f106-4b1c-9531-189f5725062b/d5ee1f61-f823-41e8-bbc3-367cca9f3789"
-					(reference "Q2")
 					(unit 1)
 				)
 			)
@@ -7602,6 +7626,114 @@
 		)
 	)
 	(symbol
+		(lib_id "BidirectionalSupply:SIR880BDP")
+		(at 124.46 62.23 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "2c2622f2-2210-415b-abf7-738c1df38f13")
+		(property "Reference" "Q4"
+			(at 125.476 58.928 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "SIR880BDP"
+			(at 113.03 66.548 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "BidirectionalSupply:POWERPAK-SO-8_L6.2-W5.2-P1.27-BL-EP"
+			(at 124.46 74.93 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 124.46 62.23 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 124.46 62.23 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "LCSC Part" "C5900133"
+			(at 124.46 77.47 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "JLCPCB" "C5900133"
+			(at 124.46 62.23 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "f2f0ca31-0c0b-42f0-ba1d-947229b455a1")
+		)
+		(pin "8"
+			(uuid "1de14300-e466-43cf-84c4-1c4b62f8cf46")
+		)
+		(pin "2"
+			(uuid "751baacb-8175-4f67-a968-863d942ba74a")
+		)
+		(pin "3"
+			(uuid "3ee46ffa-42a6-4187-9904-afef1f9bdec8")
+		)
+		(pin "4"
+			(uuid "40941897-660a-4717-97e4-b50ca877328f")
+		)
+		(pin "5"
+			(uuid "dc9e84ad-45f2-4653-9121-63574609319e")
+		)
+		(pin "9"
+			(uuid "a3c98bba-be69-4056-947f-53c8c6f520f9")
+		)
+		(pin "6"
+			(uuid "e6f75d14-55ac-49da-ac47-2b7e559957e4")
+		)
+		(pin "7"
+			(uuid "2a2d5449-e971-4d03-b972-3f5ae1d1d4e1")
+		)
+		(instances
+			(project "BidirectionalSupply"
+				(path "/e5771ea0-f106-4b1c-9531-189f5725062b/d5ee1f61-f823-41e8-bbc3-367cca9f3789"
+					(reference "Q4")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
 		(lib_id "power:GND")
 		(at 185.42 133.35 0)
 		(unit 1)
@@ -8225,7 +8357,7 @@
 		(exclude_from_sim no)
 		(in_bom yes)
 		(on_board yes)
-		(dnp yes)
+		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "3b0ac41e-a7c1-4e30-96f2-6ed0fd63c4e3")
 		(property "Reference" "J4"
@@ -10051,7 +10183,7 @@
 		(exclude_from_sim no)
 		(in_bom yes)
 		(on_board yes)
-		(dnp yes)
+		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "7874727b-9b74-4580-88b0-3e55e2136e34")
 		(property "Reference" "J5"
@@ -10339,6 +10471,115 @@
 		)
 	)
 	(symbol
+		(lib_id "BidirectionalSupply:SIR880BDP")
+		(at 165.1 48.26 0)
+		(mirror y)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "8347d5ef-3dd5-4134-9f67-bc1cc22b048b")
+		(property "Reference" "Q2"
+			(at 168.402 43.942 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "SIR880BDP"
+			(at 176.022 52.324 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "BidirectionalSupply:POWERPAK-SO-8_L6.2-W5.2-P1.27-BL-EP"
+			(at 165.1 60.96 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 165.1 48.26 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 165.1 48.26 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "LCSC Part" "C5900133"
+			(at 165.1 63.5 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "JLCPCB" "C5900133"
+			(at 165.1 48.26 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "9"
+			(uuid "b3caa95b-d4da-4a8b-86ea-7e570d9d8037")
+		)
+		(pin "5"
+			(uuid "7bfc63ac-79f3-4395-ac80-2f529216e955")
+		)
+		(pin "8"
+			(uuid "365bb6f8-8b71-4856-a548-0a9611785350")
+		)
+		(pin "2"
+			(uuid "dd902411-2420-43d0-8de0-5837963bc876")
+		)
+		(pin "7"
+			(uuid "83847dd5-6f2f-4ec3-9bcd-c0ce625be0ba")
+		)
+		(pin "6"
+			(uuid "b2b432be-f55a-4c0f-ae57-cc446d8b5b9d")
+		)
+		(pin "1"
+			(uuid "f33a31d6-dcea-426f-9577-e1658d706750")
+		)
+		(pin "4"
+			(uuid "65274f88-425a-4bd8-aa40-f5aca70cc59b")
+		)
+		(pin "3"
+			(uuid "87b05b79-85c4-4741-be29-1efa6b60be97")
+		)
+		(instances
+			(project ""
+				(path "/e5771ea0-f106-4b1c-9531-189f5725062b/d5ee1f61-f823-41e8-bbc3-367cca9f3789"
+					(reference "Q2")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
 		(lib_id "power:GND")
 		(at 179.07 30.48 0)
 		(mirror y)
@@ -10401,6 +10642,114 @@
 			(project "BidirectionalSupply"
 				(path "/e5771ea0-f106-4b1c-9531-189f5725062b/d5ee1f61-f823-41e8-bbc3-367cca9f3789"
 					(reference "#PWR069")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "BidirectionalSupply:SIR880BDP")
+		(at 124.46 48.26 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "84410091-d4a0-4794-8b0d-0507c3d4c035")
+		(property "Reference" "Q1"
+			(at 125.476 44.704 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "SIR880BDP"
+			(at 113.03 52.832 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "BidirectionalSupply:POWERPAK-SO-8_L6.2-W5.2-P1.27-BL-EP"
+			(at 124.46 60.96 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 124.46 48.26 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 124.46 48.26 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "LCSC Part" "C5900133"
+			(at 124.46 63.5 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "JLCPCB" "C5900133"
+			(at 124.46 48.26 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "3b2d65e6-ce3a-44b3-b56c-35407ca3e60e")
+		)
+		(pin "8"
+			(uuid "094be888-926a-4746-9607-adfbb0c70862")
+		)
+		(pin "2"
+			(uuid "7319f684-e8ac-4d55-9518-7dd8153c2c2d")
+		)
+		(pin "3"
+			(uuid "c2de1a79-13ba-4170-928c-14d31af5581c")
+		)
+		(pin "4"
+			(uuid "60a12a6a-be8d-42f8-a56b-4a4400481e96")
+		)
+		(pin "5"
+			(uuid "9c5bcc63-07a3-492e-9314-7c55cf1a2215")
+		)
+		(pin "9"
+			(uuid "c258534a-229f-4b6b-aabb-e3c70d47eec4")
+		)
+		(pin "6"
+			(uuid "01d29882-ddb2-46d8-aba3-19248fc204c2")
+		)
+		(pin "7"
+			(uuid "a6dc25b6-4159-43e9-b663-e1715bac45e3")
+		)
+		(instances
+			(project ""
+				(path "/e5771ea0-f106-4b1c-9531-189f5725062b/d5ee1f61-f823-41e8-bbc3-367cca9f3789"
+					(reference "Q1")
 					(unit 1)
 				)
 			)
@@ -10911,7 +11260,7 @@
 		)
 	)
 	(symbol
-		(lib_id "BC-lib:BQ25758")
+		(lib_id "BidirectionalSupply:BQ25758")
 		(at 144.78 91.44 0)
 		(unit 1)
 		(exclude_from_sim no)
@@ -10930,7 +11279,7 @@
 			)
 		)
 		(property "Value" "BQ25758"
-			(at 149.5141 138.43 0)
+			(at 149.5141 139.7 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -12280,88 +12629,6 @@
 		)
 	)
 	(symbol
-		(lib_id "BC-lib:BUK7Y4R8-60E")
-		(at 167.64 48.26 0)
-		(mirror y)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(uuid "b11a300a-91ed-47de-8123-c9737b969752")
-		(property "Reference" "Q4"
-			(at 168.402 44.196 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Value" "BUK9M53-60EX"
-			(at 180.848 52.324 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Footprint" "Package_TO_SOT_SMD:LFPAK33"
-			(at 162.56 50.165 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-					(italic yes)
-				)
-				(justify left)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" "https://assets.nexperia.com/documents/data-sheet/BUK9M53-60E.pdf"
-			(at 162.56 52.07 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-				(hide yes)
-			)
-		)
-		(property "Description" "17A Id, 60V Vds, N-Channel TrenchMOS MOSFET, 46mOhm Ron, 6nC Qqd, -55 to 175 °C, LFPAK33"
-			(at 167.64 48.26 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "4"
-			(uuid "6d3c3712-1b33-4155-b4d2-b44d105feaa3")
-		)
-		(pin "3"
-			(uuid "e5a8f432-a156-4e68-98e3-6f6ca4ecb35b")
-		)
-		(pin "5"
-			(uuid "65077fe3-020e-4d63-af52-0f5b32fb01fb")
-		)
-		(pin "1"
-			(uuid "ad70a6ad-e88a-483c-84c4-c893b92c75e3")
-		)
-		(pin "2"
-			(uuid "2c453a16-c970-4460-bc86-3084c6b36363")
-		)
-		(instances
-			(project ""
-				(path "/e5771ea0-f106-4b1c-9531-189f5725062b/d5ee1f61-f823-41e8-bbc3-367cca9f3789"
-					(reference "Q4")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
 		(lib_id "Device:C_Polarized")
 		(at 228.6 44.45 0)
 		(mirror y)
@@ -12899,16 +13166,17 @@
 		)
 	)
 	(symbol
-		(lib_id "BC-lib:BUK7Y4R8-60E")
-		(at 121.92 48.26 0)
+		(lib_id "BidirectionalSupply:SIR880BDP")
+		(at 165.1 62.23 0)
+		(mirror y)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(uuid "b73e70bc-3cac-497a-985d-7614b673e10a")
-		(property "Reference" "Q1"
-			(at 125.222 44.704 0)
+		(uuid "bbc8c07c-274f-4ec7-876d-1277104af877")
+		(property "Reference" "Q3"
+			(at 168.402 57.912 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -12916,8 +13184,8 @@
 				(justify left)
 			)
 		)
-		(property "Value" "BUK9M53-60EX"
-			(at 108.458 53.086 0)
+		(property "Value" "SIR880BDP"
+			(at 176.022 66.04 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -12925,29 +13193,8 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "Package_TO_SOT_SMD:LFPAK33"
-			(at 127 50.165 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-					(italic yes)
-				)
-				(justify left)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" "https://assets.nexperia.com/documents/data-sheet/BUK9M53-60E.pdf"
-			(at 127 52.07 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-				(hide yes)
-			)
-		)
-		(property "Description" "17A Id, 60V Vds, N-Channel TrenchMOS MOSFET, 46mOhm Ron, 6nC Qqd, -55 to 175 °C, LFPAK33"
-			(at 121.92 48.26 0)
+		(property "Footprint" "BidirectionalSupply:POWERPAK-SO-8_L6.2-W5.2-P1.27-BL-EP"
+			(at 165.1 74.93 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -12955,25 +13202,73 @@
 				(hide yes)
 			)
 		)
-		(pin "5"
-			(uuid "94b620ca-7c49-44ab-b76b-a4873ba9750f")
+		(property "Datasheet" ""
+			(at 165.1 62.23 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
 		)
-		(pin "3"
-			(uuid "955cab27-7f1a-475b-874e-fe3c5f2fc18d")
+		(property "Description" ""
+			(at 165.1 62.23 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
 		)
-		(pin "2"
-			(uuid "93871f66-e514-4e79-8eca-59b51dec4adb")
+		(property "LCSC Part" "C5900133"
+			(at 165.1 77.47 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "JLCPCB" "C5900133"
+			(at 165.1 62.23 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "9"
+			(uuid "8ae5debd-a407-44c4-b803-7555db197e04")
 		)
 		(pin "1"
-			(uuid "da314802-f30c-4809-98c5-5c14841630d2")
+			(uuid "c1e53ae8-3d48-49f6-9e6f-c4e2de6d7548")
+		)
+		(pin "6"
+			(uuid "ab34b61e-1ff1-4690-80ac-cece6c165090")
+		)
+		(pin "8"
+			(uuid "0cecdcd0-4379-48f6-974e-1509b206a9a0")
+		)
+		(pin "7"
+			(uuid "8ac4e8ce-1411-4073-bda2-32222b4eaf17")
+		)
+		(pin "5"
+			(uuid "4c8f0ea8-552b-4273-a7e2-bc6d8a4291b0")
 		)
 		(pin "4"
-			(uuid "9aef4b4b-4ba9-4db4-b03c-ec86a7fa5366")
+			(uuid "056ba216-bc59-4d0b-8be1-ff807d8741c8")
+		)
+		(pin "2"
+			(uuid "b276c102-5e00-45d4-a337-11b6477e4271")
+		)
+		(pin "3"
+			(uuid "ffb7eca3-147a-496d-8ad8-abf4b10f9b8b")
 		)
 		(instances
 			(project ""
 				(path "/e5771ea0-f106-4b1c-9531-189f5725062b/d5ee1f61-f823-41e8-bbc3-367cca9f3789"
-					(reference "Q1")
+					(reference "Q3")
 					(unit 1)
 				)
 			)
@@ -13109,88 +13404,6 @@
 			(project "BidirectionalSupply"
 				(path "/e5771ea0-f106-4b1c-9531-189f5725062b/d5ee1f61-f823-41e8-bbc3-367cca9f3789"
 					(reference "#PWR051")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "BC-lib:BUK7Y4R8-60E")
-		(at 167.64 62.23 0)
-		(mirror y)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(uuid "c7217120-213c-442a-a62b-24b5db7d5152")
-		(property "Reference" "Q3"
-			(at 168.148 58.166 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Value" "BUK9M53-60EX"
-			(at 180.848 66.294 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Footprint" "Package_TO_SOT_SMD:LFPAK33"
-			(at 162.56 64.135 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-					(italic yes)
-				)
-				(justify left)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" "https://assets.nexperia.com/documents/data-sheet/BUK9M53-60E.pdf"
-			(at 162.56 66.04 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-				(hide yes)
-			)
-		)
-		(property "Description" "17A Id, 60V Vds, N-Channel TrenchMOS MOSFET, 46mOhm Ron, 6nC Qqd, -55 to 175 °C, LFPAK33"
-			(at 167.64 62.23 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "4"
-			(uuid "b086152a-43ce-4acc-9f17-18bb8c863290")
-		)
-		(pin "3"
-			(uuid "700c3f21-c5cc-4fc8-b53b-0a58291c784f")
-		)
-		(pin "2"
-			(uuid "08c5e0c8-8ad2-4cab-9fb2-d93f8aa1dcfc")
-		)
-		(pin "5"
-			(uuid "7444eacf-b52c-47e0-afbe-d71a60eea7ed")
-		)
-		(pin "1"
-			(uuid "9b586605-4784-416f-af48-a47473fb673c")
-		)
-		(instances
-			(project ""
-				(path "/e5771ea0-f106-4b1c-9531-189f5725062b/d5ee1f61-f823-41e8-bbc3-367cca9f3789"
-					(reference "Q3")
 					(unit 1)
 				)
 			)
@@ -14155,7 +14368,7 @@
 		(exclude_from_sim no)
 		(in_bom yes)
 		(on_board yes)
-		(dnp yes)
+		(dnp no)
 		(uuid "dccc3c94-52b9-48c8-bac5-bd1411c5fb44")
 		(property "Reference" "J7"
 			(at 103.378 107.188 90)
@@ -14225,7 +14438,7 @@
 		(exclude_from_sim no)
 		(in_bom yes)
 		(on_board yes)
-		(dnp yes)
+		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "dcde3ec8-c59c-4de3-850b-ca2dd39c4c46")
 		(property "Reference" "J3"

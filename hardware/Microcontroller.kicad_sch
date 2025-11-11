@@ -208,6 +208,319 @@
 				)
 			)
 		)
+		(symbol "Connector_Generic:Conn_01x08"
+			(pin_names
+				(offset 1.016) hide)
+			(exclude_from_sim no)
+			(in_bom yes)
+			(on_board yes)
+			(property "Reference" "J"
+				(at 0 10.16 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Value" "Conn_01x08"
+				(at 0 -12.7 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Footprint" ""
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Datasheet" "~"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Description" "Generic connector, single row, 01x08, script generated (kicad-library-utils/schlib/autogen/connector/)"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "ki_keywords" "connector"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "ki_fp_filters" "Connector*:*_1x??_*"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(symbol "Conn_01x08_1_1"
+				(rectangle
+					(start -1.27 -10.033)
+					(end 0 -10.287)
+					(stroke
+						(width 0.1524)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(rectangle
+					(start -1.27 -7.493)
+					(end 0 -7.747)
+					(stroke
+						(width 0.1524)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(rectangle
+					(start -1.27 -4.953)
+					(end 0 -5.207)
+					(stroke
+						(width 0.1524)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(rectangle
+					(start -1.27 -2.413)
+					(end 0 -2.667)
+					(stroke
+						(width 0.1524)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(rectangle
+					(start -1.27 0.127)
+					(end 0 -0.127)
+					(stroke
+						(width 0.1524)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(rectangle
+					(start -1.27 2.667)
+					(end 0 2.413)
+					(stroke
+						(width 0.1524)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(rectangle
+					(start -1.27 5.207)
+					(end 0 4.953)
+					(stroke
+						(width 0.1524)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(rectangle
+					(start -1.27 7.747)
+					(end 0 7.493)
+					(stroke
+						(width 0.1524)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(rectangle
+					(start -1.27 8.89)
+					(end 1.27 -11.43)
+					(stroke
+						(width 0.254)
+						(type default)
+					)
+					(fill
+						(type background)
+					)
+				)
+				(pin passive line
+					(at -5.08 7.62 0)
+					(length 3.81)
+					(name "Pin_1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at -5.08 5.08 0)
+					(length 3.81)
+					(name "Pin_2"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "2"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at -5.08 2.54 0)
+					(length 3.81)
+					(name "Pin_3"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "3"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at -5.08 0 0)
+					(length 3.81)
+					(name "Pin_4"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "4"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at -5.08 -2.54 0)
+					(length 3.81)
+					(name "Pin_5"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "5"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at -5.08 -5.08 0)
+					(length 3.81)
+					(name "Pin_6"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "6"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at -5.08 -7.62 0)
+					(length 3.81)
+					(name "Pin_7"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "7"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at -5.08 -10.16 0)
+					(length 3.81)
+					(name "Pin_8"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "8"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+			)
+		)
 		(symbol "Device:C"
 			(pin_numbers hide)
 			(pin_names
@@ -738,6 +1051,175 @@
 					(at 0 -3.81 90)
 					(length 1.27)
 					(name "2"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "2"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+			)
+		)
+		(symbol "Device:LED"
+			(pin_numbers hide)
+			(pin_names
+				(offset 1.016) hide)
+			(exclude_from_sim no)
+			(in_bom yes)
+			(on_board yes)
+			(property "Reference" "D"
+				(at 0 2.54 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Value" "LED"
+				(at 0 -2.54 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Footprint" ""
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Datasheet" "~"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Description" "Light emitting diode"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "ki_keywords" "LED diode"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "ki_fp_filters" "LED* LED_SMD:* LED_THT:*"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(symbol "LED_0_1"
+				(polyline
+					(pts
+						(xy -1.27 -1.27) (xy -1.27 1.27)
+					)
+					(stroke
+						(width 0.254)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy -1.27 0) (xy 1.27 0)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 1.27 -1.27) (xy 1.27 1.27) (xy -1.27 0) (xy 1.27 -1.27)
+					)
+					(stroke
+						(width 0.254)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy -3.048 -0.762) (xy -4.572 -2.286) (xy -3.81 -2.286) (xy -4.572 -2.286) (xy -4.572 -1.524)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy -1.778 -0.762) (xy -3.302 -2.286) (xy -2.54 -2.286) (xy -3.302 -2.286) (xy -3.302 -1.524)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+			)
+			(symbol "LED_1_1"
+				(pin passive line
+					(at -3.81 0 0)
+					(length 2.54)
+					(name "K"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 3.81 0 180)
+					(length 2.54)
+					(name "A"
 						(effects
 							(font
 								(size 1.27 1.27)
@@ -3109,44 +3591,8 @@
 		(uuid "efc84424-8a25-4549-b3f1-8ab66d5c2367")
 	)
 	(no_connect
-		(at 232.41 119.38)
-		(uuid "25c3fba0-a691-40d1-89b9-dba0268ab8a3")
-	)
-	(no_connect
-		(at 232.41 111.76)
-		(uuid "3f94a653-a7f3-4485-8776-965c150aa348")
-	)
-	(no_connect
-		(at 232.41 114.3)
-		(uuid "3fce4d6f-d78b-4172-89ce-39b3055f3c41")
-	)
-	(no_connect
-		(at 232.41 104.14)
-		(uuid "4e231aa0-0bdf-4b21-ab08-8223e2b8f727")
-	)
-	(no_connect
-		(at 232.41 121.92)
-		(uuid "5172c028-bf5f-42fa-9fdd-fd9fb3956daf")
-	)
-	(no_connect
-		(at 232.41 106.68)
-		(uuid "6a678760-7d6f-44ca-a6c6-273eb578de72")
-	)
-	(no_connect
-		(at 232.41 93.98)
-		(uuid "7cc2262b-5c7f-46b1-bad0-ab2bf1f842c1")
-	)
-	(no_connect
-		(at 232.41 109.22)
-		(uuid "916a8287-b335-46db-85d7-9ce2447a192f")
-	)
-	(no_connect
 		(at 232.41 124.46)
 		(uuid "aac4e4a8-12b2-48ca-a184-780dcad9fad1")
-	)
-	(no_connect
-		(at 232.41 116.84)
-		(uuid "b55bc4e2-4ad2-48d0-9e75-b66322a32c9f")
 	)
 	(no_connect
 		(at 232.41 96.52)
@@ -3285,6 +3731,16 @@
 			(type default)
 		)
 		(uuid "0d7f98b4-caa6-452a-a504-4aa394e8ae75")
+	)
+	(wire
+		(pts
+			(xy 215.9 93.98) (xy 232.41 93.98)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "0e43678c-0226-487e-b436-bf10620fb3be")
 	)
 	(wire
 		(pts
@@ -3498,6 +3954,16 @@
 	)
 	(wire
 		(pts
+			(xy 81.28 105.41) (xy 81.28 107.95)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "24d08664-fcb1-400a-950e-0cf6a1858888")
+	)
+	(wire
+		(pts
 			(xy 139.7 52.07) (xy 149.86 52.07)
 		)
 		(stroke
@@ -3535,6 +4001,16 @@
 			(type default)
 		)
 		(uuid "2a559920-e988-4b56-a7f0-e09bdfdfa03e")
+	)
+	(wire
+		(pts
+			(xy 80.01 128.27) (xy 81.28 128.27)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "2cb877cd-fbb2-4ac4-a190-2e264507f7d4")
 	)
 	(wire
 		(pts
@@ -3585,6 +4061,16 @@
 			(type default)
 		)
 		(uuid "300c5e59-93ba-4bc6-a081-714688fbea91")
+	)
+	(wire
+		(pts
+			(xy 215.9 119.38) (xy 242.57 119.38)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "30213cdb-44c7-44a9-8aeb-d1fabae40bfb")
 	)
 	(wire
 		(pts
@@ -3648,7 +4134,7 @@
 	)
 	(wire
 		(pts
-			(xy 215.9 116.84) (xy 232.41 116.84)
+			(xy 215.9 116.84) (xy 242.57 116.84)
 		)
 		(stroke
 			(width 0)
@@ -3758,16 +4244,6 @@
 	)
 	(wire
 		(pts
-			(xy 215.9 93.98) (xy 232.41 93.98)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "4911637a-1b5e-4c0a-8ee2-4ee7a59425f1")
-	)
-	(wire
-		(pts
 			(xy 187.96 55.88) (xy 187.96 43.18)
 		)
 		(stroke
@@ -3838,7 +4314,7 @@
 	)
 	(wire
 		(pts
-			(xy 215.9 109.22) (xy 232.41 109.22)
+			(xy 215.9 109.22) (xy 242.57 109.22)
 		)
 		(stroke
 			(width 0)
@@ -3868,7 +4344,7 @@
 	)
 	(wire
 		(pts
-			(xy 215.9 104.14) (xy 232.41 104.14)
+			(xy 215.9 104.14) (xy 242.57 104.14)
 		)
 		(stroke
 			(width 0)
@@ -3998,7 +4474,7 @@
 	)
 	(wire
 		(pts
-			(xy 215.9 114.3) (xy 232.41 114.3)
+			(xy 215.9 114.3) (xy 242.57 114.3)
 		)
 		(stroke
 			(width 0)
@@ -4045,16 +4521,6 @@
 			(type default)
 		)
 		(uuid "70a9b083-fdcd-445a-9117-a7a5311b986a")
-	)
-	(wire
-		(pts
-			(xy 215.9 119.38) (xy 232.41 119.38)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "7201230c-a328-4acc-bc45-b541c9d2dcf7")
 	)
 	(wire
 		(pts
@@ -4518,6 +4984,16 @@
 	)
 	(wire
 		(pts
+			(xy 81.28 128.27) (xy 81.28 125.73)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "b737dc31-d8cb-4274-a35b-45219a1148d7")
+	)
+	(wire
+		(pts
 			(xy 200.66 21.59) (xy 200.66 22.86)
 		)
 		(stroke
@@ -4608,7 +5084,7 @@
 	)
 	(wire
 		(pts
-			(xy 215.9 121.92) (xy 232.41 121.92)
+			(xy 215.9 121.92) (xy 242.57 121.92)
 		)
 		(stroke
 			(width 0)
@@ -4708,7 +5184,7 @@
 	)
 	(wire
 		(pts
-			(xy 215.9 106.68) (xy 232.41 106.68)
+			(xy 215.9 106.68) (xy 242.57 106.68)
 		)
 		(stroke
 			(width 0)
@@ -4738,6 +5214,16 @@
 	)
 	(wire
 		(pts
+			(xy 81.28 115.57) (xy 81.28 118.11)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "d6f175e9-bace-4c0b-a0fc-1c412199f4d8")
+	)
+	(wire
+		(pts
 			(xy 53.34 64.77) (xy 53.34 66.04)
 		)
 		(stroke
@@ -4758,7 +5244,7 @@
 	)
 	(wire
 		(pts
-			(xy 215.9 111.76) (xy 232.41 111.76)
+			(xy 215.9 111.76) (xy 242.57 111.76)
 		)
 		(stroke
 			(width 0)
@@ -5225,6 +5711,28 @@
 			)
 		)
 	)
+	(global_label "LED"
+		(shape input)
+		(at 232.41 93.98 0)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "107ed139-9d82-41d5-8c44-0baeba370cbb")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 238.8423 93.98 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+	)
 	(global_label "~{BQ_CE}"
 		(shape input)
 		(at 232.41 78.74 0)
@@ -5397,6 +5905,28 @@
 					(size 1.27 1.27)
 				)
 				(justify left)
+				(hide yes)
+			)
+		)
+	)
+	(global_label "LED"
+		(shape input)
+		(at 80.01 128.27 180)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "5968177a-73d7-4101-bda0-5ad5820d5d0e")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 73.5777 128.27 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
 				(hide yes)
 			)
 		)
@@ -5644,6 +6174,94 @@
 		)
 	)
 	(symbol
+		(lib_id "Device:R")
+		(at 81.28 111.76 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "046a0a20-fb8c-4e43-9862-90244bbd1303")
+		(property "Reference" "R58"
+			(at 83.82 110.4899 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "1k"
+			(at 83.82 113.0299 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "Resistor_SMD:R_0603_1608Metric"
+			(at 79.502 111.76 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 81.28 111.76 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Resistor"
+			(at 81.28 111.76 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "JLCPCB" "C21190"
+			(at 81.28 111.76 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Mouser" ""
+			(at 81.28 111.76 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "2"
+			(uuid "66ab9052-75b8-42aa-b772-eb1d7074aed0")
+		)
+		(pin "1"
+			(uuid "d4dcd0a3-fb50-47cd-983d-492cf1cc8dd8")
+		)
+		(instances
+			(project "BidirectionalSupply"
+				(path "/e5771ea0-f106-4b1c-9531-189f5725062b/1c1be91e-b9b6-4767-b4a3-64867bdbc875"
+					(reference "R58")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
 		(lib_id "power:GND")
 		(at 146.05 146.05 0)
 		(unit 1)
@@ -5764,6 +6382,15 @@
 			)
 		)
 		(property "JLCPCB" "C1779"
+			(at 140.97 27.94 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Mouser" ""
 			(at 140.97 27.94 0)
 			(effects
 				(font
@@ -6178,6 +6805,15 @@
 				(hide yes)
 			)
 		)
+		(property "Mouser" ""
+			(at 209.55 27.94 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "1"
 			(uuid "da871e60-692c-4f93-936d-c6496843ba3d")
 		)
@@ -6385,6 +7021,15 @@
 				(hide yes)
 			)
 		)
+		(property "Mouser" ""
+			(at 144.78 114.3 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "1"
 			(uuid "32615e68-cd62-417a-aa0e-cb7369ce395c")
 		)
@@ -6455,6 +7100,15 @@
 			)
 		)
 		(property "JLCPCB" "C1779"
+			(at 96.52 69.85 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Mouser" ""
 			(at 96.52 69.85 0)
 			(effects
 				(font
@@ -6607,6 +7261,15 @@
 				(hide yes)
 			)
 		)
+		(property "Mouser" ""
+			(at 243.84 27.94 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "1"
 			(uuid "395790c8-1191-4752-8bbb-542811841b9c")
 		)
@@ -6678,6 +7341,15 @@
 			)
 		)
 		(property "JLCPCB" "C720477"
+			(at 116.84 85.09 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Mouser" ""
 			(at 116.84 85.09 0)
 			(effects
 				(font
@@ -6962,6 +7634,15 @@
 				(hide yes)
 			)
 		)
+		(property "Mouser" ""
+			(at 180.34 29.21 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "1"
 			(uuid "855641e5-a17c-4756-b4db-e5f369e2d24f")
 		)
@@ -7040,6 +7721,15 @@
 				(hide yes)
 			)
 		)
+		(property "Mouser" ""
+			(at 220.98 27.94 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "1"
 			(uuid "44e78e90-8cf4-4b84-ac0a-f4e6037f1d6e")
 		)
@@ -7110,6 +7800,15 @@
 			)
 		)
 		(property "JLCPCB" "C1590"
+			(at 278.13 27.94 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Mouser" ""
 			(at 278.13 27.94 0)
 			(effects
 				(font
@@ -7260,6 +7959,15 @@
 				(hide yes)
 			)
 		)
+		(property "Mouser" ""
+			(at 129.54 85.09 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "1"
 			(uuid "7980a654-e6d3-4a93-8258-f7d4c04c5b13")
 		)
@@ -7396,6 +8104,15 @@
 			)
 		)
 		(property "JLCPCB" "C720477"
+			(at 116.84 127 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Mouser" ""
 			(at 116.84 127 0)
 			(effects
 				(font
@@ -7550,6 +8267,15 @@
 				(hide yes)
 			)
 		)
+		(property "Mouser" ""
+			(at 120.65 69.85 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "1"
 			(uuid "be648ddc-f4b1-4c0e-bdc8-45986e413268")
 		)
@@ -7620,6 +8346,15 @@
 			)
 		)
 		(property "JLCPCB" "C1590"
+			(at 129.54 27.94 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Mouser" ""
 			(at 129.54 27.94 0)
 			(effects
 				(font
@@ -7837,6 +8572,15 @@
 				(hide yes)
 			)
 		)
+		(property "Mouser" ""
+			(at 128.27 52.07 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "1"
 			(uuid "f6dca02e-c41f-41d7-b5d0-2f07c90cb4aa")
 		)
@@ -8045,6 +8789,15 @@
 				(hide yes)
 			)
 		)
+		(property "Mouser" ""
+			(at 232.41 27.94 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "1"
 			(uuid "9deaf371-8aad-483e-aaf2-bfc118ae4780")
 		)
@@ -8115,6 +8868,15 @@
 			)
 		)
 		(property "JLCPCB" "C20625731"
+			(at 129.54 109.22 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Mouser" ""
 			(at 129.54 109.22 0)
 			(effects
 				(font
@@ -8205,6 +8967,15 @@
 				(hide yes)
 			)
 		)
+		(property "Mouser" ""
+			(at 128.27 127 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "1"
 			(uuid "852fd7d2-34f7-4140-992d-ed7750a245ef")
 		)
@@ -8275,6 +9046,15 @@
 			)
 		)
 		(property "JLCPCB" "C1548"
+			(at 114.3 114.3 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Mouser" ""
 			(at 114.3 114.3 0)
 			(effects
 				(font
@@ -8427,6 +9207,15 @@
 				(hide yes)
 			)
 		)
+		(property "Mouser" ""
+			(at 152.4 27.94 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "1"
 			(uuid "b00eeaca-32d5-4d23-be6b-63ca1b331fdb")
 		)
@@ -8495,6 +9284,15 @@
 			)
 		)
 		(property "JLCPCB" "C97521"
+			(at 53.34 78.74 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Mouser" ""
 			(at 53.34 78.74 0)
 			(effects
 				(font
@@ -8597,6 +9395,15 @@
 				(hide yes)
 			)
 		)
+		(property "Mouser" ""
+			(at 227.33 57.15 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "1"
 			(uuid "10940e30-0f40-4f45-9569-f2c365b8a8d2")
 		)
@@ -8657,6 +9464,15 @@
 			)
 		)
 		(property "Description" "Generic connector, single row, 01x04, script generated (kicad-library-utils/schlib/autogen/connector/)"
+			(at 138.43 140.97 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Mouser" ""
 			(at 138.43 140.97 0)
 			(effects
 				(font
@@ -8742,6 +9558,15 @@
 			)
 		)
 		(property "JLCPCB" "C42411118"
+			(at 184.15 106.68 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Mouser" ""
 			(at 184.15 106.68 0)
 			(effects
 				(font
@@ -9005,6 +9830,15 @@
 				(hide yes)
 			)
 		)
+		(property "Mouser" ""
+			(at 255.27 27.94 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "1"
 			(uuid "dc9b7efe-55dc-4fe6-bb91-462ad7aef679")
 		)
@@ -9073,6 +9907,15 @@
 			)
 		)
 		(property "JLCPCB" "C21189"
+			(at 128.27 134.62 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Mouser" ""
 			(at 128.27 134.62 0)
 			(effects
 				(font
@@ -9159,6 +10002,15 @@
 				(hide yes)
 			)
 		)
+		(property "Mouser" ""
+			(at 114.3 104.14 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "1"
 			(uuid "71a3166c-d768-412b-b03a-bef625478f87")
 		)
@@ -9237,6 +10089,15 @@
 				(hide yes)
 			)
 		)
+		(property "Mouser" ""
+			(at 66.04 73.66 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "1"
 			(uuid "17e5066a-28b6-49fd-a8de-8f56c65cac06")
 		)
@@ -9247,6 +10108,103 @@
 			(project "BidirectionalSupply"
 				(path "/e5771ea0-f106-4b1c-9531-189f5725062b/1c1be91e-b9b6-4767-b4a3-64867bdbc875"
 					(reference "C4")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Connector_Generic:Conn_01x08")
+		(at 247.65 111.76 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "d1429a02-e0c5-4170-9f1e-4847aadca8a9")
+		(property "Reference" "J11"
+			(at 250.19 111.7599 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "Conn_01x08"
+			(at 250.19 114.2999 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "Connector_PinHeader_2.54mm:PinHeader_1x08_P2.54mm_Vertical"
+			(at 247.65 111.76 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 247.65 111.76 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Generic connector, single row, 01x08, script generated (kicad-library-utils/schlib/autogen/connector/)"
+			(at 247.65 111.76 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Mouser" ""
+			(at 247.65 111.76 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "7"
+			(uuid "573c560b-d4e8-4106-b14c-86a17bf325fa")
+		)
+		(pin "5"
+			(uuid "f7fa4f1c-5eda-4918-812d-c439a2570fa7")
+		)
+		(pin "4"
+			(uuid "b3a5a203-2bb7-4ed8-b7a5-002338ca90b7")
+		)
+		(pin "8"
+			(uuid "6d082930-8332-4d74-9eaa-a2952e79a87f")
+		)
+		(pin "1"
+			(uuid "f8040ceb-0155-4b92-90bd-58153eef7278")
+		)
+		(pin "2"
+			(uuid "d8c2c841-cf5f-4fd9-bfd2-0885e60b0002")
+		)
+		(pin "3"
+			(uuid "60d0ba15-20fb-4387-add0-0c3345757b88")
+		)
+		(pin "6"
+			(uuid "06f7b4bb-bbd3-4e58-8ee8-d3253e408319")
+		)
+		(instances
+			(project ""
+				(path "/e5771ea0-f106-4b1c-9531-189f5725062b/1c1be91e-b9b6-4767-b4a3-64867bdbc875"
+					(reference "J11")
 					(unit 1)
 				)
 			)
@@ -9305,6 +10263,15 @@
 			)
 		)
 		(property "JLCPCB" "C25190"
+			(at 227.33 66.04 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Mouser" ""
 			(at 227.33 66.04 0)
 			(effects
 				(font
@@ -9391,6 +10358,15 @@
 				(hide yes)
 			)
 		)
+		(property "Mouser" ""
+			(at 139.7 57.15 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "1"
 			(uuid "2ef7fbc0-420d-4c4a-b9a1-c717bcbad7ba")
 		)
@@ -9401,6 +10377,158 @@
 			(project "BidirectionalSupply"
 				(path "/e5771ea0-f106-4b1c-9531-189f5725062b/1c1be91e-b9b6-4767-b4a3-64867bdbc875"
 					(reference "C9")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "power:+3V3")
+		(at 81.28 105.41 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "e543a6e3-b460-4123-84d6-eb8a682a8465")
+		(property "Reference" "#PWR0111"
+			(at 81.28 109.22 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "+3V3"
+			(at 81.661 101.0158 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 81.28 105.41 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 81.28 105.41 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Power symbol creates a global label with name \"+3V3\""
+			(at 81.28 105.41 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "bf8b5bac-7478-47a1-9992-dec615e4d173")
+		)
+		(instances
+			(project "BidirectionalSupply"
+				(path "/e5771ea0-f106-4b1c-9531-189f5725062b/1c1be91e-b9b6-4767-b4a3-64867bdbc875"
+					(reference "#PWR0111")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Device:LED")
+		(at 81.28 121.92 90)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "ee189399-ed96-4e21-be37-6c68f88eac5f")
+		(property "Reference" "D15"
+			(at 84.836 122.174 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(property "Value" "RED"
+			(at 84.328 124.714 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(property "Footprint" "LED_SMD:LED_0603_1608Metric"
+			(at 81.28 121.92 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 81.28 121.92 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Light emitting diode"
+			(at 81.28 121.92 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "JLCPCB" "C2286"
+			(at 81.28 121.92 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Mouser" ""
+			(at 81.28 121.92 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "2"
+			(uuid "44b71cf2-2752-48ca-adad-653f962c5f36")
+		)
+		(pin "1"
+			(uuid "854c0227-9d76-48bf-ade7-8719b3591776")
+		)
+		(instances
+			(project "BidirectionalSupply"
+				(path "/e5771ea0-f106-4b1c-9531-189f5725062b/1c1be91e-b9b6-4767-b4a3-64867bdbc875"
+					(reference "D15")
 					(unit 1)
 				)
 			)
@@ -9599,6 +10727,15 @@
 				(hide yes)
 			)
 		)
+		(property "Mouser" ""
+			(at 105.41 69.85 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "1"
 			(uuid "461b97dc-15ac-4fe9-99ac-cf0204c6a9ce")
 		)
@@ -9735,6 +10872,15 @@
 			)
 		)
 		(property "JLCPCB" "C1590"
+			(at 266.7 27.94 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Mouser" ""
 			(at 266.7 27.94 0)
 			(effects
 				(font

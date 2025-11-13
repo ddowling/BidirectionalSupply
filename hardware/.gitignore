@@ -3,4 +3,5 @@ BidirectionalSupply-backups/*.zip
 fp-info-cache
 _autosave-*.kicad_sch
 *.bak
+*.kicad_sch-bak
 *~

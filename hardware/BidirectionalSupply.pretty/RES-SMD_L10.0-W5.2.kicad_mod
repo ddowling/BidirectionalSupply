@@ -1,26 +1,170 @@
-(module easyeda2kicad:RES-SMD_L10.0-W5.2 (layer F.Cu) (tedit 5DC5F6A4)
+(footprint "RES-SMD_L10.0-W5.2"
+	(version 20240108)
+	(generator "pcbnew")
+	(generator_version "8.0")
+	(layer "F.Cu")
+	(property "Reference" "REF**"
+		(at 0 -4 0)
+		(layer "F.SilkS")
+		(uuid "fb4daccd-ffd6-4d65-bec3-e1d70d040717")
+		(effects
+			(font
+				(size 1 1)
+				(thickness 0.15)
+			)
+		)
+	)
+	(property "Value" "RES-SMD_L10.0-W5.2"
+		(at 0 4 0)
+		(layer "F.Fab")
+		(uuid "8fac5336-d24a-4688-8a5f-19b25d340e81")
+		(effects
+			(font
+				(size 1 1)
+				(thickness 0.15)
+			)
+		)
+	)
+	(property "Footprint" ""
+		(at 0 0 0)
+		(layer "F.Fab")
+		(hide yes)
+		(uuid "d6150b5f-45cb-4c8e-8b01-a4c391906c14")
+		(effects
+			(font
+				(size 1.27 1.27)
+				(thickness 0.15)
+			)
+		)
+	)
+	(property "Datasheet" ""
+		(at 0 0 0)
+		(layer "F.Fab")
+		(hide yes)
+		(uuid "531eb25a-ac0d-4e5c-b206-7ac1461e3844")
+		(effects
+			(font
+				(size 1.27 1.27)
+				(thickness 0.15)
+			)
+		)
+	)
+	(property "Description" ""
+		(at 0 0 0)
+		(layer "F.Fab")
+		(hide yes)
+		(uuid "7e18d960-114a-4414-8037-57d8503c8fa9")
+		(effects
+			(font
+				(size 1.27 1.27)
+				(thickness 0.15)
+			)
+		)
+	)
 	(attr smd)
-	(fp_text reference REF** (at 0 -4.0) (layer F.SilkS)
-		(effects (font (size 1 1) (thickness 0.15)))
+	(fp_line
+		(start -6.6 -3.2)
+		(end -6.6 3.2)
+		(stroke
+			(width 0.25)
+			(type solid)
+		)
+		(layer "F.SilkS")
+		(uuid "6052251a-43c1-4c39-aa96-3df2ee392a99")
 	)
-	(fp_text value RES-SMD_L10.0-W5.2 (at 0 4.0) (layer F.Fab)
-		(effects (font (size 1 1) (thickness 0.15)))
+	(fp_line
+		(start -6.48 -3.2)
+		(end -2.5 -3.2)
+		(stroke
+			(width 0.25)
+			(type solid)
+		)
+		(layer "F.SilkS")
+		(uuid "b965f470-a80a-4002-a8c2-f7059a342b2d")
 	)
-	(fp_text user %R (at 0 0) (layer F.Fab)
-		(effects (font (size 1 1) (thickness 0.15)))
+	(fp_line
+		(start -6.48 3.2)
+		(end -2.5 3.2)
+		(stroke
+			(width 0.25)
+			(type solid)
+		)
+		(layer "F.SilkS")
+		(uuid "0eb701d6-028e-4d94-90cb-76dbad0fbace")
 	)
-	(fp_line (start 6.48 -3.00) (end 6.48 3.00) (layer F.SilkS) (width 0.25))
-	(fp_line (start -6.48 -3.00) (end -6.48 3.00) (layer F.SilkS) (width 0.25))
-	(fp_line (start -6.48 -3.00) (end -2.50 -3.00) (layer F.SilkS) (width 0.25))
-	(fp_line (start -6.48 3.00) (end -2.50 3.00) (layer F.SilkS) (width 0.25))
-	(fp_line (start 6.48 -3.00) (end 2.50 -3.00) (layer F.SilkS) (width 0.25))
-	(fp_line (start 6.48 3.00) (end 2.50 3.00) (layer F.SilkS) (width 0.25))
-	(pad 2 smd rect (at 4.50 0.00 0.00) (size 3.30 5.50) (layers F.Cu F.Paste F.Mask))
-	(pad 1 smd rect (at -4.50 0.00 0.00) (size 3.30 5.50) (layers F.Cu F.Paste F.Mask))
-	(fp_circle (center -5.00 2.60) (end -4.97 2.60) (layer F.Fab) (width 0.06))
-	(model "${KIPRJMOD}/mnt/hgfs/dpd/Documents/Open Source Solutions/BidirectionalSupply/hardware/BidirectionalSupply.3dshapes/RES-SMD_L10.0-W5.1-H1.5.wrl"
-		(offset (xyz 0.000 -0.000 -0.000))
-		(scale (xyz 1 1 1))
-		(rotate (xyz 0 0 0))
+	(fp_line
+		(start 6.48 -3.2)
+		(end 2.5 -3.2)
+		(stroke
+			(width 0.25)
+			(type solid)
+		)
+		(layer "F.SilkS")
+		(uuid "be7065d7-0f02-4cdc-89af-96149471c7c4")
+	)
+	(fp_line
+		(start 6.48 3.2)
+		(end 2.5 3.2)
+		(stroke
+			(width 0.25)
+			(type solid)
+		)
+		(layer "F.SilkS")
+		(uuid "189bac2f-5949-46b3-ac83-7b7da6a20852")
+	)
+	(fp_line
+		(start 6.6 -3.2)
+		(end 6.6 3.2)
+		(stroke
+			(width 0.25)
+			(type solid)
+		)
+		(layer "F.SilkS")
+		(uuid "a4a9eac6-3e2f-4cc7-9d55-6a8b14dc4740")
+	)
+	(fp_circle
+		(center -5 2.6)
+		(end -4.97 2.6)
+		(stroke
+			(width 0.06)
+			(type solid)
+		)
+		(fill none)
+		(layer "F.Fab")
+		(uuid "e6eff578-08f8-4df1-8ae5-11f044aaea05")
+	)
+	(fp_text user "${REFERENCE}"
+		(at 0 0 0)
+		(layer "F.Fab")
+		(uuid "190081f3-ed90-4153-a697-a9539d929ca0")
+		(effects
+			(font
+				(size 1 1)
+				(thickness 0.15)
+			)
+		)
+	)
+	(pad "1" smd rect
+		(at -4.5 0)
+		(size 3.3 5.5)
+		(layers "F.Cu" "F.Paste" "F.Mask")
+		(uuid "6bb3e6c5-5696-4c3e-936a-0ba16e8a4c36")
+	)
+	(pad "2" smd rect
+		(at 4.5 0)
+		(size 3.3 5.5)
+		(layers "F.Cu" "F.Paste" "F.Mask")
+		(uuid "aa15d197-913d-403e-a07d-a269df016a40")
+	)
+	(model "${KIPRJMOD}/BidirectionalSupply.3dshapes/RES-SMD_L10.0-W5.1-H1.5.wrl"
+		(offset
+			(xyz 0 -0 -0)
+		)
+		(scale
+			(xyz 1 1 1)
+		)
+		(rotate
+			(xyz 0 0 0)
+		)
 	)
 )

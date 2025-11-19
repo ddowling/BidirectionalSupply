@@ -227,4 +227,15 @@
 		(roundrect_rratio 0.1)
 		(uuid "a3fddcc7-ca41-4af5-b585-9539d2981e63")
 	)
+	(model "${KIPRJMOD}/BidirectionalSupply.3dshapes/SW-SMD_L3.9-W2.9-H2.0-LS4.8.wrl"
+		(offset
+			(xyz 0 0 0)
+		)
+		(scale
+			(xyz 1 1 1)
+		)
+		(rotate
+			(xyz 0 0 90)
+		)
+	)
 )

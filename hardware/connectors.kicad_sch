@@ -4025,10 +4025,10 @@
 		)
 		(uuid "ff77af83-a724-4b6f-b5f0-139fe699568e")
 	)
-	(text_box "PGND connects to GND at VCC bypass capacitot as per data sheet\n\nTODO\n* Check capacitor types. \n* Input X7R ceramic plus a larger bulk electrolytic"
+	(text_box "PGND connects to GND at VCC bypass capacitor as per data sheet\n"
 		(exclude_from_sim no)
 		(at 189.865 85.09 0)
-		(size 36.83 15.24)
+		(size 36.83 5.715)
 		(stroke
 			(width 0)
 			(type default)

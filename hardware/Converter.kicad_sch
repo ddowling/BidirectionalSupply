@@ -5693,10 +5693,10 @@
 		)
 		(uuid "d5360e84-16b6-4f87-a2eb-1987ee40eaba")
 	)
-	(text_box "- I^{2}C pullups of 10k as a starting point\n- Pullup for ~{CE} so regulator is off if no driven control from MCU\n\nTODO:\n- Add some level shifters to TS header and more pins for smart battery control"
+	(text_box "- I^{2}C pullups of 10k as a per BQ25758 data sheet\n- Pullup for ~{CE} so regulator is off if no driven control from MCU\n- BQ25758 is at I^{2}C address 0x6b (1101 011)"
 		(exclude_from_sim no)
 		(at 54.61 167.64 0)
-		(size 78.74 14.605)
+		(size 67.31 7.62)
 		(stroke
 			(width 0)
 			(type default)

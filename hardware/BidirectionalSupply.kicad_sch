@@ -11,7 +11,7 @@
 	)
 	(lib_symbols)
 	(image
-		(at 180.975 40.64)
+		(at 187.325 71.12)
 		(scale 0.786294)
 		(uuid "35ccbbff-92ec-41f7-95d2-5c4c0aaf8617")
 		(data "/9j/4Q/+RXhpZgAATU0AKgAAAAgABgESAAMAAAABAAEAAAEaAAUAAAABAAAAVgEbAAUAAAABAAAA"
@@ -1277,7 +1277,7 @@
 		)
 	)
 	(image
-		(at 100.33 40.64)
+		(at 106.68 71.12)
 		(scale 0.629422)
 		(uuid "620f1fd2-89bf-48de-addd-3da5144c5be8")
 		(data "iVBORw0KGgoAAAANSUhEUgAAA+YAAAKoCAYAAAD6ReWPAAABJ2lDQ1BrQ0dDb2xvclNwYWNlQWRv"
@@ -2112,7 +2112,7 @@
 		)
 	)
 	(image
-		(at 98.425 81.915)
+		(at 104.775 112.395)
 		(scale 0.287766)
 		(uuid "8f688c5d-a5d7-4a0f-9819-b4ab35874849")
 		(data "iVBORw0KGgoAAAANSUhEUgAAB9IAAANCCAYAAAA6LIcfAAABJ2lDQ1BrQ0dDb2xvclNwYWNlQWRv"
@@ -4902,7 +4902,7 @@
 		)
 	)
 	(image
-		(at 184.785 84.455)
+		(at 191.135 114.935)
 		(scale 2.12927)
 		(uuid "d0eb4896-ba53-4716-a7a8-b00bb7dbf9c5")
 		(data "/9j/4QDKRXhpZgAATU0AKgAAAAgABgESAAMAAAABAAEAAAEaAAUAAAABAAAAVgEbAAUAAAABAAAA"
@@ -5033,7 +5033,7 @@
 	)
 	(text_box "RP2350\n* Dual core\n* FPU\n* Large external flash\n* MicroPython capable"
 		(exclude_from_sim no)
-		(at 144.145 24.13 0)
+		(at 150.495 54.61 0)
 		(size 17.78 15.24)
 		(stroke
 			(width -0.0001)
@@ -5053,7 +5053,7 @@
 	)
 	(text_box "Four independant ideal diodes with load switching controlled by microcontroller.\nInput voltage feedback to microcontroller via resistive divider."
 		(exclude_from_sim no)
-		(at 142.24 72.39 0)
+		(at 148.59 102.87 0)
 		(size 27.305 13.97)
 		(stroke
 			(width -0.0001)
@@ -5073,7 +5073,7 @@
 	)
 	(text_box "Conventionsl diodes feeding a Buck converter to power microcontroller. The diodes are connected to the various system voltage sources that will provide redundancy for the microcontroller power."
 		(exclude_from_sim no)
-		(at 67.945 92.71 0)
+		(at 74.295 123.19 0)
 		(size 61.595 9.525)
 		(stroke
 			(width -0.0001)
@@ -5092,7 +5092,7 @@
 		(uuid "cba4ce7a-d807-4f42-8162-dbe7ca54b5d8")
 	)
 	(sheet
-		(at 142.875 22.225)
+		(at 149.225 52.705)
 		(size 59.055 38.1)
 		(fields_autoplaced yes)
 		(stroke
@@ -5104,7 +5104,7 @@
 		)
 		(uuid "1c1be91e-b9b6-4767-b4a3-64867bdbc875")
 		(property "Sheetname" "Microcontroller"
-			(at 142.875 21.5134 0)
+			(at 149.225 51.9934 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5113,7 +5113,7 @@
 			)
 		)
 		(property "Sheetfile" "Microcontroller.kicad_sch"
-			(at 142.875 60.9096 0)
+			(at 149.225 91.3896 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5130,7 +5130,7 @@
 		)
 	)
 	(sheet
-		(at 142.24 71.12)
+		(at 148.59 101.6)
 		(size 58.42 31.115)
 		(fields_autoplaced yes)
 		(stroke
@@ -5142,7 +5142,7 @@
 		)
 		(uuid "3161ebaa-00e6-42e6-a826-aee599f59803")
 		(property "Sheetname" "Ideal Diode Switch"
-			(at 142.24 70.4084 0)
+			(at 148.59 100.8884 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5151,7 +5151,7 @@
 			)
 		)
 		(property "Sheetfile" "Ideal Diode Switch.kicad_sch"
-			(at 142.24 102.8196 0)
+			(at 148.59 133.2996 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5168,7 +5168,7 @@
 		)
 	)
 	(sheet
-		(at 67.31 71.12)
+		(at 73.66 101.6)
 		(size 62.23 31.75)
 		(fields_autoplaced yes)
 		(stroke
@@ -5180,7 +5180,7 @@
 		)
 		(uuid "8fb5840d-6761-4aaf-a535-e125a9b8d99d")
 		(property "Sheetname" "Power & Connectors"
-			(at 67.31 70.4084 0)
+			(at 73.66 100.8884 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5189,7 +5189,7 @@
 			)
 		)
 		(property "Sheetfile" "connectors.kicad_sch"
-			(at 67.31 103.4546 0)
+			(at 73.66 133.9346 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5206,7 +5206,7 @@
 		)
 	)
 	(sheet
-		(at 67.945 21.59)
+		(at 74.295 52.07)
 		(size 62.23 38.735)
 		(fields_autoplaced yes)
 		(stroke
@@ -5218,7 +5218,7 @@
 		)
 		(uuid "d5ee1f61-f823-41e8-bbc3-367cca9f3789")
 		(property "Sheetname" "Converter"
-			(at 67.945 20.8784 0)
+			(at 74.295 51.3584 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5227,7 +5227,7 @@
 			)
 		)
 		(property "Sheetfile" "Converter.kicad_sch"
-			(at 67.945 60.9096 0)
+			(at 74.295 91.3896 0)
 			(effects
 				(font
 					(size 1.27 1.27)

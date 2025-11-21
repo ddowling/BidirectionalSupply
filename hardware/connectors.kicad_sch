@@ -360,7 +360,9 @@
 						(type background)
 					)
 				)
-				(pin unspecified line
+			)
+			(symbol "USB-309GC-B-SU_1_1"
+				(pin passive line
 					(at 2.54 22.86 270)
 					(length 5.08)
 					(name "25"
@@ -378,7 +380,7 @@
 						)
 					)
 				)
-				(pin unspecified line
+				(pin passive line
 					(at 0 22.86 270)
 					(length 5.08)
 					(name "26"
@@ -396,7 +398,7 @@
 						)
 					)
 				)
-				(pin unspecified line
+				(pin passive line
 					(at -2.54 22.86 270)
 					(length 5.08)
 					(name "27"
@@ -414,7 +416,7 @@
 						)
 					)
 				)
-				(pin unspecified line
+				(pin passive line
 					(at -2.54 -25.4 90)
 					(length 5.08)
 					(name "28"
@@ -432,7 +434,7 @@
 						)
 					)
 				)
-				(pin unspecified line
+				(pin passive line
 					(at 0 -25.4 90)
 					(length 5.08)
 					(name "29"
@@ -450,7 +452,7 @@
 						)
 					)
 				)
-				(pin unspecified line
+				(pin passive line
 					(at 2.54 -25.4 90)
 					(length 5.08)
 					(name "30"
@@ -468,7 +470,7 @@
 						)
 					)
 				)
-				(pin unspecified line
+				(pin power_in line
 					(at 15.24 -15.24 180)
 					(length 5.08)
 					(name "GND"
@@ -486,7 +488,7 @@
 						)
 					)
 				)
-				(pin unspecified line
+				(pin passive line
 					(at 15.24 7.62 180)
 					(length 5.08)
 					(name "SSRXN2"
@@ -504,7 +506,7 @@
 						)
 					)
 				)
-				(pin unspecified line
+				(pin passive line
 					(at 15.24 10.16 180)
 					(length 5.08)
 					(name "SSRXP2"
@@ -522,7 +524,7 @@
 						)
 					)
 				)
-				(pin unspecified line
+				(pin power_in line
 					(at 15.24 12.7 180)
 					(length 5.08)
 					(name "GND"
@@ -540,7 +542,7 @@
 						)
 					)
 				)
-				(pin unspecified line
+				(pin passive line
 					(at 15.24 -12.7 180)
 					(length 5.08)
 					(name "SSTXP1"
@@ -558,7 +560,7 @@
 						)
 					)
 				)
-				(pin unspecified line
+				(pin passive line
 					(at 15.24 -10.16 180)
 					(length 5.08)
 					(name "SSTXN1"
@@ -576,7 +578,7 @@
 						)
 					)
 				)
-				(pin unspecified line
+				(pin passive line
 					(at 15.24 -7.62 180)
 					(length 5.08)
 					(name "VBUS"
@@ -594,7 +596,7 @@
 						)
 					)
 				)
-				(pin unspecified line
+				(pin passive line
 					(at 15.24 -5.08 180)
 					(length 5.08)
 					(name "CC1"
@@ -612,7 +614,7 @@
 						)
 					)
 				)
-				(pin unspecified line
+				(pin passive line
 					(at 15.24 -2.54 180)
 					(length 5.08)
 					(name "DP1"
@@ -630,7 +632,7 @@
 						)
 					)
 				)
-				(pin unspecified line
+				(pin passive line
 					(at 15.24 0 180)
 					(length 5.08)
 					(name "DN1"
@@ -648,7 +650,7 @@
 						)
 					)
 				)
-				(pin unspecified line
+				(pin passive line
 					(at 15.24 2.54 180)
 					(length 5.08)
 					(name "SBU1"
@@ -666,7 +668,7 @@
 						)
 					)
 				)
-				(pin unspecified line
+				(pin passive line
 					(at 15.24 5.08 180)
 					(length 5.08)
 					(name "VBUS"
@@ -684,7 +686,7 @@
 						)
 					)
 				)
-				(pin unspecified line
+				(pin power_in line
 					(at -15.24 12.7 0)
 					(length 5.08)
 					(name "GND"
@@ -702,7 +704,7 @@
 						)
 					)
 				)
-				(pin unspecified line
+				(pin passive line
 					(at -15.24 -10.16 0)
 					(length 5.08)
 					(name "SSRXN1"
@@ -720,7 +722,7 @@
 						)
 					)
 				)
-				(pin unspecified line
+				(pin passive line
 					(at -15.24 -12.7 0)
 					(length 5.08)
 					(name "SSRXP1"
@@ -738,7 +740,7 @@
 						)
 					)
 				)
-				(pin unspecified line
+				(pin passive line
 					(at -15.24 -15.24 0)
 					(length 5.08)
 					(name "GND"
@@ -756,7 +758,7 @@
 						)
 					)
 				)
-				(pin unspecified line
+				(pin passive line
 					(at -15.24 10.16 0)
 					(length 5.08)
 					(name "SSTXP2"
@@ -774,7 +776,7 @@
 						)
 					)
 				)
-				(pin unspecified line
+				(pin passive line
 					(at -15.24 7.62 0)
 					(length 5.08)
 					(name "SSTXN2"
@@ -792,7 +794,7 @@
 						)
 					)
 				)
-				(pin unspecified line
+				(pin passive line
 					(at -15.24 5.08 0)
 					(length 5.08)
 					(name "VBUS"
@@ -810,7 +812,7 @@
 						)
 					)
 				)
-				(pin unspecified line
+				(pin passive line
 					(at -15.24 2.54 0)
 					(length 5.08)
 					(name "CC2"
@@ -828,7 +830,7 @@
 						)
 					)
 				)
-				(pin unspecified line
+				(pin passive line
 					(at -15.24 0 0)
 					(length 5.08)
 					(name "DP2"
@@ -846,7 +848,7 @@
 						)
 					)
 				)
-				(pin unspecified line
+				(pin passive line
 					(at -15.24 -2.54 0)
 					(length 5.08)
 					(name "DN2"
@@ -864,7 +866,7 @@
 						)
 					)
 				)
-				(pin unspecified line
+				(pin passive line
 					(at -15.24 -5.08 0)
 					(length 5.08)
 					(name "SBU2"
@@ -882,7 +884,7 @@
 						)
 					)
 				)
-				(pin unspecified line
+				(pin passive line
 					(at -15.24 -7.62 0)
 					(length 5.08)
 					(name "VBUS"
@@ -4193,6 +4195,75 @@
 			)
 		)
 	)
+	(netclass_flag ""
+		(length 2.54)
+		(shape round)
+		(at 111.76 30.48 0)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "17e3d12c-7a1c-466e-9b37-6b764efe1109")
+		(property "Netclass" "HV"
+			(at 112.4585 27.94 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(italic yes)
+				)
+				(justify left)
+			)
+		)
+	)
+	(netclass_flag ""
+		(length 2.54)
+		(shape round)
+		(at 111.76 38.1 0)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "45fcfcf1-e75d-4143-9407-aff05b0e122f")
+		(property "Netclass" "HV"
+			(at 112.4585 35.56 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(italic yes)
+				)
+				(justify left)
+			)
+		)
+	)
+	(netclass_flag ""
+		(length 2.54)
+		(shape round)
+		(at 111.76 45.72 0)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "cdd3da3d-4a51-43d3-8e3e-1b6849e93218")
+		(property "Netclass" "HV"
+			(at 112.4585 43.18 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(italic yes)
+				)
+				(justify left)
+			)
+		)
+	)
 	(symbol
 		(lib_id "power:PWR_FLAG")
 		(at 248.92 57.15 0)
@@ -4867,16 +4938,16 @@
 	)
 	(symbol
 		(lib_id "Connector_Generic:Conn_01x05")
-		(at 92.71 45.72 180)
+		(at 92.71 45.72 0)
+		(mirror y)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(fields_autoplaced yes)
 		(uuid "3b60dee8-fd0d-4d55-a61e-4b725ea64742")
 		(property "Reference" "J12"
-			(at 92.71 34.29 0)
+			(at 92.71 57.15 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4884,7 +4955,7 @@
 			)
 		)
 		(property "Value" "Conn_01x05"
-			(at 92.71 36.83 0)
+			(at 92.71 54.61 0)
 			(effects
 				(font
 					(size 1.27 1.27)

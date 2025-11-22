@@ -4466,6 +4466,15 @@
 				(hide yes)
 			)
 		)
+		(property "LCSC Part" "C3758930"
+			(at 119.38 38.1 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "1"
 			(uuid "c3deed68-795a-4a43-ab58-dafc63aceead")
 		)
@@ -4553,6 +4562,15 @@
 				(hide yes)
 			)
 		)
+		(property "LCSC Part" "C2286"
+			(at 256.54 73.66 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "1"
 			(uuid "08101c0b-a741-4388-a4bc-7ea8a3cf7332")
 		)
@@ -4632,6 +4650,15 @@
 			)
 		)
 		(property "Mouser" ""
+			(at 166.37 69.85 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "LCSC Part" "C1779"
 			(at 166.37 69.85 0)
 			(effects
 				(font
@@ -4849,6 +4876,15 @@
 			)
 		)
 		(property "Mouser" ""
+			(at 49.53 107.95 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "LCSC Part" "C23186"
 			(at 49.53 107.95 0)
 			(effects
 				(font
@@ -5275,6 +5311,15 @@
 			)
 		)
 		(property "Mouser" ""
+			(at 227.33 58.42 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "LCSC Part" "C83472"
 			(at 227.33 58.42 0)
 			(effects
 				(font
@@ -5915,6 +5960,15 @@
 				(hide yes)
 			)
 		)
+		(property "LCSC Part" "C15850"
+			(at 240.03 72.39 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "1"
 			(uuid "ed67a88c-9f5b-4175-ba56-1f8cae36d2f6")
 		)
@@ -6127,6 +6181,15 @@
 			)
 		)
 		(property "Mouser" ""
+			(at 232.41 72.39 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "LCSC Part" "C15850"
 			(at 232.41 72.39 0)
 			(effects
 				(font
@@ -6470,6 +6533,15 @@
 				(hide yes)
 			)
 		)
+		(property "LCSC Part" "C23186"
+			(at 96.52 107.95 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "2"
 			(uuid "01168c39-d4cb-428c-a12f-c4fec11e439e")
 		)
@@ -6550,6 +6622,15 @@
 			)
 		)
 		(property "Mouser" ""
+			(at 256.54 63.5 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "LCSC Part" "C21190"
 			(at 256.54 63.5 0)
 			(effects
 				(font
@@ -6645,6 +6726,15 @@
 				(hide yes)
 			)
 		)
+		(property "LCSC Part" "C1613"
+			(at 215.9 72.39 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "2"
 			(uuid "7e1e0f63-aa57-4b2a-be29-dd368672e8cc")
 		)
@@ -6724,6 +6814,15 @@
 			)
 		)
 		(property "Mouser" ""
+			(at 156.21 69.85 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "LCSC Part" "C13832"
 			(at 156.21 69.85 0)
 			(effects
 				(font
@@ -6819,6 +6918,15 @@
 				(hide yes)
 			)
 		)
+		(property "LCSC Part" "C128515"
+			(at 135.89 69.85 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "1"
 			(uuid "6a3f574b-95b8-4753-bad7-335cea22d1aa")
 		)
@@ -6887,7 +6995,7 @@
 				(hide yes)
 			)
 		)
-		(property "LCSC Part" "C559500"
+		(property "LCSC Part" "C571005"
 			(at 195.58 81.28 0)
 			(effects
 				(font
@@ -7019,6 +7127,15 @@
 			)
 		)
 		(property "Mouser" ""
+			(at 119.38 60.96 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "LCSC Part" "C3758930"
 			(at 119.38 60.96 0)
 			(effects
 				(font
@@ -7172,6 +7289,15 @@
 			)
 		)
 		(property "Mouser" ""
+			(at 119.38 30.48 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "LCSC Part" "C3758930"
 			(at 119.38 30.48 0)
 			(effects
 				(font
@@ -7391,6 +7517,15 @@
 			)
 		)
 		(property "Mouser" ""
+			(at 146.05 69.85 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "LCSC Part" "C13832"
 			(at 146.05 69.85 0)
 			(effects
 				(font
@@ -7672,6 +7807,15 @@
 			)
 		)
 		(property "Mouser" ""
+			(at 119.38 45.72 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "LCSC Part" "C3758930"
 			(at 119.38 45.72 0)
 			(effects
 				(font

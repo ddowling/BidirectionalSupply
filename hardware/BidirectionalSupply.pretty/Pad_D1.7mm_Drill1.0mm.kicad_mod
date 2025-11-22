@@ -3,8 +3,8 @@
 	(generator "pcbnew")
 	(generator_version "8.0")
 	(layer "F.Cu")
-	(descr "THT pad as test Point, diameter 1.5mm, hole diameter 0.7mm")
-	(tags "test point THT pad")
+	(descr "THT pad for prototyping area, diameter 1.5mm, hole diameter 0.7mm")
+	(tags "prototype area THT pad")
 	(property "Reference" "REF**"
 		(at 0 -1.648 0)
 		(layer "F.SilkS")
@@ -67,7 +67,7 @@
 			)
 		)
 	)
-	(attr exclude_from_pos_files exclude_from_bom)
+	(attr through_hole board_only exclude_from_pos_files exclude_from_bom dnp)
 	(fp_circle
 		(center 0 0)
 		(end 0.9 0)

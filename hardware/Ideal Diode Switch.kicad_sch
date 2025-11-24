@@ -3784,10 +3784,10 @@
 		)
 		(uuid "fdb0d9af-5922-47a2-84e5-fd354c9bfa11")
 	)
-	(text_box "VOVR = 1.23V\nVOVR = VOV * R35 / (R35 + R36 + R37)\nVSENSE = VBATT * (R35 + R36) / (R35 + R36 + R37)\nR35 + R36 + R37 < 120K. Select (R35 + R36) = 100K\nFor VOV = 60V & VSENSE/VBAT = 1/20\nR37 = (R35 + R36) * VOVR/(VOV - VOVR) = 2.1K\nR36 = VSENSE/VBAT * ((R35 + R36) + R37) - R37 = 3K ~= 3.1K\nR35 = 96.9K ~= 97.6K"
+	(text_box "VOVR = 1.23V\nVOVR = VOV * R37 / (R35 + R36 + R37) - EQ1\nVSENSE = VBATT * (R36 + R37) / (R35 + R36 + R37) - EQ2\nR35 + R36 + R37 < 120K. Select (R35 + R36) = 100K\nFor VOV = 60V & VSENSE/VBAT = 1/20\nFrom EQ1 \nR37 = (R35 + R36) * VOVR/(VOV - VOVR) = 2.1K\nR36 = VSENSE/VBAT * ((R35 + R36) + R37) - R37 = 3K ~= 3.1K\nR35 = 96.9K ~= 97.6K"
 		(exclude_from_sim no)
 		(at 22.86 20.955 0)
-		(size 64.77 19.05)
+		(size 64.77 23.495)
 		(stroke
 			(width 0)
 			(type default)

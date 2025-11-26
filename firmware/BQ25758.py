@@ -82,9 +82,12 @@ class BQ25758:
         # turn off if the micro crashes and stops ending commands
         self.set_watchdog_timeout(0)
 
-    def enable(b=True):
+    def is_enabled():
+        return not self.chip_enable_pin.value()
+
+    def set_enabled(b=True):
         # Inverted logic on CE pin
-        self.chip_enable_pin.value(!b)
+        self.chip_enable_pin.value(not b)
 
     def get_output_current_limit(self):
         '''Output voltage will be regulated to keep within this current limit'''
@@ -199,7 +202,7 @@ class BQ25758:
         if b:
             v |= 0x01
         else:
-            v &= ^0x01
+            v &= ~0x01
         self._write_u8(REG0x19_Power_Path_and_Reverse_Mode_Control, v)
 
     def set_watchdog_timeout(self, value):
@@ -214,8 +217,9 @@ class BQ25758:
 
         self._write_u8(REG0x15_Timer_Control, wd<<4)
 
-    def setup_adc(self, enable=True, continuous=True, resolution_bits=15
-                average=False, average_init=False):
+    def setup_adc(self, enable=True, continuous=True,
+                  resolution_bits=15,
+                  average=False, average_init=False):
         v = 0
         if enable:
             v |= 1<<7

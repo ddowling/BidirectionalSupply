@@ -5,13 +5,19 @@ bq_sda = machine.Pin(0)
 bq_scl = machine.Pin(1)
 bq_int = machine.Pin(2, machine.Pin.IN)
 bq_ce = machine.Pin(3, machine.Pin.OUT)
+
+# AUX header
 aux_spi_rx = machine.Pin(4)
 aux_spi_cs = machine.Pin(5)
 aux_spi_sck = machine.Pin(6)
 aux_spi_tx = machine.Pin(7)
-led = machine.Pin(8, machine.Pin.OUT)
 aux_sda = machine.Pin(10)
 aux_scl = machine.Pin(11)
+
+# Invert led levels sol led.on() and led.off() work as expected
+led = machine.Signal(machine.Pin(8, machine.Pin.OUT), invert=True)
+
+# Ideal Diode switches
 sw0_en = machine.Pin(12, machine.Pin.OUT)
 sw1_en = machine.Pin(13, machine.Pin.OUT)
 sw2_en = machine.Pin(14, machine.Pin.OUT)
@@ -24,13 +30,13 @@ sw3_vsense = machine.ADC(machine.Pin(29))
 bq_i2c = machine.I2C(0, sda=bq_sda, scl=bq_scl)
 aux_i2c = machine.I2C(1, sda=aux_sda, scl=aux_scl)
 
-bq = BQ25758.BQ25758(i2c_bus=ba_i2c, chip_enable_pin=bq_ce)
+bq = BQ25758.BQ25758(i2c_bus=bq_i2c, chip_enable_pin=bq_ce)
 
 # ADC scaling
 R35 = 97.6
 R36 = 3.1
 R37 = 2.1
-ADC_SCALE = (R35 + R36 + R37) / (R36 + R37)
+ADC_SCALE = 3.3 / 65535 * (R35 + R36 + R37) / (R36 + R37)
 
 def setup():
     led.on()

@@ -5,7 +5,7 @@
 	(uuid "29b2380f-a717-45ee-b35a-7eb393be6cbd")
 	(paper "A4")
 	(title_block
-		(date "2025-11-07")
+		(date "2025-11-24")
 		(rev "1.0")
 		(company "Open Source Solutions Pty Ltd")
 	)
@@ -3803,10 +3803,10 @@
 		)
 		(uuid "878f35d7-3d3b-4e9b-9fa7-164df2f769e7")
 	)
-	(text_box "Populate R59, R60, R61 and/or R62 if you need voltage monitoring when the EN is low and switch is off.\nNormally potential dividers are only enabled when the switch is on to reduce leakage current."
+	(text_box "Populate R59 if you need voltage monitoring when the EN is low and the switch is off.\nNormally potential dividers are only enabled when the switch is on to reduce leakage current.\nSame for the corresponding resistors on the other switches."
 		(exclude_from_sim no)
 		(at 13.97 51.435 0)
-		(size 28.575 20.32)
+		(size 28.575 24.765)
 		(stroke
 			(width 0)
 			(type default)

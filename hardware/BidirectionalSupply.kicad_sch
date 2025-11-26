@@ -5,7 +5,8 @@
 	(uuid "e5771ea0-f106-4b1c-9531-189f5725062b")
 	(paper "A4")
 	(title_block
-		(date "2025-11-07")
+		(title "Bidirectional Boost Buck Converter")
+		(date "2025-11-24")
 		(rev "1.0")
 		(company "Open Source Solutions Pty Ltd")
 	)

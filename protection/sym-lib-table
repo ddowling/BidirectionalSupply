@@ -1,0 +1,4 @@
+(sym_lib_table
+  (version 7)
+  (lib (name "protection")(type "KiCad")(uri "${KIPRJMOD}/protection.kicad_sym")(options "")(descr ""))
+)

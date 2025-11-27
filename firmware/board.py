@@ -36,7 +36,7 @@ bq = BQ25758.BQ25758(i2c_bus=bq_i2c, chip_enable_pin=bq_ce)
 R35 = 97.6
 R36 = 3.1
 R37 = 2.1
-ADC_SCALE = 3.3 / 65535 * (R35 + R36 + R37) / (R36 + R37)
+ADC_SCALE = (3.3 / 65535) * (R35 + R36 + R37) / (R36 + R37)
 
 def setup():
     led.on()

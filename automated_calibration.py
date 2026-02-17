@@ -341,6 +341,10 @@ class AutomatedCalibration:
             print(f"Board #{self.board_number} ({self.board.hardware_id})")
             print(f"Collected {len(calibration_data)} data points")
 
+            # Fit quadratic correction and upload to board
+            if len(calibration_data) >= 3:
+                self.apply_vout_calibration(df)
+
             # Generate analysis plots
             self.generate_analysis_plots(df, timestamp)
 
@@ -350,6 +354,51 @@ class AutomatedCalibration:
             self.disable_load()
             self.board.close()
             print("Calibration finished safely")
+
+    def apply_vout_calibration(self, df):
+        """Fit quadratic correction from calibration data and upload to board"""
+        adc_values = df['adc_voltage'].values
+        ref_values = df['reference_voltage'].values
+        error_mv = (adc_values - ref_values) * 1000
+
+        # Fit quadratic: error_mv = a*v^2 + b*v + c
+        coeffs = np.polyfit(adc_values, error_mv, 2)
+        a, b, c = float(coeffs[0]), float(coeffs[1]), float(coeffs[2])
+
+        # Calculate residual
+        fitted = np.polyval(coeffs, adc_values)
+        residual = error_mv - fitted
+        rms_error = float(np.sqrt(np.mean(residual**2)))
+
+        print(f"\nQuadratic fit: {a:.6f}*V^2 + {b:.4f}*V + {c:.2f} mV")
+        print(f"RMS residual: {rms_error:.1f}mV, Max: {np.abs(residual).max():.1f}mV")
+
+        # Upload calibration to board
+        print("Uploading calibration to board...")
+        self.board.exec(f"import calibration as _cal")
+        self.board.exec(f"_c = _cal.Calibration()")
+        self.board.exec(f"_c.set_vout_calibration(quad_a={a}, quad_b={b}, quad_c={c}, rms_error_mv={rms_error})")
+        self.board.exec(f"_c.set_calibration_date('{time.strftime('%Y-%m-%d')}')")
+        self.board.exec(f"_c.set_board_id()")
+        self.board.exec(f"_c.save()")
+
+        # Verify
+        resp = self.board.exec("print(_c.get_calibration_summary())")
+        print(f"Board calibration:\n{resp}")
+
+        # Update registry
+        try:
+            with open(REGISTRY_PATH) as f:
+                registry = json.load(f)
+            hw_id = self.board.hardware_id
+            if hw_id in registry['boards']:
+                registry['boards'][hw_id]['calibrated'] = True
+                registry['boards'][hw_id]['calibration_date'] = time.strftime('%Y-%m-%d')
+                registry['boards'][hw_id]['notes'] = f"quad_a={a:.6f}, quad_b={b:.4f}, quad_c={c:.2f}"
+                with open(REGISTRY_PATH, 'w') as f:
+                    json.dump(registry, f, indent=4)
+        except Exception as e:
+            print(f"Warning: could not update registry: {e}")
 
     def generate_analysis_plots(self, df, timestamp):
         """Generate matplotlib analysis plots"""

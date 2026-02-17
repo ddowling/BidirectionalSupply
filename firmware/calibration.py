@@ -166,6 +166,9 @@ class Calibration:
             "vout_adc": {
                 "gain": 1.0,
                 "offset": 0.0,
+                "quad_a": 0.0,
+                "quad_b": 0.0,
+                "quad_c": 0.0,
                 "rms_error_mv": 0.0
             },
             "vin_adc": {
@@ -214,9 +217,23 @@ class Calibration:
         self.data["calibration_date"] = date_str
     
     def calibrate_vout_adc(self, raw_value):
-        """Apply calibration to output voltage ADC reading"""
+        """Apply calibration to output voltage ADC reading.
+
+        Applies quadratic correction first (if coefficients are non-zero),
+        then linear gain/offset correction.
+        Quadratic: error_mv = a*v^2 + b*v + c, subtracted from raw value.
+        """
         cal = self.data.get("vout_adc", {"gain": 1.0, "offset": 0.0})
-        return (raw_value - cal["offset"]) / cal["gain"]
+        v = raw_value
+        # Apply quadratic correction if coefficients are present
+        a = cal.get("quad_a", 0.0)
+        b = cal.get("quad_b", 0.0)
+        c = cal.get("quad_c", 0.0)
+        if a != 0.0 or b != 0.0 or c != 0.0:
+            correction = (a * v * v + b * v + c) * 1e-3
+            v = v - correction
+        # Apply linear gain/offset correction
+        return (v - cal.get("offset", 0.0)) / cal.get("gain", 1.0)
     
     def calibrate_vin_adc(self, raw_value):
         """Apply calibration to input voltage ADC reading"""
@@ -238,12 +255,24 @@ class Calibration:
         cal = self.data.get("switch_vsense", {"gain": 1.0, "offset": 0.0})
         return (raw_value - cal["offset"]) / cal["gain"]
     
-    def set_vout_calibration(self, gain, offset, rms_error_mv=0.0):
-        """Set output voltage ADC calibration constants"""
+    def set_vout_calibration(self, gain=1.0, offset=0.0, quad_a=0.0, quad_b=0.0, quad_c=0.0, rms_error_mv=0.0):
+        """Set output voltage ADC calibration constants.
+
+        Args:
+            gain: Linear gain correction
+            offset: Linear offset correction (V)
+            quad_a: Quadratic coefficient (mV/V^2)
+            quad_b: Linear coefficient (mV/V)
+            quad_c: Constant offset (mV)
+            rms_error_mv: RMS error after calibration
+        """
         if "vout_adc" not in self.data:
             self.data["vout_adc"] = {}
         self.data["vout_adc"]["gain"] = gain
-        self.data["vout_adc"]["offset"] = offset  
+        self.data["vout_adc"]["offset"] = offset
+        self.data["vout_adc"]["quad_a"] = quad_a
+        self.data["vout_adc"]["quad_b"] = quad_b
+        self.data["vout_adc"]["quad_c"] = quad_c
         self.data["vout_adc"]["rms_error_mv"] = rms_error_mv
     
     def set_vin_calibration(self, gain, offset, rms_error_mv=0.0):
@@ -296,8 +325,15 @@ class Calibration:
                 else:
                     error = cal.get("rms_error_ma", 0.0)
                     unit = "mA"
-                
-                summary.append(f"{channel}: gain={gain:.6f}, offset={offset:.6f}, error={error:.1f}{unit}")
+
+                line = f"{channel}: gain={gain:.6f}, offset={offset:.6f}, error={error:.1f}{unit}"
+                # Show quadratic coefficients if present
+                a = cal.get("quad_a", 0.0)
+                b = cal.get("quad_b", 0.0)
+                c = cal.get("quad_c", 0.0)
+                if a != 0.0 or b != 0.0 or c != 0.0:
+                    line += f"\n  quad: {a:.6f}*V^2 + {b:.4f}*V + {c:.2f} mV"
+                summary.append(line)
         
         return "\n".join(summary)
     

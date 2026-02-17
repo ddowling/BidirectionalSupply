@@ -6,6 +6,13 @@
             "calibrated": true,
             "calibration_date": "2026-02-18",
             "notes": "Quadratic VOUT ADC correction derived from this board"
+        },
+        "RP2350_B1F4049F": {
+            "board_number": 2,
+            "description": "Board #2",
+            "calibrated": true,
+            "calibration_date": "2026-02-18",
+            "notes": "quad_a=0.061198, quad_b=-5.7726, quad_c=-161.83"
         }
     }
 }

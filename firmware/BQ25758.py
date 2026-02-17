@@ -268,7 +268,11 @@ class BQ25758:
 
     def get_vout_adc(self):
         raw = self._read_u16(REG0x33_VOUT_ADC)
-        return raw * 2.0e-3
+        v = raw * 2.0e-3
+        # Quadratic correction derived from IT8511 reference calibration
+        # error_mv = a*v^2 + b*v + c, correction subtracts the error
+        correction = (0.056768 * v * v - 2.4064 * v - 182.57) * 1e-3
+        return v - correction
 
     # Status_1 bits
     ADC_DONE_STAT = const(1<<7) # ADC conversion complete

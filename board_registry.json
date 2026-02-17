@@ -1,0 +1,11 @@
+{
+    "boards": {
+        "RP2350_1E017096": {
+            "board_number": 1,
+            "description": "Board #1 - first prototype",
+            "calibrated": true,
+            "calibration_date": "2026-02-18",
+            "notes": "Quadratic VOUT ADC correction derived from this board"
+        }
+    }
+}

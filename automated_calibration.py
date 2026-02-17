@@ -15,6 +15,8 @@ import serial
 from pathlib import Path
 from itech_serial import IT8500
 
+REGISTRY_PATH = Path(__file__).parent / 'board_registry.json'
+
 
 class BoardConnection:
     """Persistent connection to RP2350 board via MicroPython raw REPL"""
@@ -70,7 +72,13 @@ class BoardConnection:
             print(resp)
         self.exec("board.bq.setup_adc()")
         time.sleep(0.5)
-        print("Board initialized with ADC enabled")
+        self.hardware_id = self.get_hardware_id()
+        print(f"Board initialized with ADC enabled (HW ID: {self.hardware_id})")
+
+    def get_hardware_id(self):
+        """Read the unique hardware ID from the RP2350"""
+        resp = self.exec("import ubinascii, machine; print('RP2350_' + ubinascii.hexlify(machine.unique_id()).decode('ascii')[-8:].upper())")
+        return resp.strip()
 
     def close(self):
         """Exit raw REPL and close serial port"""
@@ -97,12 +105,56 @@ class AutomatedCalibration:
         self.load = None
         self.board = None
 
+    def load_board_registry(self):
+        """Load board registry and look up the connected board"""
+        try:
+            with open(REGISTRY_PATH) as f:
+                registry = json.load(f)
+        except FileNotFoundError:
+            print(f"Board registry not found at {REGISTRY_PATH}")
+            registry = {"boards": {}}
+
+        hw_id = self.board.hardware_id
+        if hw_id in registry['boards']:
+            info = registry['boards'][hw_id]
+            self.board_number = info['board_number']
+            print(f"Identified as Board #{self.board_number} ({info.get('description', '')})")
+        else:
+            print(f"Unknown board {hw_id} - not in registry")
+            self.board_number = self._register_new_board(registry, hw_id)
+
+    def _register_new_board(self, registry, hw_id):
+        """Prompt user to register a new board"""
+        existing = [b['board_number'] for b in registry['boards'].values()]
+        next_num = max(existing, default=0) + 1
+        resp = input(f"Register as Board #{next_num}? (y/N or enter number): ").strip()
+        if resp.lower() == 'y':
+            board_num = next_num
+        elif resp.isdigit():
+            board_num = int(resp)
+        else:
+            print("Board not registered, using 0")
+            return 0
+
+        registry['boards'][hw_id] = {
+            "board_number": board_num,
+            "description": f"Board #{board_num}",
+            "calibrated": False,
+            "calibration_date": None,
+            "notes": ""
+        }
+        with open(REGISTRY_PATH, 'w') as f:
+            json.dump(registry, f, indent=4)
+        print(f"Registered {hw_id} as Board #{board_num}")
+        return board_num
+
     def setup_board(self):
         """Initialize persistent connection to RP2350 board"""
         try:
             self.board = BoardConnection(self.board_port)
             self.board.connect()
             self.board.setup_board()
+            self.load_board_registry()
             return True
         except Exception as e:
             print(f"Error setting up board: {e}")
@@ -279,11 +331,14 @@ class AutomatedCalibration:
 
             # Save results
             df = pd.DataFrame(calibration_data)
+            df['board_number'] = self.board_number
+            df['hardware_id'] = self.board.hardware_id
             timestamp = int(time.time())
-            filename = f"calibration_results/automated_cal_{timestamp}.csv"
+            filename = f"calibration_results/board{self.board_number}_voltage_cal_{timestamp}.csv"
             df.to_csv(filename, index=False)
 
             print(f"\nCalibration complete! Results saved to {filename}")
+            print(f"Board #{self.board_number} ({self.board.hardware_id})")
             print(f"Collected {len(calibration_data)} data points")
 
             # Generate analysis plots
@@ -402,11 +457,14 @@ class AutomatedCalibration:
 
             # Save results
             df = pd.DataFrame(calibration_data)
+            df['board_number'] = self.board_number
+            df['hardware_id'] = self.board.hardware_id
             timestamp = int(time.time())
-            filename = f"calibration_results/current_cal_{timestamp}.csv"
+            filename = f"calibration_results/board{self.board_number}_current_cal_{timestamp}.csv"
             df.to_csv(filename, index=False)
 
             print(f"\nCurrent calibration complete! Results saved to {filename}")
+            print(f"Board #{self.board_number} ({self.board.hardware_id})")
             print(f"Collected {len(calibration_data)} data points")
 
             # Generate analysis plots

@@ -1,0 +1,33 @@
+{
+    "board_id": "RP2350_1E017096",
+    "hardware_id": "RP2350_1E017096",
+    "calibration_date": "2026-02-18",
+    "vout_adc": {
+        "gain": 1.0,
+        "offset": 0.0,
+        "quad_a": 0.056768,
+        "quad_b": -2.4064,
+        "quad_c": -182.57,
+        "rms_error_mv": 4.3
+    },
+    "vin_adc": {
+        "gain": 1.0,
+        "offset": 0.0,
+        "rms_error_mv": 0.0
+    },
+    "iout_adc": {
+        "gain": 1.0,
+        "offset": 0.0,
+        "rms_error_ma": 0.0
+    },
+    "iin_adc": {
+        "gain": 1.0,
+        "offset": 0.0,
+        "rms_error_ma": 0.0
+    },
+    "switch_vsense": {
+        "gain": 1.0,
+        "offset": 0.0,
+        "rms_error_mv": 0.0
+    }
+}

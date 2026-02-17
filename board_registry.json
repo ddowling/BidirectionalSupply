@@ -13,6 +13,13 @@
             "calibrated": true,
             "calibration_date": "2026-02-18",
             "notes": "quad_a=0.061198, quad_b=-5.7726, quad_c=-161.83"
+        },
+        "RP2350_E9322CC4": {
+            "board_number": 3,
+            "description": "Board #3",
+            "calibrated": true,
+            "calibration_date": "2026-02-18",
+            "notes": "quad_a=0.061846, quad_b=-6.0615, quad_c=-153.58"
         }
     }
 }

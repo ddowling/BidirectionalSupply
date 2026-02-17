@@ -1,0 +1,33 @@
+{
+    "board_id": "RP2350_E9322CC4",
+    "hardware_id": "RP2350_E9322CC4",
+    "calibration_date": "2026-02-18",
+    "vout_adc": {
+        "gain": 1.0,
+        "offset": 0.0,
+        "quad_a": 0.061846201175680744,
+        "quad_b": -6.061516810386511,
+        "quad_c": -153.57564812761265,
+        "rms_error_mv": 3.539792348447682
+    },
+    "vin_adc": {
+        "gain": 1.0,
+        "offset": 0.0,
+        "rms_error_mv": 0.0
+    },
+    "iout_adc": {
+        "gain": 1.0,
+        "offset": 0.0,
+        "rms_error_ma": 0.0
+    },
+    "iin_adc": {
+        "gain": 1.0,
+        "offset": 0.0,
+        "rms_error_ma": 0.0
+    },
+    "switch_vsense": {
+        "gain": 1.0,
+        "offset": 0.0,
+        "rms_error_mv": 0.0
+    }
+}

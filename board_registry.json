@@ -33,7 +33,7 @@
             "description": "Board #5",
             "calibrated": true,
             "calibration_date": "2026-02-18",
-            "notes": "quad_a=0.057370, quad_b=-1.3903, quad_b=-177.02"
+            "notes": "quad_a=0.057370, quad_b=-1.3903, quad_c=-177.02"
         }
     }
 }

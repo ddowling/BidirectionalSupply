@@ -20,6 +20,20 @@
             "calibrated": true,
             "calibration_date": "2026-02-18",
             "notes": "quad_a=0.061846, quad_b=-6.0615, quad_c=-153.58"
+        },
+        "RP2350_F714B131": {
+            "board_number": 4,
+            "description": "Board #4",
+            "calibrated": true,
+            "calibration_date": "2026-02-18",
+            "notes": "quad_a=0.073990, quad_b=-8.9779, quad_c=-141.29"
+        },
+        "RP2350_260E44FE": {
+            "board_number": 5,
+            "description": "Board #5",
+            "calibrated": true,
+            "calibration_date": "2026-02-18",
+            "notes": "quad_a=0.057370, quad_b=-1.3903, quad_b=-177.02"
         }
     }
 }

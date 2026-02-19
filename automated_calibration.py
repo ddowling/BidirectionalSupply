@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+# Copyright (c) 2026 Denis Dowling (dpd@opsol.com.au)
 """
 Automated calibration system integrating IT8511 DC load control
 with BidirectionalSupply ADC calibration.

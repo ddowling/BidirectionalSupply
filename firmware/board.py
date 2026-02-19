@@ -1,3 +1,4 @@
+# Copyright (c) 2026 Denis Dowling (dpd@opsol.com.au)
 from machine import Pin, ADC, Signal, I2C, Timer
 from BQ25758 import BQ25758
 from calibration import Calibration

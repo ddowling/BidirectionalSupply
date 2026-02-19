@@ -1,3 +1,4 @@
+# Copyright (c) 2026 Denis Dowling (dpd@opsol.com.au)
 from micropython import const
 
 REG0x02_Output_Current_Limit=const(0x02) # Output Current Limit
@@ -256,18 +257,22 @@ class BQ25758:
 
     def get_iin_adc(self):
         raw = self._read_s16(REG0x2D_IAC_ADC)
-        return raw * 0.8e-3
+        # 2mA per step
+        return raw * 2.0e-3
 
     def get_iout_adc(self):
         raw = self._read_s16(REG0x2F_IOUT_ADC)
-        return raw * 2.0e-3 # FIXME Why is this different from above
+        # 2mA per step
+        return raw * 2.0e-3
 
     def get_vin_adc(self):
         raw = self._read_u16(REG0x31_VAC_ADC)
+        # 2mV per step
         return raw * 2.0e-3
 
     def get_vout_adc(self):
         raw = self._read_u16(REG0x33_VOUT_ADC)
+        # 2mV per step
         return raw * 2.0e-3
 
     # Status_1 bits

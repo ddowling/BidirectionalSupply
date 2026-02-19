@@ -1,3 +1,4 @@
+# Copyright (c) 2026 Denis Dowling (dpd@opsol.com.au)
 """
 Detailed calibration data collection for PC analysis
 

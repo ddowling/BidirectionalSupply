@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+# Copyright (c) 2026 Denis Dowling (dpd@opsol.com.au)
 """
 BidirectionalSupply Calibration Data Analysis
 

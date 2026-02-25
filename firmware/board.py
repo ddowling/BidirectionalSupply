@@ -1,5 +1,5 @@
 # Copyright (c) 2026 Denis Dowling (dpd@opsol.com.au)
-from machine import Pin, ADC, Signal, I2C, Timer
+from machine import Pin, ADC, PWM, I2C, Timer
 from BQ25758 import BQ25758
 from calibration import Calibration
 
@@ -16,8 +16,8 @@ aux_spi_tx = Pin(7)
 aux_sda = Pin(10)
 aux_scl = Pin(11)
 
-# Invert led levels sol led.on() and led.off() work as expected
-led = Signal(Pin(8, Pin.OUT), invert=True)
+# LED on Pin(8), active-low. PWM: duty 0 = full on, 65535 = off.
+_led_pwm = PWM(Pin(8, Pin.OUT), freq=1000, duty_u16=65535)
 
 # Ideal Diode switches
 sw0_en = Pin(12, Pin.OUT)
@@ -44,7 +44,7 @@ R37 = 2.1
 ADC_SCALE = (3.3 / 65535) * (R35 + R36 + R37) / (R36 + R37)
 
 def setup():
-    led.on()
+    _led_pwm.duty_u16(0)  # LED on during setup
     
     # Display board identification
     print(f"=== BidirectionalSupply Board ===")
@@ -80,7 +80,7 @@ def setup():
     for d in devices:
         print(f"Device at address {d:02x}")
 
-    led.off()
+    _led_pwm.duty_u16(65535)  # LED off after setup
 
 def _switch_to_enable_pin(switch_num):
     if switch_num == 0:
@@ -121,18 +121,29 @@ def get_switch_vsense(switch_num):
 
 poll_timer = Timer()
 
-def poll(t):
-    if led.value():
-        led.off()
-    else:
-        led.on()
+# Breathing LED state: triangle wave, 100 steps per half-cycle × 20ms = 4s full breath
+_BREATH_STEPS = 100
+_breath_step = 0
+_breath_dir = 1
+
+def _breath_poll(t):
+    global _breath_step, _breath_dir
+    # Gamma-correct for perceptual linearity (gamma=2)
+    frac = _breath_step / _BREATH_STEPS
+    duty = 65535 - int((frac * frac) * 65535)  # active-low: 0=full on, 65535=off
+    _led_pwm.duty_u16(duty)
+    _breath_step += _breath_dir
+    if _breath_step >= _BREATH_STEPS:
+        _breath_dir = -1
+    elif _breath_step <= 0:
+        _breath_dir = 1
 
 def monitor(active=True):
     if active:
-        poll_timer.init(mode=Timer.PERIODIC, period=100, callback=poll)
+        poll_timer.init(mode=Timer.PERIODIC, period=20, callback=_breath_poll)
     else:
         poll_timer.deinit()
-        led.off()
+        _led_pwm.duty_u16(65535)  # LED off
 
 # Calibrated ADC reading functions
 def get_vout_calibrated():

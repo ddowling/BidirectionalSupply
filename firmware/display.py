@@ -37,7 +37,7 @@ while False:
     display.fill(color)
     time.sleep(1)
 
-while True:
+while False:
     color = display.color(255,0,0)
     display.fill(color)
     x = 0

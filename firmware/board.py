@@ -37,7 +37,7 @@ bq = BQ25758(i2c_bus=bq_i2c, chip_enable_pin=bq_ce)
 # Load calibration data
 calibration = Calibration()
 
-# ADC scaling
+# RP2350 ADC scaling for the ideal diode switches
 R35 = 97.6
 R36 = 3.1
 R37 = 2.1
@@ -45,7 +45,7 @@ ADC_SCALE = (3.3 / 65535) * (R35 + R36 + R37) / (R36 + R37)
 
 def setup():
     _led_pwm.duty_u16(0)  # LED on during setup
-    
+
     # Display board identification
     print(f"=== BidirectionalSupply Board ===")
     print(f"Board ID: {calibration.get_board_id()}")
@@ -175,46 +175,46 @@ def get_power_readings():
     """Get comprehensive power readings with calibration"""
     readings = {
         'vin_raw': bq.get_vin_adc(),
-        'vout_raw': bq.get_vout_adc(), 
+        'vout_raw': bq.get_vout_adc(),
         'iin_raw': bq.get_iin_adc(),
         'iout_raw': bq.get_iout_adc(),
         'vin_cal': get_vin_calibrated(),
         'vout_cal': get_vout_calibrated(),
-        'iin_cal': get_iin_calibrated(), 
+        'iin_cal': get_iin_calibrated(),
         'iout_cal': get_iout_calibrated()
     }
-    
+
     # Calculate power
     readings['pin_raw'] = readings['vin_raw'] * abs(readings['iin_raw'])
     readings['pout_raw'] = readings['vout_raw'] * abs(readings['iout_raw'])
     readings['pin_cal'] = readings['vin_cal'] * abs(readings['iin_cal'])
     readings['pout_cal'] = readings['vout_cal'] * abs(readings['iout_cal'])
-    
+
     # Calculate efficiency
     if readings['pin_cal'] > 0.001:
         readings['efficiency'] = (readings['pout_cal'] / readings['pin_cal']) * 100
     else:
         readings['efficiency'] = 0.0
-        
+
     return readings
 
 def print_power_summary():
     """Print formatted power readings"""
     readings = get_power_readings()
-    
+
     print("=== Power Readings ===")
     print(f"Input:  {readings['vin_cal']:.3f}V  {readings['iin_cal']:.3f}A  {readings['pin_cal']:.3f}W")
-    print(f"Output: {readings['vout_cal']:.3f}V  {readings['iout_cal']:.3f}A  {readings['pout_cal']:.3f}W") 
+    print(f"Output: {readings['vout_cal']:.3f}V  {readings['iout_cal']:.3f}A  {readings['pout_cal']:.3f}W")
     if readings['efficiency'] > 0:
         print(f"Efficiency: {readings['efficiency']:.1f}%")
-    
+
     if calibration.is_calibrated():
-        print(f"\\nUsing calibration for {calibration.get_board_id()}")
+        print(f"Using calibration for {calibration.get_board_id()}")
         print("Raw vs Calibrated comparison:")
         print(f"  Vin:  {readings['vin_raw']:.3f}V -> {readings['vin_cal']:.3f}V")
         print(f"  Vout: {readings['vout_raw']:.3f}V -> {readings['vout_cal']:.3f}V")
     else:
-        print("\\nNo calibration applied (using raw ADC values)")
+        print("No calibration applied (using raw ADC values)")
 
 def get_calibration_info():
     """Get calibration status and summary"""
@@ -223,7 +223,7 @@ def get_calibration_info():
     else:
         print("No calibration data found")
         print("Run: import calibrate_board; calibrate_board.quick_cal('board_id')")
-        
+
 def reload_calibration():
     """Reload calibration data from file"""
     global calibration
@@ -233,7 +233,7 @@ def reload_calibration():
 def diagnose_calibration():
     """Diagnose calibration file issues"""
     calibration.diagnose_files()
-    
+
 def repair_calibration():
     """Attempt to repair calibration from backup"""
     return calibration.repair_from_backup()

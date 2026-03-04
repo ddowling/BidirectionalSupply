@@ -2,12 +2,12 @@ import numpy as np
 import matplotlib.pyplot as plt
 from scipy.optimize import curve_fit
 
-thermocouple_types = [ "102AT", "202AT", "502AT", "103AT", "203AT" ]
+thermister_types = [ "102AT", "202AT", "502AT", "103AT", "203AT" ]
 
 # From https://www.semitec-global.com/uploads/2022/01/P12-13-AT-Thermistor.pdf
 # column 0 is temperature in degrees C
-# other columns are restance in kiloohms corresponding to the thermocouple_type
-thermocouple_table = np.array([
+# other columns are restance in kiloohms corresponding to the thermister_type
+thermister_table = np.array([
     [-50, 24.46, 55.66, 154.6, 329.5, 1253],
     [-40, 14.43, 32.34, 88.91, 188.5, 642.0],
     [-30, 8.834, 19.48, 52.87, 111.3, 342.5],
@@ -30,10 +30,10 @@ thermocouple_table = np.array([
     ])
 
 sensor_type = 3
-thermocouple_name = thermocouple_types[sensor_type]
-temperature_c = thermocouple_table[:,0]
+thermister_name = thermister_types[sensor_type]
+temperature_c = thermister_table[:,0]
 temperature_k = temperature_c + 273.15
-resistance = thermocouple_table[:,sensor_type+1]
+resistance = thermister_table[:,sensor_type+1]
 
 # Plot of ADC value with R25 resistor in percent
 if False:
@@ -42,7 +42,7 @@ if False:
     plt.plot(temperature_c, percent)
     plt.xlabel("Temperature")
     plt.ylabel("Percent")
-    plt.title(f"Voltage fraction versus temperature for {thermocouple_name} thermocouple")
+    plt.title(f"Voltage fraction versus temperature for {thermister_name} thermister")
     plt.show()
 
 # Fit the Steinhart-Hart formula to the data
@@ -68,9 +68,9 @@ if True:
     predicted_c = steinhart_hart(resistance, A_fit, B_fit, C_fit) - 273.15
     plt.plot(resistance, temperature_c, label="Datasheet")
     plt.plot(resistance, predicted_c, label="Predicted")
-    plt.xlabel("Resistance")
-    plt.ylabel("Temperature")
-    plt.title(f"temperature versus resistance for {thermocouple_name} thermocouple")
+    plt.xlabel("Resistance (kΩ)")
+    plt.ylabel("Temperature (°C)")
+    plt.title(f"temperature versus resistance for {thermister_name} thermister")
     plt.legend()
     plt.grid(True)
     plt.show()
@@ -80,3 +80,4 @@ if True:
 # fraction = 10 / (resistance + 10)
 # resistance = 10/fraction - 10
 # resistance = 10 * (1 - fraction)/fraction
+

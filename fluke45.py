@@ -1,6 +1,23 @@
 import serial
 import time
 
+def find_com_port(hwid_regex):
+    import re
+    from serial.tools import list_ports
+
+    hwid_regex = re.compile(hwid_regex)
+
+    for port in list_ports.comports():
+        if hwid_regex.search(port.hwid):
+            return port.device
+    return None
+
+def list_com_ports():
+    from serial.tools import list_ports
+    for port in list_ports.comports():
+        if port.hwid and port.hwid != 'n/a':
+            print(f'device="{port.device}" description="{port.description}" hwid="{port.hwid}"')
+
 class Fluke45:
     def __init__(self, serial_port, baud=9600, debug=False):
         self.serial = serial.Serial(

@@ -8,15 +8,14 @@ import ezFBfont_helvR24_latin_38 as helvetica_font_data
 import random
 from array import array
 
-dis_clk = Pin(2)
-dis_tx = Pin(3)
-#dis_rx = Pin(4) # Not used
-dis_reset = Pin(6, Pin.OUT)
-dis_dc = Pin(7, Pin.OUT, value=1)
-dis_cs = Pin(8, Pin.OUT, value=1)
-dis_bl = Pin(9, Pin.OUT, value=0)
+dis_clk = Pin(6)
+dis_tx = Pin(7)
+dis_reset = Pin(4, Pin.OUT)
+dis_dc = Pin(10, Pin.OUT, value=1)
+dis_cs = Pin(5, Pin.OUT, value=1)
+dis_bl = Pin(11, Pin.OUT, value=0)
 
-dis_bl_pwm = PWM(dis_bl, duty_u16=0x0)
+dis_bl_pwm = PWM(dis_bl, freq=100_000, duty_u16=0xd000)
 
 spi0 = SPI(0,
            sck=dis_clk, mosi=dis_tx, miso=None,
@@ -32,13 +31,17 @@ display = st7789.ST7789_SPI(spi0,
                             cs=dis_cs,
                             dc=dis_dc,
                             backlight=dis_bl_pwm,
+                            bright=0.6, # 1.0=full_off 0.0=full_on
                             rotation=1,
                             color_order=st7789.BGR,
                             reverse_bytes_in_word=True
                             )
 
-fixed_font = ezFBfont(display, fixed_font_data, fg=st7789.WHITE)
-helvetica_font = ezFBfont(display, helvetica_font_data, fg=st7789.WHITE)
+fixed_font = ezFBfont(display, fixed_font_data,
+                      fg=st7789.WHITE, cswap=True)
+
+helvetica_font = ezFBfont(display, helvetica_font_data,
+                          fg=st7789.WHITE, cswap=True)
 
 right_arrow = array('h', [
     0, 5,
@@ -66,6 +69,7 @@ def show_booting():
     uptime += 1
 
 def update_display():
+    global uptime
     #t_start = time.time_ns()
 
     display.fill(st7789.BLACK)
@@ -74,9 +78,11 @@ def update_display():
     helvetica_font.write(f'{v2:.3f}V', 150, 0)
     helvetica_font.write(f'{a2:.3f}A', 150, 35)
 
-    display.poly(110, 35, right_arrow, st7789.GREEN, f=True)
+    display.poly(110 + (uptime%10), 35,
+                 right_arrow, st7789.GREEN, f=True)
 
     display.show()
+    uptime += 1
     t_end = time.time_ns()
 
     #t_delta_ms = (t_end - t_start) / 1e6
@@ -95,4 +101,4 @@ def _poll(t):
 #show_booting()
 # See if we can update the display from a timer?
 poll_timer = Timer()
-poll_timer.init(mode=Timer.PERIODIC, period=100, callback=_poll)
+poll_timer.init(mode=Timer.PERIODIC, period=200, callback=_poll)

@@ -129,21 +129,21 @@ class BoardContext(dict):
         if key == 'vin':
             v = calibration.calibrate_vin_adc(self['vin_raw'])
         elif key == 'vin_raw':
-            v = bq.get_vin_adc()
+            v = _ema.get('vin_raw', bq.get_vin_adc())
         elif key == 'vout':
             v = calibration.calibrate_vout_adc(self['vout_raw'])
         elif key == 'vout_raw':
-            v = bq.get_vout_adc()
+            v = _ema.get('vout_raw', bq.get_vout_adc())
 
         # Currents
         elif key == 'iin':
             v = calibration.calibrate_iin_adc(self['iin_raw'])
         elif key == 'iin_raw':
-            v = bq.get_iin_adc()
+            v = _ema.get('iin_raw', bq.get_iin_adc())
         elif key == 'iout':
             v = calibration.calibrate_iout_adc(self['iout_raw'])
         elif key == 'iout_raw':
-            v = bq.get_iout_adc()
+            v = _ema.get('iout_raw', bq.get_iout_adc())
 
         # Calculate power
         elif key == 'pin':
@@ -177,6 +177,19 @@ _BREATH_STEPS = 100
 _breath_step = 0
 _breath_dir = 1
 
+# EMA filter for raw ADC readings, updated every poll tick (20ms).
+# Alpha=0.3 gives ~3-4 sample effective window; lower = smoother, higher = more responsive.
+_EMA_ALPHA = 0.095  # τ ≈ 200ms at 20ms tick; original 0.3 gave τ ≈ 56ms
+_ema = {}
+
+def _update_ema():
+    for key, fn in (('vin_raw',  bq.get_vin_adc),
+                    ('vout_raw', bq.get_vout_adc),
+                    ('iin_raw',  bq.get_iin_adc),
+                    ('iout_raw', bq.get_iout_adc)):
+        raw = fn()
+        _ema[key] = _EMA_ALPHA * raw + (1 - _EMA_ALPHA) * _ema.get(key, raw)
+
 def _do_breath_step():
     global _breath_step, _breath_dir
     # Gamma-correct for perceptual linearity (gamma=2)
@@ -190,6 +203,7 @@ def _do_breath_step():
         _breath_dir = 1
 
 def _poll(t):
+    _update_ema()
     _do_breath_step()
 
     if _breath_step % 10 == 0:

@@ -8,13 +8,12 @@ import time
 
 from machine import Pin, PWM, SPI
 
-dis_clk = Pin(2)
-dis_tx = Pin(3)
-#dis_rx = Pin(4) # Not used
-dis_reset = Pin(6, Pin.OUT)
-dis_dc = Pin(7, Pin.OUT, value=1)
-dis_cs = Pin(8, Pin.OUT, value=1)
-dis_bl = Pin(9, Pin.OUT, value=0)
+dis_clk = Pin(6)
+dis_tx = Pin(7)
+dis_reset = Pin(4, Pin.OUT)
+dis_dc = Pin(10, Pin.OUT, value=1)
+dis_cs = Pin(5, Pin.OUT, value=1)
+dis_bl = Pin(11, Pin.OUT, value=0)
 
 dis_bl_pwm = PWM(dis_bl, duty_u16=0x0)
 

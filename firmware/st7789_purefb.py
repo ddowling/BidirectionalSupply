@@ -215,10 +215,7 @@ class ST7789(framebuf.FrameBuffer):
 
         self.hard_reset()
 
-        # Blank display and turn on backlight
-        self.fill(BLACK)
-        self.show()
-        sleep_ms(150)
+        # turn on backlight
         self.brightness(bright)
 
     def send_init(self, commands):

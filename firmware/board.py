@@ -2,22 +2,16 @@
 from machine import Pin, ADC, PWM, I2C, Timer
 from BQ25758 import BQ25758
 from calibration import Calibration
+from display import display_convertor_info, display_blank
 
 bq_sda = Pin(0)
 bq_scl = Pin(1)
 bq_int = Pin(2, Pin.IN)
 bq_ce = Pin(3, Pin.OUT)
 
-# AUX header
-aux_spi_rx = Pin(4)
-aux_spi_cs = Pin(5)
-aux_spi_sck = Pin(6)
-aux_spi_tx = Pin(7)
-aux_sda = Pin(10)
-aux_scl = Pin(11)
-
 # LED on Pin(8), active-low. PWM: duty 0 = full on, 65535 = off.
-_led_pwm = PWM(Pin(8, Pin.OUT), freq=1000, duty_u16=65535)
+_led_pwm = PWM(Pin(8, Pin.OUT), freq=100_000, duty_u16=65535)
+
 
 # Ideal Diode switches
 sw0_en = Pin(12, Pin.OUT)
@@ -30,7 +24,6 @@ sw2_vsense = ADC(Pin(28))
 sw3_vsense = ADC(Pin(29))
 
 bq_i2c = I2C(0, sda=bq_sda, scl=bq_scl)
-aux_i2c = I2C(1, sda=aux_sda, scl=aux_scl)
 
 bq = BQ25758(i2c_bus=bq_i2c, chip_enable_pin=bq_ce)
 
@@ -46,6 +39,8 @@ ADC_SCALE = (3.3 / 65535) * (R35 + R36 + R37) / (R36 + R37)
 def setup():
     _led_pwm.duty_u16(0)  # LED on during setup
 
+    display_blank()
+
     # Display board identification
     print(f"=== BidirectionalSupply Board ===")
     print(f"Board ID: {calibration.get_board_id()}")
@@ -54,7 +49,6 @@ def setup():
         print(f"Calibrated: {calibration.get_calibration_date()}")
     else:
         print("Calibrated: No calibration data")
-    print()
 
     # Look for devices on the bq_i2c bus
     devices = bq_i2c.scan()
@@ -72,13 +66,6 @@ def setup():
     print("Initialised BQ25758")
 
     bq.setup_adc()
-
-    # Look for devices on the aux_i2c bus
-    devices = aux_i2c.scan()
-
-    print(f"Found {len(devices)} devices on aux_i2c bus")
-    for d in devices:
-        print(f"Device at address {d:02x}")
 
     _led_pwm.duty_u16(65535)  # LED off after setup
 
@@ -119,6 +106,70 @@ def get_switch_vsense(switch_num):
     raw = adc.read_u16()
     return raw * ADC_SCALE
 
+class BoardContext(dict):
+    '''Lazy-evaluated cache of board measurements and derived quantities.
+
+    Values are computed on first access and cached for subsequent reads.
+    Call clear() to invalidate the cache and force fresh ADC reads.
+
+    IMPORTANT: Access values with context['key'], NOT context.get('key').
+    dict.get() bypasses __missing__ and will return None instead of
+    computing the value.
+    '''
+    def __getitem__(self, key):
+        '''MicroPython's dict does not call __missing__, so we do it here.'''
+        try:
+            return super().__getitem__(key)
+        except KeyError:
+            return self.__missing__(key)
+
+    def __missing__(self, key):
+        '''Compute and cache a value on first access via context['key'].'''
+        # Voltages
+        if key == 'vin':
+            v = calibration.calibrate_vin_adc(self['vin_raw'])
+        elif key == 'vin_raw':
+            v = bq.get_vin_adc()
+        elif key == 'vout':
+            v = calibration.calibrate_vout_adc(self['vout_raw'])
+        elif key == 'vout_raw':
+            v = bq.get_vout_adc()
+
+        # Currents
+        elif key == 'iin':
+            v = calibration.calibrate_iin_adc(self['iin_raw'])
+        elif key == 'iin_raw':
+            v = bq.get_iin_adc()
+        elif key == 'iout':
+            v = calibration.calibrate_iout_adc(self['iout_raw'])
+        elif key == 'iout_raw':
+            v = bq.get_iout_adc()
+
+        # Calculate power
+        elif key == 'pin':
+            v = self['vin'] * self['iin']
+        elif key == 'pout':
+            v = self['vout'] * self['iout']
+        elif key == 'pin_raw':
+            v = self['vin_raw'] * self['iin_raw']
+        elif key == 'pout_raw':
+            v = self['vout_raw'] * self['iout_raw']
+
+        # Calculate efficiency
+        elif key == 'efficiency':
+            pin = self['pin']
+            v = (self['pout'] / pin) * 100 if pin > 0.001 else 0.0
+
+        # Illegal key for the context
+        else:
+            raise KeyError(key)
+
+        # Update cache and return value
+        self[key] = v
+        return v
+
+context = BoardContext()
+
 poll_timer = Timer()
 
 # Breathing LED state: triangle wave, 100 steps per half-cycle × 20ms = 4s full breath
@@ -126,7 +177,7 @@ _BREATH_STEPS = 100
 _breath_step = 0
 _breath_dir = 1
 
-def _breath_poll(t):
+def _do_breath_step():
     global _breath_step, _breath_dir
     # Gamma-correct for perceptual linearity (gamma=2)
     frac = _breath_step / _BREATH_STEPS
@@ -138,81 +189,39 @@ def _breath_poll(t):
     elif _breath_step <= 0:
         _breath_dir = 1
 
+def _poll(t):
+    _do_breath_step()
+
+    if _breath_step % 10 == 0:
+        context.clear()
+        display_convertor_info(context)
+
 def monitor(active=True):
     if active:
-        poll_timer.init(mode=Timer.PERIODIC, period=20, callback=_breath_poll)
+        poll_timer.init(mode=Timer.PERIODIC, period=20, callback=_poll)
     else:
         poll_timer.deinit()
         _led_pwm.duty_u16(65535)  # LED off
-
-# Calibrated ADC reading functions
-def get_vout_calibrated():
-    """Get calibrated output voltage reading"""
-    raw = bq.get_vout_adc()
-    return calibration.calibrate_vout_adc(raw)
-
-def get_vin_calibrated():
-    """Get calibrated input voltage reading"""
-    raw = bq.get_vin_adc()
-    return calibration.calibrate_vin_adc(raw)
-
-def get_iout_calibrated():
-    """Get calibrated output current reading"""
-    raw = bq.get_iout_adc()
-    return calibration.calibrate_iout_adc(raw)
-
-def get_iin_calibrated():
-    """Get calibrated input current reading"""
-    raw = bq.get_iin_adc()
-    return calibration.calibrate_iin_adc(raw)
 
 def get_switch_vsense_calibrated(switch_num):
     """Get calibrated ideal diode switch voltage sense reading"""
     raw = get_switch_vsense(switch_num)
     return calibration.calibrate_switch_vsense(raw)
 
-def get_power_readings():
-    """Get comprehensive power readings with calibration"""
-    readings = {
-        'vin_raw': bq.get_vin_adc(),
-        'vout_raw': bq.get_vout_adc(),
-        'iin_raw': bq.get_iin_adc(),
-        'iout_raw': bq.get_iout_adc(),
-        'vin_cal': get_vin_calibrated(),
-        'vout_cal': get_vout_calibrated(),
-        'iin_cal': get_iin_calibrated(),
-        'iout_cal': get_iout_calibrated()
-    }
-
-    # Calculate power
-    readings['pin_raw'] = readings['vin_raw'] * abs(readings['iin_raw'])
-    readings['pout_raw'] = readings['vout_raw'] * abs(readings['iout_raw'])
-    readings['pin_cal'] = readings['vin_cal'] * abs(readings['iin_cal'])
-    readings['pout_cal'] = readings['vout_cal'] * abs(readings['iout_cal'])
-
-    # Calculate efficiency
-    if readings['pin_cal'] > 0.001:
-        readings['efficiency'] = (readings['pout_cal'] / readings['pin_cal']) * 100
-    else:
-        readings['efficiency'] = 0.0
-
-    return readings
-
 def print_power_summary():
     """Print formatted power readings"""
-    readings = get_power_readings()
-
+    context.clear()
     print("=== Power Readings ===")
-    print(f"Input:  {readings['vin_cal']:.3f}V  {readings['iin_cal']:.3f}A  {readings['pin_cal']:.3f}W")
-    print(f"Output: {readings['vout_cal']:.3f}V  {readings['iout_cal']:.3f}A  {readings['pout_cal']:.3f}W")
-    if readings['efficiency'] > 0:
-        print(f"Efficiency: {readings['efficiency']:.1f}%")
+    print(f"Input:  {context['vin']:.3f}V  {context['iin']:.3f}A  {context['pin']:.3f}W")
+    print(f"Output: {context['vout']:.3f}V  {context['iout']:.3f}A  {context['pout']:.3f}W")
+    if context['efficiency'] > 0:
+        print(f"Efficiency: {context['efficiency']:.1f}%")
 
     if calibration.is_calibrated():
         print(f"Using calibration for {calibration.get_board_id()}")
         print("Raw vs Calibrated comparison:")
-        print(f"  Vin:  {readings['vin_raw']:.3f}V -> {readings['vin_cal']:.3f}V")
-        print(f"  Vout: {readings['vout_raw']:.3f}V -> {readings['vout_cal']:.3f}V")
+        print(f"  Vin:  {context['vin_raw']:.3f}V -> {context['vin']:.3f}V")
+        print(f"  Vout: {context['vout_raw']:.3f}V -> {context['vout']:.3f}V")
     else:
         print("No calibration applied (using raw ADC values)")
 

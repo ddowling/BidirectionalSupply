@@ -62,11 +62,15 @@ BidirectionalSupply is a bidirectional Buck-Boost DC-DC converter design based o
 - **AUX SPI Header**: RX=Pin(4), CS=Pin(5), SCK=Pin(6), TX=Pin(7)
 
 ### Display Development
-The system supports two ST7789 driver approaches:
-1. **Basic driver** (`st7789_base.py`, `st7789_ext.py`): Direct pixel control
-2. **Framebuffer driver** (`st7789-framebuffer/`): Full framebuffer with font support
-
+The active display driver is `st7789_purefb.py` (framebuffer-based) with `ezFBfont` for font rendering.
 Display resolution is 284x76 with specific offset configuration for this hardware.
+
+#### Font files
+Font files (`ezFBfont.py`, `ezFBfont_*.py`) are copied directly into `firmware/` so that
+`cp firmware/*.py <target>` deploys everything needed in one step. The upstream source is the
+[microPyEZfonts](https://github.com/easytarget/microPyEZfonts) library — copy specific font files
+from there into `firmware/` as needed. Do not use symlinks; keep real file copies so the repo is
+self-contained and portable.
 
 ### Development Testing
 - Use `board.setup()` to initialize all hardware
@@ -102,3 +106,10 @@ voltage = board.get_switch_vsense(switch_num)  # Read switch voltage
 ```
 
 This system is designed for battery management, solar MPPT, and DC UPS applications with full bidirectional power flow control and comprehensive monitoring capabilities.
+
+### Calibration
+During testing is became apparent that the internal ADC in the BQ25758 is not very accurate. Some experiments have been performed to fit a parabolic curve to the measured voltage and current values when compared to an external IT8500 DC load.
+See **`automated_calibration.py`** for the code to drive this calibration.
+Have reached out to Texas Instruments for some more details and receoved the line that "The ADC of the BQ25750 is intended for use as a general indicator". See https://e2e.ti.com/support/power-management-group/power-management/f/power-management-forum/1616973/bq25758-voltage-readings-on-adc-low and 
+https://e2e.ti.com/support/power-management-group/power-management/f/power-management-forum/1510781/bq25750-request-for-calculation-sheet 
+The is an FAQ page for the BQ2575X parts at https://e2e.ti.com/support/power-management-group/power-management/f/power-management-forum/1357460/faq-bq2575x-faq-page?tisearch=e2e-sitesearch&keymatch=bq25750%252520adc#

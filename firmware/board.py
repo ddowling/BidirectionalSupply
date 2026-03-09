@@ -123,7 +123,15 @@ class BoardContext:
         return self._cache[key]
 
     def set(self, key, value):
-        if key == 'output_current_limit':
+        if key == 'switch0':
+            set_switch(0, value != 0)
+        elif key == 'switch1':
+            set_switch(1, value != 0)
+        elif key == 'switch2':
+            set_switch(2, value != 0)
+        elif key == 'switch3':
+            set_switch(3, value != 0)
+        elif key == 'output_current_limit':
             bq.set_output_current_limit(value)
         elif key == 'output_voltage_limit':
             bq.set_output_voltage_limit(value)
@@ -176,6 +184,24 @@ class BoardContext:
         elif key == 'efficiency':
             pin = self.get('pin')
             return (self.get('pout') / pin) * 100 if pin > 0.001 else 0.0
+
+        # Ideal diode switch state and voltage sense
+        elif key == 'switch0':
+            return get_switch(0)
+        elif key == 'switch1':
+            return get_switch(1)
+        elif key == 'switch2':
+            return get_switch(2)
+        elif key == 'switch3':
+            return get_switch(3)
+        elif key == 'switch_vsense0':
+            return get_switch_vsense(0)
+        elif key == 'switch_vsense1':
+            return get_switch_vsense(1)
+        elif key == 'switch_vsense2':
+            return get_switch_vsense(2)
+        elif key == 'switch_vsense3':
+            return get_switch_vsense(3)
 
         # BQ25758 limits
         elif key == 'output_current_limit':
@@ -242,6 +268,46 @@ def monitor(active=True):
     else:
         poll_timer.deinit()
         _led_pwm.duty_u16(65535)  # LED off
+
+def load_startup(filename='startup.dat'):
+    '''Load initial hardware settings from a startup.dat file.
+
+    Each line should be in name=value format. Lines beginning with # are
+    treated as comments and ignored. Values are passed to context.set() so
+    settable quantities (e.g. output_voltage_limit) are written to hardware.
+
+    Example startup.dat:
+        # Set output voltage and current limits on boot
+        output_voltage_limit=12.0
+        output_current_limit=5.0
+    '''
+    try:
+        with open(filename, 'r') as f:
+            lines = f.read().splitlines()
+    except OSError:
+        return  # No startup file — normal operation
+
+    for line in lines:
+        line = line.strip()
+        if not line or line.startswith('#'):
+            continue
+        if '=' not in line:
+            print(f'startup.dat: ignored invalid line: {line}')
+            continue
+        name, _, value_str = line.partition('=')
+        name = name.strip()
+        value_str = value_str.strip()
+        try:
+            value = float(value_str)
+        except ValueError:
+            print(f'startup.dat: ignored non-numeric value: {line}')
+            continue
+        try:
+            context.set(name, value)
+            print(f'startup.dat: {name} = {value}')
+        except Exception as e:
+            print(f'startup.dat: failed to set {name}: {e}')
+
 
 def print_power_summary():
     """Print formatted power readings"""

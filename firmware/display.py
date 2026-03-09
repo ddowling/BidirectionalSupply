@@ -63,16 +63,15 @@ def display_blank():
 def display_convertor_info(context):
     '''
     Display convertor voltages and currents
-    context is an dictionary like class that looks up some
-    predefined quantities
+    context is a BoardContext providing lazy-evaluated measurements
     '''
     #t_start = time.time_ns()
 
     display.fill(BLACK)
-    helvetica_font.write(f'{context['vin']:.3f}V', 0, 0)
-    helvetica_font.write(f'{context['iin']:.3f}A', 0, 35)
-    helvetica_font.write(f'{context['vout']:.3f}V', 150, 0)
-    helvetica_font.write(f'{context['iout']:.3f}A', 150, 35)
+    helvetica_font.write(f'{context.get("vin"):.3f}V', 0, 0)
+    helvetica_font.write(f'{context.get("iin"):.3f}A', 0, 35)
+    helvetica_font.write(f'{context.get("vout"):.3f}V', 150, 0)
+    helvetica_font.write(f'{context.get("iout"):.3f}A', 150, 35)
 
     # FIXME This needs to show converter direction
     arrow_offset = int(time.ticks_ms()/100) % 10

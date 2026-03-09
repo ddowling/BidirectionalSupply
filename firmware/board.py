@@ -106,67 +106,66 @@ def get_switch_vsense(switch_num):
     raw = adc.read_u16()
     return raw * ADC_SCALE
 
-class BoardContext(dict):
+class BoardContext:
     '''Lazy-evaluated cache of board measurements and derived quantities.
 
-    Values are computed on first access and cached for subsequent reads.
-    Call clear() to invalidate the cache and force fresh ADC reads.
-
-    IMPORTANT: Access values with context['key'], NOT context.get('key').
-    dict.get() bypasses __missing__ and will return None instead of
-    computing the value.
+    Values are computed on first access via get() and cached for subsequent
+    reads. Call clear() to invalidate the cache and force fresh ADC reads.
+    Use set() to inject override values.
     '''
-    def __getitem__(self, key):
-        '''MicroPython's dict does not call __missing__, so we do it here.'''
-        try:
-            return super().__getitem__(key)
-        except KeyError:
-            return self.__missing__(key)
 
-    def __missing__(self, key):
-        '''Compute and cache a value on first access via context['key'].'''
+    def __init__(self):
+        self._cache = {}
+
+    def get(self, key):
+        if key not in self._cache:
+            self._cache[key] = self._compute(key)
+        return self._cache[key]
+
+    def set(self, key, value):
+        self._cache[key] = value
+
+    def clear(self):
+        self._cache.clear()
+
+    def _compute(self, key):
         # Voltages
         if key == 'vin':
-            v = calibration.calibrate_vin_adc(self['vin_raw'])
+            return calibration.calibrate_vin_adc(self.get('vin_raw'))
         elif key == 'vin_raw':
-            v = _ema.get('vin_raw', bq.get_vin_adc())
+            return _ema.get('vin_raw', bq.get_vin_adc())
         elif key == 'vout':
-            v = calibration.calibrate_vout_adc(self['vout_raw'])
+            return calibration.calibrate_vout_adc(self.get('vout_raw'))
         elif key == 'vout_raw':
-            v = _ema.get('vout_raw', bq.get_vout_adc())
+            return _ema.get('vout_raw', bq.get_vout_adc())
 
         # Currents
         elif key == 'iin':
-            v = calibration.calibrate_iin_adc(self['iin_raw'])
+            return calibration.calibrate_iin_adc(self.get('iin_raw'))
         elif key == 'iin_raw':
-            v = _ema.get('iin_raw', bq.get_iin_adc())
+            return _ema.get('iin_raw', bq.get_iin_adc())
         elif key == 'iout':
-            v = calibration.calibrate_iout_adc(self['iout_raw'])
+            return calibration.calibrate_iout_adc(self.get('iout_raw'))
         elif key == 'iout_raw':
-            v = _ema.get('iout_raw', bq.get_iout_adc())
+            return _ema.get('iout_raw', bq.get_iout_adc())
 
-        # Calculate power
+        # Power
         elif key == 'pin':
-            v = self['vin'] * self['iin']
+            return self.get('vin') * self.get('iin')
         elif key == 'pout':
-            v = self['vout'] * self['iout']
+            return self.get('vout') * self.get('iout')
         elif key == 'pin_raw':
-            v = self['vin_raw'] * self['iin_raw']
+            return self.get('vin_raw') * self.get('iin_raw')
         elif key == 'pout_raw':
-            v = self['vout_raw'] * self['iout_raw']
+            return self.get('vout_raw') * self.get('iout_raw')
 
-        # Calculate efficiency
+        # Efficiency
         elif key == 'efficiency':
-            pin = self['pin']
-            v = (self['pout'] / pin) * 100 if pin > 0.001 else 0.0
+            pin = self.get('pin')
+            return (self.get('pout') / pin) * 100 if pin > 0.001 else 0.0
 
-        # Illegal key for the context
         else:
             raise KeyError(key)
-
-        # Update cache and return value
-        self[key] = v
-        return v
 
 context = BoardContext()
 
@@ -221,16 +220,16 @@ def print_power_summary():
     """Print formatted power readings"""
     context.clear()
     print("=== Power Readings ===")
-    print(f"Input:  {context['vin']:.3f}V  {context['iin']:.3f}A  {context['pin']:.3f}W")
-    print(f"Output: {context['vout']:.3f}V  {context['iout']:.3f}A  {context['pout']:.3f}W")
-    if context['efficiency'] > 0:
-        print(f"Efficiency: {context['efficiency']:.1f}%")
+    print(f"Input:  {context.get('vin'):.3f}V  {context.get('iin'):.3f}A  {context.get('pin'):.3f}W")
+    print(f"Output: {context.get('vout'):.3f}V  {context.get('iout'):.3f}A  {context.get('pout'):.3f}W")
+    if context.get('efficiency') > 0:
+        print(f"Efficiency: {context.get('efficiency'):.1f}%")
 
     if calibration.is_calibrated():
         print(f"Using calibration for {calibration.get_board_id()}")
         print("Raw vs Calibrated comparison:")
-        print(f"  Vin:  {context['vin_raw']:.3f}V -> {context['vin']:.3f}V")
-        print(f"  Vout: {context['vout_raw']:.3f}V -> {context['vout']:.3f}V")
+        print(f"  Vin:  {context.get('vin_raw'):.3f}V -> {context.get('vin'):.3f}V")
+        print(f"  Vout: {context.get('vout_raw'):.3f}V -> {context.get('vout'):.3f}V")
     else:
         print("No calibration applied (using raw ADC values)")
 

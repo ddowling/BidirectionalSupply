@@ -1,6 +1,8 @@
 import serial
 import time
 
+DEFAULT_PORT = '/dev/fluke45'
+
 def find_com_port(hwid_regex):
     import re
     from serial.tools import list_ports

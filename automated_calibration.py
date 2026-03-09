@@ -91,7 +91,7 @@ class BoardConnection:
 
 
 class AutomatedCalibration:
-    def __init__(self, it8511_port='/dev/ttyUSB0', board_port='/dev/ttyACM0', baudrate=4800):
+    def __init__(self, it8511_port='/dev/it8511', board_port='/dev/ttyACM0', baudrate=4800):
         """
         Initialize automated calibration system
 
@@ -538,7 +538,7 @@ class AutomatedCalibration:
 
 def main():
     # Configuration
-    IT8511_PORT = '/dev/ttyUSB0'
+    IT8511_PORT = '/dev/it8511'
     BOARD_PORT = '/dev/ttyACM0'
 
     print("BidirectionalSupply Automated Calibration System")

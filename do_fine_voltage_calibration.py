@@ -6,7 +6,7 @@ import numpy as np
 import time
 import pandas as pd
 
-cal = AutomatedCalibration('/dev/ttyUSB0', '/dev/ttyACM0')
+cal = AutomatedCalibration('/dev/it8511', '/dev/ttyACM0')
 
 if not cal.setup_board():
     print('FAILED to setup board')

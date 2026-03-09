@@ -123,7 +123,20 @@ class BoardContext:
         return self._cache[key]
 
     def set(self, key, value):
-        self._cache[key] = value
+        if key == 'output_current_limit':
+            bq.set_output_current_limit(value)
+        elif key == 'output_voltage_limit':
+            bq.set_output_voltage_limit(value)
+        elif key == 'input_current_limit':
+            bq.set_input_current_dpm_limit(value)
+        elif key == 'input_voltage_limit':
+            bq.set_input_voltage_dpm_limit(value)
+        elif key == 'reverse_current_limit':
+            bq.set_reverse_mode_input_current_limit(value)
+        elif key == 'reverse_voltage_limit':
+            bq.set_reverse_mode_input_voltage_limit(value)
+        # Invalidate cache so next get() re-reads from hardware
+        self._cache.pop(key, None)
 
     def clear(self):
         self._cache.clear()
@@ -163,6 +176,20 @@ class BoardContext:
         elif key == 'efficiency':
             pin = self.get('pin')
             return (self.get('pout') / pin) * 100 if pin > 0.001 else 0.0
+
+        # BQ25758 limits
+        elif key == 'output_current_limit':
+            return bq.get_output_current_limit()
+        elif key == 'output_voltage_limit':
+            return bq.get_output_voltage_limit()
+        elif key == 'input_current_limit':
+            return bq.get_input_current_dpm_limit()
+        elif key == 'input_voltage_limit':
+            return bq.get_input_voltage_dpm_limit()
+        elif key == 'reverse_current_limit':
+            return bq.get_reverse_mode_input_current_limit()
+        elif key == 'reverse_voltage_limit':
+            return bq.get_reverse_mode_input_voltage_limit()
 
         else:
             raise KeyError(key)

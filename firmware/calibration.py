@@ -77,7 +77,6 @@ class Calibration:
     - Input voltage ADC (vin_adc): linear correction
     - Output current ADC (iout_adc): linear correction
     - Input current ADC (iin_adc): linear correction
-    - Ideal diode switch voltage sense (switch_vsense): linear correction
     """
 
     def __init__(self, filename="calibration.dat", auto_board_id=True):
@@ -90,7 +89,6 @@ class Calibration:
         self.vin_adc = LinearCalibration()
         self.iout_adc = LinearCalibration()
         self.iin_adc = LinearCalibration()
-        self.switch_vsense = LinearCalibration()
         self.load()
 
     def _reset_channels(self):
@@ -102,7 +100,6 @@ class Calibration:
         self.vin_adc = LinearCalibration()
         self.iout_adc = LinearCalibration()
         self.iin_adc = LinearCalibration()
-        self.switch_vsense = LinearCalibration()
 
     @staticmethod
     def _validate_data(data):
@@ -111,7 +108,7 @@ class Calibration:
             return False
         if 'board_id' not in data or 'calibration_date' not in data:
             return False
-        for name in ('vout_adc', 'vin_adc', 'iout_adc', 'iin_adc', 'switch_vsense'):
+        for name in ('vout_adc', 'vin_adc', 'iout_adc', 'iin_adc'):
             if name in data:
                 ch = data[name]
                 if not isinstance(ch, dict) or 'gain' not in ch or 'offset' not in ch:
@@ -125,7 +122,7 @@ class Calibration:
         self._board_id = data['board_id']
         self._hardware_id = data.get('hardware_id', self._get_hardware_board_id())
         self._calibration_date = data.get('calibration_date')
-        for name in ('vout_adc', 'vin_adc', 'iout_adc', 'iin_adc', 'switch_vsense'):
+        for name in ('vout_adc', 'vin_adc', 'iout_adc', 'iin_adc'):
             if name in data:
                 if not getattr(self, name).load(data[name]):
                     print(f"Invalid {name} calibration data")
@@ -166,7 +163,6 @@ class Calibration:
             'vin_adc': self.vin_adc.save(),
             'iout_adc': self.iout_adc.save(),
             'iin_adc': self.iin_adc.save(),
-            'switch_vsense': self.switch_vsense.save(),
         }
 
         try:
@@ -253,9 +249,6 @@ class Calibration:
     def calibrate_iin_adc(self, raw_value):
         return self.iin_adc.convert(raw_value)
 
-    def calibrate_switch_vsense(self, raw_value):
-        return self.switch_vsense.convert(raw_value)
-
     # --- Setting calibration constants ---
 
     def set_vout_calibration(self, gain=1.0, offset=0.0, quad_a=0.0, quad_b=0.0, quad_c=0.0, rms_error_mv=0.0):
@@ -281,11 +274,6 @@ class Calibration:
         self.iin_adc.offset = offset
         self.iin_adc.rms_error = rms_error_ma
 
-    def set_switch_calibration(self, gain=1.0, offset=0.0, rms_error_mv=0.0):
-        self.switch_vsense.gain = gain
-        self.switch_vsense.offset = offset
-        self.switch_vsense.rms_error = rms_error_mv
-
     def get_calibration_summary(self):
         summary = [
             f"Board ID: {self.get_board_id()}",
@@ -297,7 +285,6 @@ class Calibration:
             ('vin_adc', 'mV'),
             ('iout_adc', 'mA'),
             ('iin_adc', 'mA'),
-            ('switch_vsense', 'mV'),
         ]
         for name, unit in channels:
             ch = getattr(self, name)

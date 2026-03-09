@@ -217,11 +217,6 @@ def monitor(active=True):
         poll_timer.deinit()
         _led_pwm.duty_u16(65535)  # LED off
 
-def get_switch_vsense_calibrated(switch_num):
-    """Get calibrated ideal diode switch voltage sense reading"""
-    raw = get_switch_vsense(switch_num)
-    return calibration.calibrate_switch_vsense(raw)
-
 def print_power_summary():
     """Print formatted power readings"""
     context.clear()

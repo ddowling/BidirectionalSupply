@@ -12,8 +12,8 @@ from remote_repl import RemoteRepl, find_rp2350_port
 parser = argparse.ArgumentParser(description='Restore calibration.dat to board from host backup')
 parser.add_argument('--board-port', default=None,
                     help='Board serial port (default: auto-detect)')
-parser.add_argument('--cal-dir', default='calibration_results',
-                    help='Directory containing calibration backups (default: calibration_results)')
+parser.add_argument('--cal-dir', default='firmware',
+                    help='Directory containing calibration backups (default: firmware)')
 args = parser.parse_args()
 
 port = args.board_port or find_rp2350_port() or '/dev/ttyACM0'
@@ -24,7 +24,15 @@ with RemoteRepl(port) as repl:
     hw_id = repl.get_hardware_id()
     print(f'Board hardware ID: {hw_id}')
 
-    cal_file = Path(args.cal_dir) / f'{hw_id}_calibration.dat'
+    # Look up board number from registry for firmware/board<N>_calibration.dat naming
+    registry_path = Path(__file__).parent / 'board_registry.json'
+    try:
+        import json as _json
+        registry = _json.loads(registry_path.read_text())
+        board_num = registry['boards'][hw_id]['board_number']
+        cal_file = Path(args.cal_dir) / f'board{board_num}_calibration.dat'
+    except (KeyError, FileNotFoundError):
+        cal_file = Path(args.cal_dir) / f'{hw_id}_calibration.dat'
     if not cal_file.exists():
         print(f'ERROR: No calibration backup found at {cal_file}')
         sys.exit(1)

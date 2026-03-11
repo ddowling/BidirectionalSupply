@@ -201,12 +201,21 @@ with RemoteRepl(port) as repl:
     print(repl.exec('print(_c.get_calibration_summary())'))
 
     # Read calibration.dat back from the board and save a host-side copy
-    # named by hardware ID so it can be restored after a reflash.
+    # to firmware/board<N>_calibration.dat, consistent with voltage calibration.
     hw_id = repl.get_hardware_id()
     cal_json = repl.exec(
         "import json; "
         "f = open('calibration.dat'); print(f.read()); f.close()"
     )
-    host_cal_file = Path('calibration_results') / f'{hw_id}_calibration.dat'
+    # Look up board number from registry
+    registry_path = Path(__file__).parent / 'board_registry.json'
+    try:
+        import json as _json
+        registry = _json.loads(registry_path.read_text())
+        board_num = registry['boards'][hw_id]['board_number']
+        host_cal_file = Path('firmware') / f'board{board_num}_calibration.dat'
+    except (KeyError, FileNotFoundError):
+        # Fall back to hardware ID if not in registry
+        host_cal_file = Path('firmware') / f'{hw_id}_calibration.dat'
     host_cal_file.write_text(cal_json)
     print(f'Host-side calibration backup saved to {host_cal_file}')

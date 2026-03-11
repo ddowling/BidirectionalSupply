@@ -199,3 +199,14 @@ with RemoteRepl(port) as repl:
     repl.exec('_c.save()')
     repl.exec('board.reload_calibration()')
     print(repl.exec('print(_c.get_calibration_summary())'))
+
+    # Read calibration.dat back from the board and save a host-side copy
+    # named by hardware ID so it can be restored after a reflash.
+    hw_id = repl.get_hardware_id()
+    cal_json = repl.exec(
+        "import json; "
+        "f = open('calibration.dat'); print(f.read()); f.close()"
+    )
+    host_cal_file = Path('calibration_results') / f'{hw_id}_calibration.dat'
+    host_cal_file.write_text(cal_json)
+    print(f'Host-side calibration backup saved to {host_cal_file}')

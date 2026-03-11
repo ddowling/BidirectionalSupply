@@ -196,6 +196,9 @@ with RemoteRepl(port) as repl:
     repl.exec(f'_c.set_iout_calibration(gain={iout_gain}, offset={iout_offset}, rms_error_ma={iout_rms})')
     import time as _time
     repl.exec(f'_c.set_calibration_date("{_time.strftime("%Y-%m-%d")}")')
+    die_temp = repl.exec('print(board.get_die_temp())')
+    repl.exec(f'_c.set_die_temp_celsius({die_temp})')
+    print(f'Die temperature at calibration: {float(die_temp):.1f}°C')
     repl.exec('_c.save()')
     repl.exec('board.reload_calibration()')
     print(repl.exec('print(_c.get_calibration_summary())'))

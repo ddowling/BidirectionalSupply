@@ -85,6 +85,7 @@ class Calibration:
         self._board_id = None
         self._hardware_id = None
         self._calibration_date = None
+        self._die_temp_celsius = None
         self.vout_adc = QuadraticCalibration()
         self.vin_adc = LinearCalibration()
         self.iout_adc = LinearCalibration()
@@ -122,6 +123,7 @@ class Calibration:
         self._board_id = data['board_id']
         self._hardware_id = data.get('hardware_id', self._get_hardware_board_id())
         self._calibration_date = data.get('calibration_date')
+        self._die_temp_celsius = data.get('die_temp_celsius')
         for name in ('vout_adc', 'vin_adc', 'iout_adc', 'iin_adc'):
             if name in data:
                 if not getattr(self, name).load(data[name]):
@@ -159,6 +161,7 @@ class Calibration:
             'board_id': self._board_id or 'default',
             'hardware_id': self._hardware_id or self._get_hardware_board_id(),
             'calibration_date': self._calibration_date,
+            'die_temp_celsius': self._die_temp_celsius,
             'vout_adc': self.vout_adc.save(),
             'vin_adc': self.vin_adc.save(),
             'iout_adc': self.iout_adc.save(),
@@ -235,6 +238,12 @@ class Calibration:
     def set_calibration_date(self, date_str):
         self._calibration_date = date_str
 
+    def get_die_temp_celsius(self):
+        return self._die_temp_celsius
+
+    def set_die_temp_celsius(self, temp):
+        self._die_temp_celsius = temp
+
     # --- Calibration application ---
 
     def calibrate_vout_adc(self, raw_value):
@@ -280,9 +289,11 @@ class Calibration:
         self.iin_adc.rms_error = rms_error_ma
 
     def get_calibration_summary(self):
+        temp_str = f"{self._die_temp_celsius:.1f}°C" if self._die_temp_celsius is not None else "not recorded"
         summary = [
             f"Board ID: {self.get_board_id()}",
             f"Calibration Date: {self.get_calibration_date()}",
+            f"Die Temp at Calibration: {temp_str}",
             "",
         ]
         channels = [

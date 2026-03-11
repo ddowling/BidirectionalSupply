@@ -1,4 +1,5 @@
 # Copyright (c) 2026 Denis Dowling (dpd@opsol.com.au)
+import math
 from micropython import const
 
 REG0x02_Output_Current_Limit=const(0x02) # Output Current Limit
@@ -274,6 +275,35 @@ class BQ25758:
         raw = self._read_u16(REG0x33_VOUT_ADC)
         # 2mV per step
         return raw * 2.0e-3
+
+    def get_ts_adc(self):
+        '''Return TS pin voltage as a fraction of VREGN (0.0 to 1.0).
+        Step size is 0.0976% per LSB (1/1024 per LSB).
+        Circuit: REGN -> NTC -> TS pin -> 10k bias -> GND
+        '''
+        raw = self._read_u16(REG0x37_TS_ADC)
+        return raw / 1024.0
+
+    def get_ts_celsius(self, bias_kohm=10.0):
+        '''Return thermistor temperature in degrees Celsius.
+
+        Assumes a Semitec 103AT 10k NTC thermistor with Steinhart-Hart
+        coefficients fitted from the datasheet table.
+        bias_kohm: bias resistor value in kOhms (default 10k).
+        Circuit: REGN -> NTC -> TS pin -> bias_kohm -> GND
+        '''
+        fraction = self.get_ts_adc()
+        if fraction <= 0.0 or fraction >= 1.0:
+            return None  # Out of range
+        # Recover NTC resistance in kOhms from voltage divider
+        r_ntc = bias_kohm * (1.0 - fraction) / fraction
+        # Steinhart-Hart equation fitted to Semitec 103AT data
+        A = 2.68660875e-3
+        B = 2.85931334e-4
+        C = 7.32506554e-7
+        ln_r = math.log(r_ntc)
+        t_kelvin = 1.0 / (A + B * ln_r + C * ln_r ** 3)
+        return t_kelvin - 273.15
 
     # Status_1 bits
     ADC_DONE_STAT = const(1<<7) # ADC conversion complete

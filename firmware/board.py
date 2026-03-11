@@ -101,6 +101,16 @@ def get_switch(switch_num):
     p = _switch_to_enable_pin(switch_num)
     return p.value()
 
+_die_temp_adc = ADC(4)  # RP2350 internal temperature sensor
+
+def get_die_temp():
+    '''Return RP2350 die temperature in Celsius.
+    Uses the internal ADC channel 4 and conversion constants from the
+    RP2350 datasheet. Accuracy is typically ±a few degrees.
+    '''
+    reading = _die_temp_adc.read_u16() * 3.3 / 65535
+    return 27 - (reading - 0.706) / 0.001721
+
 def get_switch_vsense(switch_num):
     adc = _switch_to_adc(switch_num)
     raw = adc.read_u16()
@@ -202,6 +212,14 @@ class BoardContext:
             return get_switch_vsense(2)
         elif key == 'switch_vsense3':
             return get_switch_vsense(3)
+
+        # Temperature
+        elif key == 'die_temp':
+            return get_die_temp()
+        elif key == 'ts_celsius':
+            return bq.get_ts_celsius()
+        elif key == 'ts_adc':
+            return bq.get_ts_adc()
 
         # BQ25758 limits
         elif key == 'output_current_limit':

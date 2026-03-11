@@ -2,49 +2,63 @@
 import math
 from micropython import const
 
-REG0x02_Output_Current_Limit=const(0x02) # Output Current Limit
-REG0x04_Output_Voltage_Limit=const(0x04) # Output Voltage Limit
-REG0x06_Input_Current_DPM_Limit=const(0x06) # Input Current DPM Limit
-REG0x08_Input_Voltage_DPM_Limit=const(0x08) # Input Voltage DPM Limit
-REG0x0A_Reverse_Mode_Input_Current_Limit=const(0x0a) # Reverse Mode Input Current Limit
-REG0x0C_Reverse_Mode_Input_Voltage_Limit=const(0x0c) # Reverse Mode Input Voltage Limit
-REG0x15_Timer_Control=const(0x15) # Timer Control
-REG0x17_Converter_Control=const(0x17) # Converter Control
-REG0x18_Pin_Control=const(0x18) # Pin Control
-REG0x19_Power_Path_and_Reverse_Mode_Control=const(0x19) # Power Path and Reverse Mode Control
-REG0x1B_TS_Threshold_Control=const(0x1b) # TS Threshold Control
-REG0x1C_TS_Region_Behavior_Control=const(0x1c) # TS Region Behavior Control
-REG0x1D_TS_Reverse_Mode_Threshold_Control=const(0x1d) # TS Reverse Mode Threshold Control
-REG0x1E_Bypass_and_Overload_Control=const(0x1e) # Bypass and Overload Control
-REG0x21_Status_1=const(0x21) # Status 1
-REG0x22_Status_2=const(0x22) # Status 2
-REG0x23_Status_3=const(0x23) # Status 3
-REG0x24_Fault_Status=const(0x24) # Fault Status
-REG0x25_Flag_1=const(0x25) # Flag 1
-REG0x26_Flag_2=const(0x26) # Flag 2
-REG0x27_Fault_Flag=const(0x27) # Fault Flag
-REG0x28_Mask_1=const(0x28) # Mask 1
-REG0x29_Mask_2=const(0x29) # Mask 2
-REG0x2A_Fault_Mask=const(0x2a) # Fault Mask
-REG0x2B_ADC_Control=const(0x2b) # ADC Control
-REG0x2C_ADC_Channel_Control=const(0x2c) # ADC Channel Control
-REG0x2D_IAC_ADC=const(0x2d) # IAC ADC
-REG0x2F_IOUT_ADC=const(0x2f) # IOUT ADC
-REG0x31_VAC_ADC=const(0x31) # VAC ADC
-REG0x33_VOUT_ADC=const(0x33) # VOUT ADC
-REG0x37_TS_ADC=const(0x37) # TS ADC
-REG0x3B_Gate_Driver_Strength_Control=const(0x38) # Gate Driver Strength Control
-REG0x3C_Gate_Driver_Dead_Time_Control=const(0x3c) # Gate Driver Dead Time Control
-REG0x3D_Part_Information=const(0x3d) # Part Information
-REG0x62_Reverse_Mode_Current=const(0x62) # Reverse Mode Current
-
-# Assumes a 5mR shunt resistor which is standard. One step is 50mA
-CURRENT_SCALE=50e-3
-
-# One step is 20mV
-VOLTAGE_SCALE=20e-3
-
 class BQ25758:
+    # ADC step sizes
+    # Voltage channels: 2mV per LSB (datasheet value, confirmed accurate)
+    VIN_ADC_SCALE  = 2.0e-3
+    VOUT_ADC_SCALE = 2.0e-3
+    # Current channels: datasheet specifies 2mA per LSB for both IIN and IOUT.
+    # Measurements show IIN raw counts correspond to ~0.789mA/LSB, not 2mA/LSB.
+    # Using 0.8mA/LSB (clean round number) gives calibration gain ~1.014,
+    # confirming the remaining error is chip-to-chip variation correctable via
+    # LinearCalibration. Root cause of the IIN vs datasheet discrepancy is unknown.
+    # IOUT measurements align closely with 2mA/LSB (gain ~1.008 in calibration).
+    IIN_ADC_SCALE  = 0.8e-3   # 0.8mA/LSB (measured; datasheet says 2mA/LSB)
+    IOUT_ADC_SCALE = 2.0e-3   # 2.0mA/LSB (datasheet, confirmed by measurement)
+
+    # Limit Register scaling values
+    # Assumes a 5mR shunt resistor which is standard. One step is 50mA
+    CURRENT_SCALE=50e-3
+    # One ADC step is 20mV
+    VOLTAGE_SCALE=20e-3
+
+    # Device register names from datasheet
+    REG0x02_Output_Current_Limit=const(0x02) # Output Current Limit
+    REG0x04_Output_Voltage_Limit=const(0x04) # Output Voltage Limit
+    REG0x06_Input_Current_DPM_Limit=const(0x06) # Input Current DPM Limit
+    REG0x08_Input_Voltage_DPM_Limit=const(0x08) # Input Voltage DPM Limit
+    REG0x0A_Reverse_Mode_Input_Current_Limit=const(0x0a) # Reverse Mode Input Current Limit
+    REG0x0C_Reverse_Mode_Input_Voltage_Limit=const(0x0c) # Reverse Mode Input Voltage Limit
+    REG0x15_Timer_Control=const(0x15) # Timer Control
+    REG0x17_Converter_Control=const(0x17) # Converter Control
+    REG0x18_Pin_Control=const(0x18) # Pin Control
+    REG0x19_Power_Path_and_Reverse_Mode_Control=const(0x19) # Power Path and Reverse Mode Control
+    REG0x1B_TS_Threshold_Control=const(0x1b) # TS Threshold Control
+    REG0x1C_TS_Region_Behavior_Control=const(0x1c) # TS Region Behavior Control
+    REG0x1D_TS_Reverse_Mode_Threshold_Control=const(0x1d) # TS Reverse Mode Threshold Control
+    REG0x1E_Bypass_and_Overload_Control=const(0x1e) # Bypass and Overload Control
+    REG0x21_Status_1=const(0x21) # Status 1
+    REG0x22_Status_2=const(0x22) # Status 2
+    REG0x23_Status_3=const(0x23) # Status 3
+    REG0x24_Fault_Status=const(0x24) # Fault Status
+    REG0x25_Flag_1=const(0x25) # Flag 1
+    REG0x26_Flag_2=const(0x26) # Flag 2
+    REG0x27_Fault_Flag=const(0x27) # Fault Flag
+    REG0x28_Mask_1=const(0x28) # Mask 1
+    REG0x29_Mask_2=const(0x29) # Mask 2
+    REG0x2A_Fault_Mask=const(0x2a) # Fault Mask
+    REG0x2B_ADC_Control=const(0x2b) # ADC Control
+    REG0x2C_ADC_Channel_Control=const(0x2c) # ADC Channel Control
+    REG0x2D_IAC_ADC=const(0x2d) # IAC ADC
+    REG0x2F_IOUT_ADC=const(0x2f) # IOUT ADC
+    REG0x31_VAC_ADC=const(0x31) # VAC ADC
+    REG0x33_VOUT_ADC=const(0x33) # VOUT ADC
+    REG0x37_TS_ADC=const(0x37) # TS ADC
+    REG0x3B_Gate_Driver_Strength_Control=const(0x38) # Gate Driver Strength Control
+    REG0x3C_Gate_Driver_Dead_Time_Control=const(0x3c) # Gate Driver Dead Time Control
+    REG0x3D_Part_Information=const(0x3d) # Part Information
+    REG0x62_Reverse_Mode_Current=const(0x62) # Reverse Mode Current
+
     def __init__(self,
                  i2c_bus,
                  chip_enable_pin=None,
@@ -103,11 +117,11 @@ class BQ25758:
         '''Output voltage will be regulated to keep within this current limit'''
         raw = self._read_u16(REG0x02_Output_Current_Limit)
         raw = (raw & 0b0000011111111100) >> 2
-        return raw * CURRENT_SCALE
+        return raw * self.CURRENT_SCALE
 
     def set_output_current_limit(self, value):
         '''Output voltage will be regulated to keep within this current limit'''
-        v = int(value / CURRENT_SCALE)
+        v = int(value / self.CURRENT_SCALE)
         if v > 0x190:
             v = 0x190
         elif v < 8:
@@ -122,11 +136,11 @@ class BQ25758:
         raw = self._read_u16(REG0x04_Output_Voltage_Limit)
 
         raw = (raw & 0b0011111111111100) >> 2
-        return raw * VOLTAGE_SCALE
+        return raw * self.VOLTAGE_SCALE
 
     def set_output_voltage_limit(self, value):
         '''Desired output voltage if current limit allows'''
-        v = int(value / VOLTAGE_SCALE)
+        v = int(value / self.VOLTAGE_SCALE)
         if v > 0xbb8:
             v = 0xbb8
         elif v < 0xa5:
@@ -140,10 +154,10 @@ class BQ25758:
         '''Input Current Dynamic Power Management (DPM) limit'''
         raw = self._read_u16(REG0x06_Input_Current_DPM_Limit)
         raw = (raw & 0b0000011111111100) >> 2
-        return raw * CURRENT_SCALE
+        return raw * self.CURRENT_SCALE
 
     def set_input_current_dpm_limit(self, value):
-        v = int(value / CURRENT_SCALE)
+        v = int(value / self.CURRENT_SCALE)
         if v > 0x190:
             v = 0x190
         elif v < 8:
@@ -157,10 +171,10 @@ class BQ25758:
         raw = self._read_u16(REG0x08_Input_Voltage_DPM_Limit)
 
         raw = (raw & 0b0011111111111100) >> 2
-        return raw * VOLTAGE_SCALE
+        return raw * self.VOLTAGE_SCALE
 
     def set_input_voltage_dpm_limit(self, value):
-        v = int(value / VOLTAGE_SCALE)
+        v = int(value / self.VOLTAGE_SCALE)
         if v > 0xbb8:
             v = 0xbb8
         elif v < 0xd2:
@@ -173,10 +187,10 @@ class BQ25758:
     def get_reverse_mode_input_current_limit(self):
         raw = self._read_u16(REG0x0A_Reverse_Mode_Input_Current_Limit)
         raw = (raw & 0b0000011111111100) >> 2
-        return raw * CURRENT_SCALE
+        return raw * self.CURRENT_SCALE
 
     def set_reverse_mode_input_current_limit(self, value):
-        v = int(value / CURRENT_SCALE)
+        v = int(value / self.CURRENT_SCALE)
         if v > 0x190:
             v = 0x190
         elif v < 8:
@@ -190,10 +204,10 @@ class BQ25758:
         raw = self._read_u16(REG0x0C_Reverse_Mode_Input_Voltage_Limit)
 
         raw = (raw & 0b0011111111111100) >> 2
-        return raw * VOLTAGE_SCALE
+        return raw * self.VOLTAGE_SCALE
 
     def set_reverse_mode_input_voltage_limit(self, value):
-        v = int(value / VOLTAGE_SCALE)
+        v = int(value / self.VOLTAGE_SCALE)
         if v > 0xbb8:
             v = 0xbb8
         elif v < 0xa5:
@@ -214,6 +228,24 @@ class BQ25758:
         else:
             v &= ~0x01
         self._write_u8(REG0x19_Power_Path_and_Reverse_Mode_Control, v)
+
+    def set_bypass_enable(self, b):
+        '''Enable or disable bypass mode (EN_BYPASS bit in REG0x1E).
+
+        When enabled, the DC/DC converter is disabled and the high-side FETs
+        are turned on directly, passing input to output with minimal drop.
+        '''
+        v = self._read_u8(REG0x1E_Bypass_and_Overload_Control)
+        if b:
+            v |= (1 << 4)
+        else:
+            v &= ~(1 << 4)
+        self._write_u8(REG0x1E_Bypass_and_Overload_Control, v)
+
+    def get_bypass_enable(self):
+        '''Return True if bypass mode is enabled.'''
+        v = self._read_u8(REG0x1E_Bypass_and_Overload_Control)
+        return (v & (1 << 4)) != 0
 
     def set_watchdog_timeout(self, value):
         if value == 0:
@@ -258,23 +290,19 @@ class BQ25758:
 
     def get_iin_adc(self):
         raw = self._read_s16(REG0x2D_IAC_ADC)
-        # 2mA per step
-        return raw * 2.0e-3
+        return raw * self.IIN_ADC_SCALE
 
     def get_iout_adc(self):
         raw = self._read_s16(REG0x2F_IOUT_ADC)
-        # 2mA per step
-        return raw * 2.0e-3
+        return raw * self.IOUT_ADC_SCALE
 
     def get_vin_adc(self):
         raw = self._read_u16(REG0x31_VAC_ADC)
-        # 2mV per step
-        return raw * 2.0e-3
+        return raw * self.VIN_ADC_SCALE
 
     def get_vout_adc(self):
         raw = self._read_u16(REG0x33_VOUT_ADC)
-        # 2mV per step
-        return raw * 2.0e-3
+        return raw * self.VOUT_ADC_SCALE
 
     def get_ts_adc(self):
         '''Return TS pin voltage as a fraction of VREGN (0.0 to 1.0).

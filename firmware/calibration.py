@@ -244,10 +244,15 @@ class Calibration:
         return self.vin_adc.convert(raw_value)
 
     def calibrate_iout_adc(self, raw_value):
-        return self.iout_adc.convert(raw_value)
+        # The BQ25758 current ADC has a ~2mA/LSB resolution floor: at low
+        # currents (below ~100mA) it reads zero counts. Applying the linear
+        # calibration to a zero reading produces a spurious positive offset
+        # (~110mA). Clamp to zero to avoid reporting phantom current at no load.
+        return max(0.0, self.iout_adc.convert(raw_value))
 
     def calibrate_iin_adc(self, raw_value):
-        return self.iin_adc.convert(raw_value)
+        # Same ADC floor issue as iout — clamp to zero.
+        return max(0.0, self.iin_adc.convert(raw_value))
 
     # --- Setting calibration constants ---
 

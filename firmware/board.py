@@ -2,12 +2,14 @@
 from machine import Pin, ADC, PWM, I2C, Timer
 from BQ25758 import BQ25758
 from calibration import Calibration
-from display import display_convertor_info, display_blank
+from display import display_convertor_info, display_blank, display_error
 
 bq_sda = Pin(0)
 bq_scl = Pin(1)
 bq_int = Pin(2, Pin.IN)
-bq_ce = Pin(3, Pin.OUT)
+
+# Inverted logic on this pin. Want output to stay high until explicitly enabled
+bq_ce = Pin(3, Pin.OUT, True)
 
 # LED on Pin(8), active-low. PWM: duty 0 = full on, 65535 = off.
 _led_pwm = PWM(Pin(8, Pin.OUT), freq=100_000, duty_u16=65535)
@@ -36,6 +38,17 @@ R36 = 3.1
 R37 = 2.1
 ADC_SCALE = (3.3 / 65535) * (R35 + R36 + R37) / (R36 + R37)
 
+def _bq_connect():
+    '''Initialise the BQ25758 and enable its ADC.
+
+    Called on first boot and again whenever the chip loses power and
+    is_detected() returns False. bq.setup() issues REG_RST which clears
+    all BQ25758 registers, so load_startup() must be called afterwards
+    to restore any saved limits.
+    '''
+    bq.setup()
+    bq.setup_adc()
+
 def setup():
     _led_pwm.duty_u16(0)  # LED on during setup
 
@@ -60,12 +73,9 @@ def setup():
     for d in devices:
         print(f"Device at address {d:02x}")
 
-    # Will throw an exception if setup fails
-    bq.setup()
+    _bq_connect()
 
     print("Initialised BQ25758")
-
-    bq.setup_adc()
 
     _led_pwm.duty_u16(65535)  # LED off after setup
 
@@ -141,6 +151,8 @@ class BoardContext:
             set_switch(2, value != 0)
         elif key == 'switch3':
             set_switch(3, value != 0)
+        elif key == 'enabled':
+            bq.set_enabled(value != 0)
         elif key == 'output_current_limit':
             bq.set_output_current_limit(value)
         elif key == 'output_voltage_limit':
@@ -194,6 +206,10 @@ class BoardContext:
         elif key == 'efficiency':
             pin = self.get('pin')
             return (self.get('pout') / pin) * 100 if pin > 0.001 else 0.0
+
+        # Enabled state of DC/DC convertor
+        elif key == 'enabled':
+            return bq.is_enabled()
 
         # Ideal diode switch state and voltage sense
         elif key == 'switch0':
@@ -249,7 +265,7 @@ _breath_dir = 1
 
 # EMA filter for raw ADC readings, updated every poll tick (20ms).
 # Alpha=0.3 gives ~3-4 sample effective window; lower = smoother, higher = more responsive.
-_EMA_ALPHA = 0.095  # τ ≈ 200ms at 20ms tick; original 0.3 gave τ ≈ 56ms
+_EMA_ALPHA = 0.2  # τ ≈ 90ms at 20ms polling interval. original 0.3 gave τ ≈ 56ms
 _ema = {}
 
 def _update_ema():
@@ -258,7 +274,10 @@ def _update_ema():
                     ('iin_raw',  bq.get_iin_adc),
                     ('iout_raw', bq.get_iout_adc)):
         raw = fn()
-        _ema[key] = _EMA_ALPHA * raw + (1 - _EMA_ALPHA) * _ema.get(key, raw)
+        if raw == 0.0:
+            _ema[key] = 0.0
+        else:
+            _ema[key] = _EMA_ALPHA * raw + (1 - _EMA_ALPHA) * _ema.get(key, raw)
 
 def _do_breath_step():
     global _breath_step, _breath_dir
@@ -273,8 +292,20 @@ def _do_breath_step():
         _breath_dir = 1
 
 def _poll(t):
-    _update_ema()
     _do_breath_step()
+
+    # If the BQ25758 lost power (e.g. no Vin/Vout while USB powers the RP2350),
+    # keep retrying until it comes back. bq.setup() issues REG_RST so all
+    # registers are cleared; load_startup() restores saved limits afterwards.
+    if not bq.is_detected():
+        try:
+            _bq_connect()
+        except OSError:
+            display_error("DC/DC Convertor Off")
+            return
+        load_startup()
+
+    _update_ema()
 
     if _breath_step % 10 == 0:
         context.clear()

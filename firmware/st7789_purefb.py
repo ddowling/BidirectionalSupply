@@ -154,8 +154,8 @@ _ST7789_INIT_CMDS = (
                                             # Set gamma curve negative polarity
     ( b'\xe1', b'\xd0\x00\x02\x07\x0a\x28\x31\x54\x47\x0e\x1c\x17\x1b\x1e', 0),
 
+    ( b'\xb0', b'\x00\xf8', 0),             # Enable little endian byte order
     ( b'\x20', b'\x00', 0),                 # No display inversion
-    #( b'\x21', b'\x00', 0),                 # Enable display inversion
     ( b'\x29', b'\x00', 120)                # Turn on the display
 )
 
@@ -167,18 +167,11 @@ def color565(red, green=0, blue=0):
         red, green, blue = red[:3]
     return (red & 0xF8) << 8 | (green & 0xFC) << 3 | blue >> 3
 
-def swap_bytes(color):
-    """
-    Flips the left and right bytes in the 16 bit color word.
-    """
-    return ((color & 255) << 8) + (color >> 8)
-
-
 class ST7789(framebuf.FrameBuffer):
     """
     ST7789 driver class base
     """
-    def __init__(self, width, height, backlight, bright, rotation, color_order, reverse_bytes_in_word):
+    def __init__(self, width, height, backlight, bright, rotation, color_order):
         """
         Initialize display and backlight.
         """
@@ -199,7 +192,6 @@ class ST7789(framebuf.FrameBuffer):
                 f"Unsupported {width}x{height} display. Supported displays: {supported_displays}")
         # Colors
         self.color_order = color_order
-        self.needs_swap = reverse_bytes_in_word
         # init the st7789
         self.init_cmds = _ST7789_INIT_CMDS
 
@@ -330,48 +322,6 @@ class ST7789(framebuf.FrameBuffer):
         """ Put the current framebuffer onto the screen """
         self._write(None, self.buffer)
 
-    def _cswap(self, color):
-        """ Swap colors as needed """
-        return swap_bytes(color) if self.needs_swap else color
-
-    """
-        Following functions all superclass the framebuffer
-        so that color bytes can be swapped as needed
-    """
-    def fill(self, c):
-        super().fill(self._cswap(c))
-
-    def pixel(self, x, y, c=None):
-        if c is not None:
-            c = self._cswap(c)
-            super().pixel(x, y, c)
-        else:
-            return self._cswap(super().pixel(x, y))
-
-    def hline(self, x, y, w, c):
-        super().hline(x, y, w, self._cswap(c))
-
-    def vline(self, x, y, h, c):
-        super().vline(x, y, h, self._cswap(c))
-
-    def line(self, x1, y1, x2, y2, c):
-        super().line(x1, y1, x2, y2, self._cswap(c))
-
-    def rect(self, x, y, w, h, c, f=False):
-        super().rect(x, y, w, h, self._cswap(c), f)
-
-    def fill_rect(self, x, y, w, h, c):
-        super().rect(x, y, w, h, self._cswap(c), True)
-
-    def ellipse(self, x, y, xr, yr, c, f=False, m=0xf):
-        super().ellipse(x, y, xr, yr, self._cswap(c), f, m)
-
-    def poly(self, x, y, coords, c, f=False):
-        super().poly(x, y, coords, self._cswap(c), f)
-
-    def text(self, text, x, y, c=WHITE):
-        super().text(text, x, y, self._cswap(c))
-
 
 class ST7789_I80(ST7789):
     """
@@ -398,8 +348,6 @@ class ST7789_I80(ST7789):
         color_order (int):
           - RGB: Red, Green Blue, default
           - BGR: Blue, Green, Red
-        reverse_bytes_in_word (bool):
-          - Enable if the display uses LSB byte order for color words
     """
     def __init__(
         self,
@@ -412,12 +360,11 @@ class ST7789_I80(ST7789):
         bright=1,
         rotation=0,
         color_order=BGR,
-        reverse_bytes_in_word=True,
     ):
         self.i80 = i80
         self.reset = reset
         self.cs = cs
-        super().__init__(width, height, backlight, bright, rotation, color_order, reverse_bytes_in_word)
+        super().__init__(width, height, backlight, bright, rotation, color_order)
 
     def _write(self, cmd=None, data=None):
         """I80 bus write to device: command and data."""
@@ -470,8 +417,6 @@ class ST7789_SPI(ST7789):
         color_order (int):
           - RGB: Red, Green Blue, default
           - BGR: Blue, Green, Red
-        reverse_bytes_in_word (bool):
-          - Enable if the display uses LSB byte order for color words
     """
     def __init__(
         self,
@@ -485,13 +430,12 @@ class ST7789_SPI(ST7789):
         bright=1,
         rotation=0,
         color_order=BGR,
-        reverse_bytes_in_word=True,
     ):
         self.spi = spi
         self.reset = reset
         self.cs = cs
         self.dc = dc
-        super().__init__(width, height, backlight, bright, rotation, color_order, reverse_bytes_in_word)
+        super().__init__(width, height, backlight, bright, rotation, color_order)
 
     def _write(self, command=None, data=None):
         """SPI write to the device: commands and data."""

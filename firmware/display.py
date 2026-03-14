@@ -36,15 +36,12 @@ display = st7789.ST7789_SPI(dis_spi,
                             backlight=dis_bl_pwm,
                             bright=0.6, # 1.0=full_off 0.0=full_on
                             rotation=1,
-                            color_order=st7789.BGR,
-                            reverse_bytes_in_word=True
+                            color_order=st7789.BGR
                             )
 
-fixed_font = ezFBfont(display, fixed_font_data,
-                      fg=WHITE, cswap=True)
+fixed_font = ezFBfont(display, fixed_font_data, fg=WHITE)
 
-helvetica_font = ezFBfont(display, helvetica_font_data,
-                          fg=WHITE, cswap=True)
+helvetica_font = ezFBfont(display, helvetica_font_data, fg=WHITE)
 
 right_arrow = array('h', [
     0, 5,
@@ -68,15 +65,15 @@ def display_convertor_info(context):
     #t_start = time.time_ns()
 
     display.fill(BLACK)
-    helvetica_font.write(f'{context.get("vin"):.3f}V', 0, 0)
-    helvetica_font.write(f'{context.get("iin"):.3f}A', 0, 35)
-    helvetica_font.write(f'{context.get("vout"):.3f}V', 150, 0)
-    helvetica_font.write(f'{context.get("iout"):.3f}A', 150, 35)
+    helvetica_font.write(f'{context.get("vin"):.2f}V', 0, 0)
+    helvetica_font.write(f'{context.get("iin"):.2f}A', 0, 35)
+    helvetica_font.write(f'{context.get("vout"):.2f}V', 150, 0)
+    helvetica_font.write(f'{context.get("iout"):.2f}A', 150, 35)
 
     # FIXME This needs to show converter direction
     arrow_offset = int(time.ticks_ms()/100) % 10
     display.poly(110 + arrow_offset, 35,
-                 right_arrow, GREEN, f=True)
+                 right_arrow, GREEN, True)
 
     display.show()
 
@@ -112,8 +109,11 @@ def display_error(message):
     chars_per_line = display.width // char_w
 
     lines = _wrap_words(message, chars_per_line)
+    total_h = len(lines) * char_h
+    y0 = (display.height - total_h) // 2
     for i, line in enumerate(lines):
-        fixed_font.write(line, 0, i * char_h)
+        x = (display.width - len(line) * char_w) // 2
+        fixed_font.write(line, x, y0 + i * char_h)
 
     display.show()
 

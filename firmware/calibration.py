@@ -14,6 +14,8 @@ class LinearCalibration:
         self.rms_error = 0.0
 
     def convert(self, v):
+        if v == 0.0:
+            return 0.0
         return (v - self.offset) / self.gain
 
     def save(self):
@@ -48,6 +50,8 @@ class QuadraticCalibration(LinearCalibration):
         self.quad_c = 0.0
 
     def convert(self, v):
+        if v == 0.0:
+            return 0.0
         a, b, c = self.quad_a, self.quad_b, self.quad_c
         if a != 0.0 or b != 0.0 or c != 0.0:
             v -= (a * v * v + b * v + c) * 1e-3
@@ -87,7 +91,7 @@ class Calibration:
         self._calibration_date = None
         self._die_temp_celsius = None
         self.vout_adc = QuadraticCalibration()
-        self.vin_adc = LinearCalibration()
+        self.vin_adc = QuadraticCalibration()
         self.iout_adc = LinearCalibration()
         self.iin_adc = LinearCalibration()
         self.load()
@@ -98,7 +102,7 @@ class Calibration:
         self._hardware_id = self._get_hardware_board_id()
         self._calibration_date = None
         self.vout_adc = QuadraticCalibration()
-        self.vin_adc = LinearCalibration()
+        self.vin_adc = QuadraticCalibration()
         self.iout_adc = LinearCalibration()
         self.iin_adc = LinearCalibration()
 
@@ -273,9 +277,12 @@ class Calibration:
         self.vout_adc.quad_c = quad_c
         self.vout_adc.rms_error = rms_error_mv
 
-    def set_vin_calibration(self, gain=1.0, offset=0.0, rms_error_mv=0.0):
+    def set_vin_calibration(self, gain=1.0, offset=0.0, quad_a=0.0, quad_b=0.0, quad_c=0.0, rms_error_mv=0.0):
         self.vin_adc.gain = gain
         self.vin_adc.offset = offset
+        self.vin_adc.quad_a = quad_a
+        self.vin_adc.quad_b = quad_b
+        self.vin_adc.quad_c = quad_c
         self.vin_adc.rms_error = rms_error_mv
 
     def set_iout_calibration(self, gain=1.0, offset=0.0, rms_error_ma=0.0):

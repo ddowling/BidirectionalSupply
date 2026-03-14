@@ -8,6 +8,70 @@ Install
     pip install easyeda2kicad
 
 
+## BQ25758 IIN/IOUT Overcurrent Protection — Threshold Resistor Formula
+
+The IIN and IOUT pins each have an internal transconductance amplifier that
+converts the sense resistor voltage drop into a pin voltage used for OCP:
+
+```
+Vsense  = Isense × Rsense
+Ipin    = Gm × Vsense
+Vpin    = Ipin × Rpin        = Gm × Isense × Rsense × Rpin
+Trip when Vpin ≥ Vthreshold  (Vthreshold = 2V, per datasheet)
+```
+
+Solving for the trip current limit:
+
+```
+Ilimit = Vthreshold / (Gm × Rsense × Rpin)
+Rpin   = Vthreshold / (Gm × Rsense × Ilimit)
+```
+
+The IIN and IOUT pins have **different internal Gm values** (not documented in
+the datasheet; determined by measurement). Both sense resistors are 5mR.
+
+### IIN pin — Gm_in = 0.02 A/V (measured)
+
+```
+Ilimit = 2 / (0.02 × 5e-3 × Rpin) = 20000 / Rpin
+Rpin   = 20000 / Ilimit
+```
+
+| Rpin   | Ilimit |
+|--------|--------|
+| 4990 Ω | ~4.0 A  (original board build — too low for 10A operation) |
+| 2000 Ω | 10.0 A  (target; use 2kΩ E24 standard value)              |
+
+**Action**: Replace the IIN pin resistor from 4990Ω to 2kΩ.
+
+**Status (2026-03-14)**: Board #3 has been reworked with 2kΩ. Boards #1, #2, #4, #5
+retain the original 4990Ω and will trip at ~4A in bypass mode — do not exceed
+this when sweeping those boards until they are reworked.
+
+### IOUT pin — Gm_out = 0.008 A/V (measured; = Gm_in × 2/5)
+
+```
+Ilimit = 2 / (0.008 × 5e-3 × Rpin) = 50000 / Rpin
+Rpin   = 50000 / Ilimit
+```
+
+| Rpin   | Ilimit |
+|--------|--------|
+| 4990 Ω | ~10.0 A (original board build — already correct for 10A) |
+| 5000 Ω | 10.0 A  (nominal) |
+
+**No change needed** to the IOUT pin resistor — 4990Ω gives ≈10A as intended.
+
+### The 2/5 factor
+
+The ratio Gm_out/Gm_in = 2/5 matches the same factor that causes the IIN ADC
+to read at 0.8mA/LSB instead of the datasheet value of 2mA/LSB. Both effects
+stem from the BQ25758's internal circuits behaving differently on the input
+versus output path when the input sense resistor is 5mR rather than the 2mR
+assumed by much of the datasheet text.
+
+---
+
 ## Ideal Diode Switch (LM74810) — Negative Voltage Spike Issue
 
 Board #1 had LM74810 ideal diode circuits destroyed, suspected to be caused by

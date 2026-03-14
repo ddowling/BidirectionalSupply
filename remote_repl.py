@@ -136,12 +136,12 @@ class RemoteRepl:
         )
 
     def setup_board(self):
-        """Import board module, run setup() and setup_adc()."""
+        """Import board module and run setup() (includes ADC initialisation)."""
         self.exec('import board', timeout=5)
         out = self.exec('board.setup()', timeout=15)
         if out:
             print(out)
-        self.exec('board.bq.setup_adc()')
+        self.exec('board.bq.set_enabled(True)')
         time.sleep(0.5)
 
     # --- Internal ---

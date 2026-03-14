@@ -81,9 +81,9 @@ with RemoteRepl(port) as repl:
     repl.setup_board()
 
     print('Enabling bypass mode...')
-    repl.exec('board.bq.set_bypass_enable(True)')
+    repl.exec('board.bq.set_bypass(True)')
     time.sleep(0.5)
-    bypass_on = repl.exec('print(board.bq.get_bypass_enable())')
+    bypass_on = repl.exec('print(board.bq.get_bypass())')
     if bypass_on.strip() != 'True':
         print(f'ERROR: bypass did not enable (got {bypass_on!r})')
         sys.exit(1)
@@ -160,7 +160,7 @@ with RemoteRepl(port) as repl:
     finally:
         load.disable()
         load.control_set_local()
-        repl.exec('board.bq.set_bypass_enable(False)')
+        repl.exec('board.bq.set_bypass(False)')
         print(f'\nLoad disabled, bypass off.')
 
 print(f'\nSweep complete. Results saved to {outfile}')

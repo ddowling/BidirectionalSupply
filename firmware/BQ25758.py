@@ -7,14 +7,33 @@ class BQ25758:
     # Voltage channels: 2mV per LSB (datasheet value, confirmed accurate)
     VIN_ADC_SCALE  = 2.0e-3
     VOUT_ADC_SCALE = 2.0e-3
-    # Current channels: datasheet specifies 2mA per LSB for both IIN and IOUT.
-    # Measurements show IIN raw counts correspond to ~0.789mA/LSB, not 2mA/LSB.
-    # Using 0.8mA/LSB (clean round number) gives calibration gain ~1.014,
-    # confirming the remaining error is chip-to-chip variation correctable via
-    # LinearCalibration. Root cause of the IIN vs datasheet discrepancy is unknown.
-    # IOUT measurements align closely with 2mA/LSB (gain ~1.008 in calibration).
-    IIN_ADC_SCALE  = 0.8e-3   # 0.8mA/LSB (measured; datasheet says 2mA/LSB)
-    IOUT_ADC_SCALE = 2.0e-3   # 2.0mA/LSB (datasheet, confirmed by measurement)
+    # Current channels: datasheet specifies 2mA per LSB for both IIN and IOUT,
+    # assuming a 2mR sense resistor. This design uses 5mR on the input (Rac_sns),
+    # which is the TI-recommended value but causes the ADC to see 2.5× more voltage
+    # per amp, giving an effective scale of 2.0 × (2/5) = 0.8mA/LSB for IIN.
+    # The output side uses the assumed 2mR, so IOUT_ADC_SCALE matches the datasheet.
+    # Remaining chip-to-chip error (~1%) is handled by LinearCalibration.
+    IIN_ADC_SCALE  = 0.8e-3   # 0.8mA/LSB (5mR sense resistor; datasheet says 2mA/LSB for 2mR)
+    IOUT_ADC_SCALE = 2.0e-3   # 2.0mA/LSB (2mR sense resistor, confirmed by measurement)
+
+    # IIN / IOUT overcurrent protection (OCP) threshold via external resistor on IIN/IOUT pins.
+    #
+    # Both pins have an internal transconductance amplifier (Gm not stated in datasheet;
+    # determined by measurement). Gm differs between input and output:
+    #   Vsense  = Isense × Rsense (Rsense = 5mR on both input and output)
+    #   Ipin    = Gm × Vsense
+    #   Vpin    = Ipin × Rpin  = Gm × Isense × Rsense × Rpin
+    #   Trip when Vpin ≥ Vthreshold (Vthreshold = 2V, datasheet)
+    #   Ilimit  = Vthreshold / (Gm × Rsense × Rpin)
+    #
+    # IIN pin:  Gm_in  = 0.02 A/V  → Ilimit = 20000 / Rpin
+    #   Rpin = 4990Ω → ~4A trip (too low); replace with 2kΩ for 10A.
+    # IOUT pin: Gm_out = 0.008 A/V → Ilimit = 50000 / Rpin
+    #   Rpin = 4990Ω → ~10A trip (correct, no change needed).
+    #
+    # Note: Gm_out/Gm_in = 2/5 — the same factor that causes IIN_ADC_SCALE to be
+    # 0.8mA/LSB instead of the datasheet's 2mA/LSB. Both reflect the 5mR input
+    # sense resistor vs the 2mR assumed by much of the BQ25758 datasheet text.
 
     # Limit Register scaling values
     # Assumes a 5mR shunt resistor which is standard. One step is 50mA
@@ -66,17 +85,33 @@ class BQ25758:
         self.i2c_bus = i2c_bus
         self.chip_enable_pin = chip_enable_pin
         self.i2c_address = i2c_address
+        self.detected = False
 
     def _read_u8(self, reg_addr):
-        buf = self.i2c_bus.readfrom_mem(self.i2c_address, reg_addr, 1)
+        try:
+            buf = self.i2c_bus.readfrom_mem(self.i2c_address, reg_addr, 1)
+        except OSError:
+            self.detected = False
+            raise
+
         return buf[0]
 
     def _read_u16(self, reg_addr):
-        buf = self.i2c_bus.readfrom_mem(self.i2c_address, reg_addr, 2)
+        try:
+            buf = self.i2c_bus.readfrom_mem(self.i2c_address, reg_addr, 2)
+        except OSError:
+            self.detected = False
+            raise
+
         return buf[0] + (buf[1]<<8)
 
     def _read_s16(self, reg_addr):
-        v = self._read_u16(reg_addr)
+        try:
+            v = self._read_u16(reg_addr)
+        except OSError:
+            self.detected = False
+            raise
+
         if v >= 0x8000:
             v = v - 0x10000
         return v
@@ -84,20 +119,30 @@ class BQ25758:
     def _write_u8(self, reg_addr, value):
         buf = bytearray(1)
         buf[0] = value
-        self.i2c_bus.writeto_mem(self.i2c_address, reg_addr, buf)
+        try:
+            self.i2c_bus.writeto_mem(self.i2c_address, reg_addr, buf)
+        except OSError:
+            self.detected = False
+            raise
 
     def _write_u16(self, reg_addr, value):
         buf = bytearray(2)
         buf[0] = value & 0xff
         buf[1] = (value>>8) & 0xff
-        self.i2c_bus.writeto_mem(self.i2c_address, reg_addr, buf)
+        try:
+            self.i2c_bus.writeto_mem(self.i2c_address, reg_addr, buf)
+        except OSError:
+            self.detected = False
+            raise
 
     def setup(self):
+        self.detected = False
+
         id = self._read_u8(REG0x3D_Part_Information)
         if id != 0x22:
             raise RuntimeError(f"Bad part ID : {id:02x}")
 
-        # Set REG_RST to 1 to reset all registers to defaults incase this is
+        # Set REG_RST to 1 to reset all registers to defaults in case this is
         # a warm restart
         self._write_u8(REG0x19_Power_Path_and_Reverse_Mode_Control, 1<<7)
 
@@ -105,6 +150,10 @@ class BQ25758:
         # For battery charging we do NOT want this as the converter should
         # turn off if the micro crashes and stops ending commands
         self.set_watchdog_timeout(0)
+        self.detected = True
+
+    def is_detected(self):
+        return self.detected
 
     def is_enabled(self):
         return not self.chip_enable_pin.value()
@@ -229,7 +278,7 @@ class BQ25758:
             v &= ~0x01
         self._write_u8(REG0x19_Power_Path_and_Reverse_Mode_Control, v)
 
-    def set_bypass_enable(self, b):
+    def set_bypass(self, b):
         '''Enable or disable bypass mode (EN_BYPASS bit in REG0x1E).
 
         When enabled, the DC/DC converter is disabled and the high-side FETs
@@ -242,10 +291,29 @@ class BQ25758:
             v &= ~(1 << 4)
         self._write_u8(REG0x1E_Bypass_and_Overload_Control, v)
 
-    def get_bypass_enable(self):
+    def get_bypass(self):
         '''Return True if bypass mode is enabled.'''
         v = self._read_u8(REG0x1E_Bypass_and_Overload_Control)
         return (v & (1 << 4)) != 0
+
+    def set_hiz(self, b):
+        '''Enable or disable HIZ mode (EN_HIZ bit 2 in REG0x17_Converter_Control).
+
+        When a valid input supply is present, HIZ mode disables switching and
+        the REGN LDO; system load is provided by the battery. Also triggered
+        by the IIN pin falling below the hardware threshold.
+        '''
+        v = self._read_u8(self.REG0x17_Converter_Control)
+        if b:
+            v |= (1 << 2)
+        else:
+            v &= ~(1 << 2)
+        self._write_u8(self.REG0x17_Converter_Control, v)
+
+    def get_hiz(self):
+        '''Return True if HIZ mode is enabled.'''
+        v = self._read_u8(self.REG0x17_Converter_Control)
+        return (v & (1 << 2)) != 0
 
     def set_watchdog_timeout(self, value):
         if value == 0:

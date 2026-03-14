@@ -72,6 +72,7 @@ class BoardConnection:
         if resp:
             print(resp)
         self.exec("board.bq.setup_adc()")
+        self.exec("board.bq.set_enabled(True)")
         time.sleep(0.5)
         self.hardware_id = self.get_hardware_id()
         print(f"Board initialized with ADC enabled (HW ID: {self.hardware_id})")

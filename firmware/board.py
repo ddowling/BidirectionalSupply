@@ -212,6 +212,8 @@ class BoardContext:
             return bq.is_enabled()
         elif key == 'regulation_mode':
             return bq.output_regulation_mode()
+        elif key == 'charger_state':
+            return _charger.state_name if _charger is not None else ''
 
         # Ideal diode switch state and voltage sense
         elif key == 'switch0':
@@ -257,6 +259,21 @@ class BoardContext:
             raise KeyError(key)
 
 context = BoardContext()
+
+_charger = None
+
+def set_charger(c):
+    '''Register and start a BatteryCharger, or stop and remove the current one.
+
+    set_charger(c)    — stops any existing charger, starts c, registers it.
+    set_charger(None) — stops the current charger and removes it.
+    '''
+    global _charger
+    if _charger is not None:
+        _charger.stop(context)
+    _charger = c
+    if c is not None:
+        c.start(context)
 
 poll_timer = Timer()
 
@@ -312,6 +329,10 @@ def _poll(t):
     if _breath_step % 10 == 0:
         context.clear()
         display_convertor_info(context)
+
+    # Drive charger state machine at ~1 Hz (every 50 × 20 ms ticks)
+    if _charger is not None and _breath_step % 50 == 0:
+        _charger.update(context)
 
 def monitor(active=True):
     if active:

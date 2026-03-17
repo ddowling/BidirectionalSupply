@@ -117,8 +117,10 @@ class RemoteRepl:
             raise RuntimeError(f'Timeout waiting for response to: {cmd!r}')
 
         # Response format: OK<stdout>\x04<stderr>\x04>
-        if buf.startswith(b'OK'):
-            buf = buf[2:]
+        # OK may not be at the start if IRQ print output precedes it.
+        ok_pos = buf.find(b'OK')
+        if ok_pos != -1:
+            buf = buf[ok_pos + 2:]
         parts = buf.split(b'\x04')
         stdout = parts[0].decode('utf-8', errors='replace').strip() if parts else ''
         stderr = parts[1].decode('utf-8', errors='replace').strip() if len(parts) > 1 else ''

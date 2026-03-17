@@ -75,12 +75,20 @@ def display_convertor_info(context):
     display.poly(110 + arrow_offset, 35,
                  right_arrow, GREEN, True)
 
+    char_w = fixed_font._font.max_width()
+    char_h = fixed_font._font.height()
+
     mode = context.get('regulation_mode')
     mode_color = GREEN if mode == 'CV' else YELLOW if mode == 'CC' else WHITE
     fixed_font.fg = mode_color
-    mode_x = display.width - len(mode) * fixed_font._font.max_width()
-    fixed_font.write(mode, mode_x, 0)
+    fixed_font.write(mode, display.width - len(mode) * char_w, 0)
     fixed_font.fg = WHITE
+
+    charger_state = context.get('charger_state')
+    if charger_state:
+        fixed_font.write(charger_state,
+                         display.width - len(charger_state) * char_w,
+                         char_h)
 
     display.show()
 

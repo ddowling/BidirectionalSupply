@@ -210,6 +210,8 @@ class BoardContext:
         # Enabled state of DC/DC convertor
         elif key == 'enabled':
             return bq.is_enabled()
+        elif key == 'regulation_mode':
+            return bq.output_regulation_mode()
 
         # Ideal diode switch state and voltage sense
         elif key == 'switch0':
@@ -317,6 +319,7 @@ def monitor(active=True):
     else:
         poll_timer.deinit()
         _led_pwm.duty_u16(65535)  # LED off
+        display_blank()
 
 def load_startup(filename='startup.dat'):
     '''Load initial hardware settings from a startup.dat file.

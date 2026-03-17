@@ -75,6 +75,13 @@ def display_convertor_info(context):
     display.poly(110 + arrow_offset, 35,
                  right_arrow, GREEN, True)
 
+    mode = context.get('regulation_mode')
+    mode_color = GREEN if mode == 'CV' else YELLOW if mode == 'CC' else WHITE
+    fixed_font.fg = mode_color
+    mode_x = display.width - len(mode) * fixed_font._font.max_width()
+    fixed_font.write(mode, mode_x, 0)
+    fixed_font.fg = WHITE
+
     display.show()
 
     #t_end = time.time_ns()

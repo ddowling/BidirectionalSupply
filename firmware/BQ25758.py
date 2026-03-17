@@ -2,6 +2,9 @@
 import math
 from micropython import const
 
+# CHARGE_STAT[2:0] names indexed by value (REG0x21 bits 2:0)
+_CHARGE_STAT_NAMES = ('Off', 'Trickle', 'Pre-chg', 'CC', 'CV', 'Rsvd', 'Top-off', 'Done')
+
 class BQ25758:
     # ADC step sizes
     # Voltage channels: 2mV per LSB (datasheet value, confirmed accurate)
@@ -406,7 +409,16 @@ class BQ25758:
     IAC_DPM_STAT = const(1<<6) # Set when in input current regulation
     VAC_DPM_STAT = const(1<<5) # Set when in input voltage regulation
     WD_STAT = const(1<<3)      # Set when I2C watchdog expired
-    CHARGE_STAT_MASK = const(0x07) # FIXME Not really clear what these values are
+    CHARGE_STAT_MASK = const(0x07)
+    # CHARGE_STAT[2:0] values (REG0x21 bits 2:0):
+    #   0 = Not switching
+    #   1 = Trickle charge (VBAT < VBAT_SHORT)
+    #   2 = Pre-charge (VBAT < VBAT_LOWV)
+    #   3 = CC mode (fast charge, constant current)
+    #   4 = CV mode (taper charge, constant voltage)
+    #   5 = Reserved
+    #   6 = Top-off timer active
+    #   7 = Charge termination done
 
     # Status_2 bits
     PG_STAT = const(1<<7)      # Power Good
@@ -439,7 +451,8 @@ class BQ25758:
             result.append("VAC_DPM")
         if status_1 & WD_STAT:
             result.append("WD")
-        result.append(f"CHARGE={status_1&CHARGE_STAT_MASK}")
+        chg = status_1 & CHARGE_STAT_MASK
+        result.append(f"CHARGE={chg}({_CHARGE_STAT_NAMES[chg]})")
 
         result.append(f"STATUS_2={status_2:02x}")
         if status_2 & PG_STAT:
@@ -454,6 +467,21 @@ class BQ25758:
             result.append("REVERSE")
 
         return ",".join(result)
+
+    def output_regulation_mode(self):
+        '''Return the current converter regulation mode as a string.
+
+        Returns 'CC' when in constant-current mode (CHARGE_STAT=3),
+        'CV' when in constant-voltage mode (CHARGE_STAT=4/6/7),
+        or 'Off' when not switching (0/1/2/5).
+        '''
+        chg = self._read_u8(REG0x21_Status_1) & CHARGE_STAT_MASK
+        if chg == 3:
+            return 'CC'
+        elif chg in (4, 6, 7):
+            return 'CV'
+        else:
+            return 'Off'
 
     # Fault Status bits
     VAC_UV_STAT = const(1<<7)

@@ -149,9 +149,8 @@ class BQ25758:
         # a warm restart
         self._write_u8(REG0x19_Power_Path_and_Reverse_Mode_Control, 1<<7)
 
-        # FIXME disable watchdog when testing
-        # For battery charging we do NOT want this as the converter should
-        # turn off if the micro crashes and stops ending commands
+        # Watchdog disabled by default. Enable via startup.dat:
+        #   watchdog_timeout=40   (40s timeout)
         self.set_watchdog_timeout(0)
         self.detected = True
 
@@ -236,12 +235,12 @@ class BQ25758:
 
         self._write_u16(REG0x08_Input_Voltage_DPM_Limit, v)
 
-    def get_reverse_mode_input_current_limit(self):
+    def get_reverse_current(self):
         raw = self._read_u16(REG0x0A_Reverse_Mode_Input_Current_Limit)
         raw = (raw & 0b0000011111111100) >> 2
         return raw * self.CURRENT_SCALE
 
-    def set_reverse_mode_input_current_limit(self, value):
+    def set_reverse_current(self, value):
         v = int(value / self.CURRENT_SCALE)
         if v > 0x190:
             v = 0x190
@@ -252,13 +251,13 @@ class BQ25758:
 
         self._write_u16(REG0x0A_Reverse_Mode_Input_Current_Limit, v)
 
-    def get_reverse_mode_input_voltage_limit(self):
+    def get_reverse_voltage(self):
         raw = self._read_u16(REG0x0C_Reverse_Mode_Input_Voltage_Limit)
 
         raw = (raw & 0b0011111111111100) >> 2
         return raw * self.VOLTAGE_SCALE
 
-    def set_reverse_mode_input_voltage_limit(self, value):
+    def set_reverse_voltage(self, value):
         v = int(value / self.VOLTAGE_SCALE)
         if v > 0xbb8:
             v = 0xbb8
@@ -319,6 +318,10 @@ class BQ25758:
         return (v & (1 << 2)) != 0
 
     def set_watchdog_timeout(self, value):
+        '''Set I2C watchdog timeout in seconds.
+        0=disabled, 1-40=40s, 41-80=80s, >80=160s.
+        Converter is disabled if no I2C traffic within the timeout period.
+        '''
         if value == 0:
             wd = 0
         elif value <= 40:
@@ -327,8 +330,12 @@ class BQ25758:
             wd = 2
         else:
             wd = 3
+        self._write_u8(REG0x15_Timer_Control, wd << 4)
 
-        self._write_u8(REG0x15_Timer_Control, wd<<4)
+    def get_watchdog_timeout(self):
+        '''Return watchdog timeout in seconds (0=disabled, 40, 80, or 160).'''
+        wd = (self._read_u8(REG0x15_Timer_Control) >> 4) & 0x03
+        return (0, 40, 80, 160)[wd]
 
     def setup_adc(self, enable=True, continuous=True,
                   resolution_bits=15,

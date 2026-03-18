@@ -161,10 +161,14 @@ class BoardContext:
             bq.set_input_current_dpm_limit(value)
         elif key == 'input_voltage_limit':
             bq.set_input_voltage_dpm_limit(value)
-        elif key == 'reverse_current_limit':
-            bq.set_reverse_mode_input_current_limit(value)
-        elif key == 'reverse_voltage_limit':
-            bq.set_reverse_mode_input_voltage_limit(value)
+        elif key == 'reverse_current':
+            bq.set_reverse_current(value)
+        elif key == 'reverse_voltage':
+            bq.set_reverse_voltage(value)
+        elif key == 'reverse_enable':
+            bq.set_reverse_enable(value != 0)
+        elif key == 'watchdog_timeout':
+            bq.set_watchdog_timeout(value)
         # Invalidate cache so next get() re-reads from hardware
         self._cache.pop(key, None)
 
@@ -250,10 +254,14 @@ class BoardContext:
             return bq.get_input_current_dpm_limit()
         elif key == 'input_voltage_limit':
             return bq.get_input_voltage_dpm_limit()
-        elif key == 'reverse_current_limit':
-            return bq.get_reverse_mode_input_current_limit()
-        elif key == 'reverse_voltage_limit':
-            return bq.get_reverse_mode_input_voltage_limit()
+        elif key == 'reverse_current':
+            return bq.get_reverse_current()
+        elif key == 'reverse_voltage':
+            return bq.get_reverse_voltage()
+        elif key == 'reverse_enable':
+            return bq.get_reverse_enable()
+        elif key == 'watchdog_timeout':
+            return bq.get_watchdog_timeout()
 
         else:
             raise KeyError(key)
@@ -323,6 +331,8 @@ def _poll(t):
             display_error("DC/DC Convertor Off")
             return
         load_startup()
+        if _charger is not None:
+            _charger.start(context)
 
     _update_ema()
 

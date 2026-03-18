@@ -53,6 +53,16 @@ right_arrow = array('h', [
     0, -5
 ])
 
+left_arrow = array('h', [
+    25, 5,
+    10, 5,
+    10, 10,
+    0, 0,
+    10, -10,
+    10, -5,
+    25, -5
+])
+
 def display_blank():
     display.fill(BLACK)
     display.show()
@@ -70,10 +80,12 @@ def display_convertor_info(context):
     helvetica_font.write(f'{context.get("vout"):.2f}V', 150, 0)
     helvetica_font.write(f'{context.get("iout"):.2f}A', 150, 35)
 
-    # FIXME This needs to show converter direction
-    arrow_offset = int(time.ticks_ms()/100) % 10
-    display.poly(110 + arrow_offset, 35,
-                 right_arrow, GREEN, True)
+    if context.get('enabled'):
+        arrow_offset = int(time.ticks_ms() / 100) % 10
+        if context.get('reverse_enable'):
+            display.poly(120 - arrow_offset, 35, left_arrow, GREEN, True)
+        else:
+            display.poly(110 + arrow_offset, 35, right_arrow, GREEN, True)
 
     char_w = fixed_font._font.max_width()
     char_h = fixed_font._font.height()

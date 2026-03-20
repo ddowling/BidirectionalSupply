@@ -4,6 +4,9 @@
 __pycache__/
 *.pyc
 
+# Test and log output
+charge_logs/
+
 # KiCad generated/cache files
 fp-info-cache
 *-backups/

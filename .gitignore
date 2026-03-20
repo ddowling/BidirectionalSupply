@@ -7,6 +7,7 @@ __pycache__/
 
 # Test and log output
 charge_logs/
+calibration_results/
 
 # KiCad generated/cache files
 fp-info-cache

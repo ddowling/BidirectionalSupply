@@ -1,3 +1,5 @@
 .DS_Store
 *.lck
 *~
+__pycache__/
+*.pyc

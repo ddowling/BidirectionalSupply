@@ -75,6 +75,9 @@ def display_convertor_info(context):
     #t_start = time.time_ns()
 
     display.fill(BLACK)
+    fixed_font.bg = BLACK
+    helvetica_font.bg = BLACK
+
     helvetica_font.write(f'{context.get("vin"):.2f}V', 0, 0)
     helvetica_font.write(f'{context.get("iin"):.2f}A', 0, 35)
     helvetica_font.write(f'{context.get("vout"):.2f}V', 150, 0)

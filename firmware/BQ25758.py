@@ -280,6 +280,26 @@ class BQ25758:
             v &= ~0x01
         self._write_u8(REG0x19_Power_Path_and_Reverse_Mode_Control, v)
 
+    def get_auto_reverse(self):
+        '''Read EN_AUTO_REV (bit 1 of REG0x19).
+        Defined on BQ25750 but marked reserved on BQ25758 — tested and
+        functional: automatically switches to reverse mode on VIN loss.
+        Does not auto-switch back when VIN is restored.
+        '''
+        v = self._read_u8(REG0x19_Power_Path_and_Reverse_Mode_Control)
+        return (v & 0x02) != 0
+
+    def set_auto_reverse(self, b):
+        '''Set EN_AUTO_REV (bit 1 of REG0x19).
+        See get_auto_reverse() for behaviour notes.
+        '''
+        v = self._read_u8(REG0x19_Power_Path_and_Reverse_Mode_Control)
+        if b:
+            v |= 0x02
+        else:
+            v &= ~0x02
+        self._write_u8(REG0x19_Power_Path_and_Reverse_Mode_Control, v)
+
     def set_bypass(self, b):
         '''Enable or disable bypass mode (EN_BYPASS bit in REG0x1E).
 

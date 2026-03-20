@@ -3,3 +3,8 @@
 *~
 __pycache__/
 *.pyc
+
+# KiCad generated/cache files
+fp-info-cache
+*-backups/
+*.kicad_prl

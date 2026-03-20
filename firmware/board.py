@@ -167,20 +167,15 @@ class BoardContext:
             bq.set_reverse_voltage(value)
         elif key == 'reverse_enable':
             bq.set_reverse_enable(value != 0)
-            if not value:
-                global _ups_reverse_active
-                _ups_reverse_active = False
         elif key == 'watchdog_timeout':
             bq.set_watchdog_timeout(value)
-        elif key == 'ups_vin_threshold':
-            global _ups_vin_threshold
-            _ups_vin_threshold = float(value)
-        elif key == 'ups_restore_threshold':
-            global _ups_restore_threshold
-            _ups_restore_threshold = float(value)
+        elif key == 'ups_restore_margin':
+            global _ups_restore_margin
+            _ups_restore_margin = float(value)
         elif key == 'ups_restore_delay':
             global _ups_restore_ticks
-            _ups_restore_ticks = max(1, int(float(value) / 0.02))
+            # delay in seconds; checked every 200ms (every 10th breath step)
+            _ups_restore_ticks = max(1, int(float(value) / 0.2))
         # Invalidate cache so next get() re-reads from hardware
         self._cache.pop(key, None)
 
@@ -274,13 +269,10 @@ class BoardContext:
             return bq.get_reverse_enable()
         elif key == 'watchdog_timeout':
             return bq.get_watchdog_timeout()
-        elif key == 'ups_vin_threshold':
-            return _ups_vin_threshold
-        elif key == 'ups_restore_threshold':
-            return _ups_restore_threshold
+        elif key == 'ups_restore_margin':
+            return _ups_restore_margin
         elif key == 'ups_restore_delay':
-            return _ups_restore_ticks * 0.02
-
+            return _ups_restore_ticks * 0.2
         else:
             raise KeyError(key)
 
@@ -288,46 +280,36 @@ context = BoardContext()
 
 _charger = None
 
-# UPS VIN monitor: when VIN drops below ups_vin_threshold, automatically enable
-# reverse mode. Power restoration is detected via switch_vsense0 (external side
-# of ideal diode switch0), which reads the external supply independently of the
-# converter output. Cannot use BQ25758 VIN for restoration detection — in reverse
-# mode the converter drives VIN so it always reads "good".
+# UPS power restoration monitor: when in reverse mode, detects external power
+# returning by comparing VIN against the regulated reverse_voltage setpoint.
+# The converter cannot drive VIN above its own setpoint, so VIN > reverse_voltage
+# × (1 + margin) means external supply is present and overriding the converter.
+# Checked every 200ms alongside the display refresh (no extra I2C overhead).
 #
 # startup.dat keys:
-#   ups_vin_threshold=9.0     enable UPS monitor, trip when VIN drops below this (V)
-#   ups_restore_threshold=10.0  switch_vsense0 above this = external power present (V)
-#   ups_restore_delay=2.0     seconds sw0 must be above threshold before disabling reverse
-_ups_vin_threshold = 0.0
-_ups_restore_threshold = 0.0
-_ups_restore_ticks = 100     # default 2s (100 × 20ms)
+#   ups_restore_margin=0.05    fraction above reverse_voltage to confirm restoration
+#   ups_restore_delay=2.0      seconds VIN must remain above threshold before switching back
+_ups_restore_margin = 0.0   # 0 = disabled
+_ups_restore_ticks = 10     # default 2s (10 × 200ms)
 _ups_restore_count = 0
-_ups_reverse_active = False
 
-def _ups_check():
-    global _ups_reverse_active, _ups_restore_count
-    if _ups_vin_threshold <= 0.0:
+def _ups_recovery_check(ctx):
+    global _ups_restore_count
+    if _ups_restore_margin <= 0.0:
         return
-    if not _ups_reverse_active:
-        vin = _ema.get('vin_raw', 0.0)
-        if 0.5 < vin < _ups_vin_threshold:
-            _ups_reverse_active = True
+    if not ctx.get('reverse_enable'):
+        _ups_restore_count = 0
+        return
+    threshold = ctx.get('reverse_voltage') * (1.0 + _ups_restore_margin)
+    if ctx.get('vin_raw') > threshold:
+        _ups_restore_count += 1
+        if _ups_restore_count >= _ups_restore_ticks:
             _ups_restore_count = 0
-            bq.set_reverse_enable(True)
-            print('UPS: VIN {:.2f}V < {:.2f}V, reverse enabled'.format(
-                vin, _ups_vin_threshold))
-    elif _ups_restore_threshold > 0.0:
-        # Sense external supply on switch0 input side (independent of converter output)
-        vsense = get_switch_vsense(0)
-        if vsense > _ups_restore_threshold:
-            _ups_restore_count += 1
-            if _ups_restore_count >= _ups_restore_ticks:
-                _ups_restore_count = 0
-                _ups_reverse_active = False
-                bq.set_reverse_enable(False)
-                print('UPS: sw0 {:.2f}V restored, reverse disabled'.format(vsense))
-        else:
-            _ups_restore_count = 0
+            ctx.set('reverse_enable', 0)
+            print('UPS: VIN {:.2f}V > {:.2f}V, power restored'.format(
+                ctx.get('vin_raw'), threshold))
+    else:
+        _ups_restore_count = 0
 
 def set_charger(c):
     '''Register and start a BatteryCharger, or stop and remove the current one.
@@ -394,11 +376,11 @@ def _poll(t):
             _charger.start(context)
 
     _update_ema()
-    _ups_check()
 
     if _breath_step % 10 == 0:
         context.clear()
         display_convertor_info(context)
+        _ups_recovery_check(context)
 
     # Drive charger state machine at ~1 Hz (every 50 × 20 ms ticks)
     if _charger is not None and _breath_step % 50 == 0:

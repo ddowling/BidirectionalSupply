@@ -160,9 +160,10 @@ class BatteryCharger:
         self._check_and_start(context)  # start immediately if conditions met
 
     def stop(self, context):
-        '''Abort charging/discharging and disable the converter output.'''
-        context.set('enabled', 0)
-        context.set('reverse_enable', 0)
+        '''Abort charging/discharging and disable forward charging.'''
+        context.set('forward_enable', 0)
+        if self._state == STATE_DISCHARGE:
+            context.set('reverse_enable', 0)
         self._state = STATE_IDLE
         print('Charger: stopped')
 
@@ -201,7 +202,6 @@ class BatteryCharger:
         context.set('reverse_voltage', v_output)
         context.set('reverse_current', p.i_discharge)
         context.set('reverse_enable', 1)
-        context.set('enabled', 1)
         self._state   = STATE_DISCHARGE
         self._stage_t = time.time()
 
@@ -211,6 +211,14 @@ class BatteryCharger:
             return
 
         now = time.time()
+
+        # Detect hardware-triggered reverse mode (e.g. EN_AUTO_REV) and track as discharge
+        if context.get('reverse_enable') and self._state != STATE_DISCHARGE:
+            print('Charger: battery discharging (reverse mode)')
+            self._last_t = now
+            self._stage_t = now
+            self._state = STATE_DISCHARGE
+            return
 
         # Accumulate delivered charge during active stages
         if self._state in (STATE_PRECHARGE, STATE_FAST, STATE_TAPER):
@@ -222,7 +230,7 @@ class BatteryCharger:
             # Check Vin is still present — pause to WAITING if it drops
             if context.get('vin') < self.profile.v_min_input:
                 print('Charger: input voltage lost — waiting')
-                context.set('enabled', 0)
+                context.set('forward_enable', 0)
                 self._enter_waiting()
                 return
 
@@ -234,7 +242,6 @@ class BatteryCharger:
             self._last_t = now
             if context.get('vout') < self.profile.v_discharge_cutoff:
                 print('Charger: battery cutoff reached — discharge complete')
-                context.set('enabled', 0)
                 context.set('reverse_enable', 0)
                 self._state = STATE_DONE
             return
@@ -287,6 +294,8 @@ class BatteryCharger:
 
     def _check_and_start(self, context):
         '''Start charging if Vin and Vbat conditions are both met.'''
+        if context.get('reverse_enable'):
+            return  # In reverse/UPS mode — do not attempt to charge
         p = self.profile
         if context.get('vin') < p.v_min_input:
             return
@@ -311,7 +320,7 @@ class BatteryCharger:
             context.get('vout'), p.i_precharge))
         context.set('output_voltage_limit', p.v_reg)
         context.set('output_current_limit', p.i_precharge)
-        context.set('enabled', 1)
+        context.set('forward_enable', 1)
         self._state   = STATE_PRECHARGE
         self._stage_t = time.time()
 
@@ -321,7 +330,7 @@ class BatteryCharger:
             context.get('vout'), p.i_fast))
         context.set('output_voltage_limit', p.v_reg)
         context.set('output_current_limit', p.i_fast)
-        context.set('enabled', 1)
+        context.set('forward_enable', 1)
         self._state   = STATE_FAST
         self._stage_t = time.time()
 
@@ -335,12 +344,13 @@ class BatteryCharger:
 
     def _enter_done(self, context):
         print('Charger: done  delivered={:.3f} Ah'.format(self._charge_ah))
-        context.set('enabled', 0)
+        # Leave converter running at v_reg — float charges at near-zero current,
+        # compensating self-discharge without overcharging (safe for LiFePO4).
         self._state = STATE_DONE
 
     def _fault(self, context, msg):
         print('Charger FAULT:', msg)
         self.fault_msg = msg
-        context.set('enabled', 0)
+        context.set('forward_enable', 0)
         self._state   = STATE_FAULT
         self._stage_t = time.time()

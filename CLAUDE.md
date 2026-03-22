@@ -47,6 +47,7 @@ BidirectionalSupply is a bidirectional Buck-Boost DC-DC converter design based o
   ```
 
 ### Firmware Development
+- **Editing config files on device**: Use `mpremote edit startup.dat` (or `role.dat`) to edit configuration files directly on the RP2350 without copying files manually.
 - **Platform**: MicroPython on RP2350
 - **Entry Point**: `firmware/main.py` calls `board.monitor(True)` to start LED heartbeat
 - **Hardware Setup**: Call `board.setup()` to initialize I²C buses and BQ25758

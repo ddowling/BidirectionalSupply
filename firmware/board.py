@@ -165,8 +165,12 @@ class BoardContext:
             bq.set_reverse_current(value)
         elif key == 'reverse_voltage':
             bq.set_reverse_voltage(value)
+        elif key == 'forward_enable':
+            bq.set_forward_enable(value != 0)
         elif key == 'reverse_enable':
             bq.set_reverse_enable(value != 0)
+        elif key == 'auto_reverse':
+            bq.set_auto_reverse(value != 0)
         elif key == 'watchdog_timeout':
             bq.set_watchdog_timeout(value)
         elif key == 'ups_restore_margin':
@@ -265,8 +269,12 @@ class BoardContext:
             return bq.get_reverse_current()
         elif key == 'reverse_voltage':
             return bq.get_reverse_voltage()
+        elif key == 'forward_enable':
+            return bq.get_forward_enable()
         elif key == 'reverse_enable':
             return bq.get_reverse_enable()
+        elif key == 'auto_reverse':
+            return bq.get_auto_reverse()
         elif key == 'watchdog_timeout':
             return bq.get_watchdog_timeout()
         elif key == 'ups_restore_margin':
@@ -301,13 +309,15 @@ def _ups_recovery_check(ctx):
         _ups_restore_count = 0
         return
     threshold = ctx.get('reverse_voltage') * (1.0 + _ups_restore_margin)
-    if ctx.get('vin_raw') > threshold:
+    if ctx.get('vin') > threshold:
         _ups_restore_count += 1
         if _ups_restore_count >= _ups_restore_ticks:
             _ups_restore_count = 0
             ctx.set('reverse_enable', 0)
             print('UPS: VIN {:.2f}V > {:.2f}V, power restored'.format(
-                ctx.get('vin_raw'), threshold))
+                ctx.get('vin'), threshold))
+            if _charger is not None:
+                _charger.start(ctx)
     else:
         _ups_restore_count = 0
 

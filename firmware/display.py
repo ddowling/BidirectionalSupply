@@ -83,18 +83,28 @@ def display_convertor_info(context):
     helvetica_font.write(f'{context.get("vout"):.2f}V', 150, 0)
     helvetica_font.write(f'{context.get("iout"):.2f}A', 150, 35)
 
-    if context.get('enabled'):
+    reverse = context.get('reverse_enable')
+    current = context.get('iout') if reverse else context.get('iin')
+    power_flow = abs(current) > 0.05
+
+    if power_flow:
         arrow_offset = int(time.ticks_ms() / 100) % 10
-        if context.get('reverse_enable'):
-            display.poly(120 - arrow_offset, 35, left_arrow, GREEN, True)
-        else:
-            display.poly(110 + arrow_offset, 35, right_arrow, GREEN, True)
+    else:
+        arrow_offset = 5
+    if reverse:
+        display.poly(120 - arrow_offset, 35, left_arrow, GREEN, power_flow)
+    else:
+        display.poly(110 + arrow_offset, 35, right_arrow, GREEN, power_flow)
 
     char_w = fixed_font._font.max_width()
     char_h = fixed_font._font.height()
 
-    mode = context.get('regulation_mode')
-    mode_color = GREEN if mode == 'CV' else YELLOW if mode == 'CC' else WHITE
+    if context.get('reverse_enable'):
+        mode = 'Rev'
+        mode_color = CYAN
+    else:
+        mode = context.get('regulation_mode')
+        mode_color = GREEN if mode == 'CV' else YELLOW if mode == 'CC' else WHITE
     fixed_font.fg = mode_color
     fixed_font.write(mode, display.width - len(mode) * char_w, 0)
     fixed_font.fg = WHITE

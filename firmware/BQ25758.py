@@ -285,6 +285,9 @@ class BQ25758:
         Defined on BQ25750 but marked reserved on BQ25758 — tested and
         functional: automatically switches to reverse mode on VIN loss.
         Does not auto-switch back when VIN is restored.
+        Note: EN_AUTO_REV bypasses the CE pin — the chip operates in reverse
+        mode even when is_enabled() returns False. Set enabled=1 alongside
+        auto_reverse=1 to keep is_enabled() consistent with hardware state.
         '''
         v = self._read_u8(REG0x19_Power_Path_and_Reverse_Mode_Control)
         return (v & 0x02) != 0
@@ -317,6 +320,24 @@ class BQ25758:
         '''Return True if bypass mode is enabled.'''
         v = self._read_u8(REG0x1E_Bypass_and_Overload_Control)
         return (v & (1 << 4)) != 0
+
+    def get_forward_enable(self):
+        '''Return True if forward charging is enabled (EN_CHG bit 0 of REG0x17_Converter_Control).'''
+        return (self._read_u8(self.REG0x17_Converter_Control) & 0x01) != 0
+
+    def set_forward_enable(self, b):
+        '''Enable or disable forward charging (EN_CHG bit 0 of REG0x17_Converter_Control).
+
+        Controls forward charging independently of the CE pin. Use this to
+        stop/start charging without deasserting CE, which would slow down
+        EN_AUTO_REV switchover to reverse mode.
+        '''
+        v = self._read_u8(self.REG0x17_Converter_Control)
+        if b:
+            v |= 0x01
+        else:
+            v &= ~0x01
+        self._write_u8(self.REG0x17_Converter_Control, v)
 
     def set_hiz(self, b):
         '''Enable or disable HIZ mode (EN_HIZ bit 2 in REG0x17_Converter_Control).

@@ -1,0 +1,46 @@
+# startup.dat — hardware configuration loaded on boot
+# Format: name=value  (numeric values only)
+# Lines beginning with # are comments and are ignored.
+# Active settings are uncommented; optional/unused settings are commented out.
+
+# --- Converter enable ---
+# enabled=1            # 1=enable DC/DC converter on boot, 0=leave disabled
+
+# --- Output (VOUT) limits ---
+# output_voltage_limit=12.0   # Maximum output voltage (V)
+# output_current_limit=5.0    # Maximum output current (A)
+
+# --- Input (VIN) DPM limits ---
+# input_voltage_limit=4.2     # Input voltage DPM threshold (V) — converter backs off below this
+# input_current_limit=10.0    # Input current DPM limit (A)
+
+# --- Ideal diode switches (1=on, 0=off) ---
+# switch0=1            # Ideal diode switch 0
+# switch1=0            # Ideal diode switch 1
+# switch2=1            # Ideal diode switch 2
+# switch3=0            # Ideal diode switch 3
+
+# --- Reverse (UPS/discharge) mode ---
+# reverse_voltage=11.4    # VIN bus output voltage in reverse mode (V) — typically 5% below nominal
+# reverse_current=5.0     # Max current drawn from battery/VOUT side in reverse mode (A)
+# reverse_enable=1        # 1=immediately enable reverse mode on boot, 0=forward mode
+# auto_reverse=1          # 1=enable hardware ACUV auto-reverse (EN_AUTO_REV); requires ACUV resistor divider fitted
+
+# --- UPS auto-recovery (return to forward mode when mains restore) ---
+# ups_restore_margin=0.05  # Fraction above reverse_voltage that confirms mains return
+#                          # e.g. 0.05 -> restore when VIN > reverse_voltage x 1.05
+#                          # Set to 0.0 (default) to disable auto-recovery
+# ups_restore_delay=2.0    # Seconds VIN must stay above threshold before switching back (s)
+
+# --- Watchdog ---
+# watchdog_timeout=0       # Watchdog timeout (s); 0=disabled
+
+# ============================================================
+# Active settings
+# ============================================================
+
+switch0=1
+switch2=1
+enabled=1
+output_current_limit=10
+output_voltage_limit=12

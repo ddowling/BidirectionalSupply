@@ -21,6 +21,7 @@
 #
 from micropython import const
 import time
+from soc import SocEstimator
 
 # ---------------------------------------------------------------------------
 # States
@@ -41,6 +42,30 @@ _FAULT_RETRY_S = const(30)
 
 # Consecutive readings below i_term required to declare DONE
 _ITERM_CONSEC = const(5)
+
+
+# ---------------------------------------------------------------------------
+# OCV-SOC tables
+# ---------------------------------------------------------------------------
+
+# LiFePO4 2S open-circuit voltage vs SOC (approximate, at rest >2 h, 25 °C).
+# The flat plateau (6.56–6.64 V) spans roughly 30–70 % SOC, so OCV alone
+# carries ±15–20 % uncertainty in that region.  Characterise your specific
+# pack for best accuracy; these values are reasonable defaults.
+_LIFEPO4_2S_OCV = (
+    (5.60, 0.0),
+    (6.00, 2.0),
+    (6.20, 5.0),
+    (6.40, 10.0),
+    (6.50, 20.0),
+    (6.56, 30.0),
+    (6.60, 50.0),
+    (6.64, 70.0),
+    (6.70, 80.0),
+    (6.80, 90.0),
+    (7.00, 95.0),
+    (7.30, 100.0),
+)
 
 
 # ---------------------------------------------------------------------------
@@ -70,13 +95,18 @@ class ChargingProfile:
                              to this value as a backup protection.
         i_discharge        : Maximum current drawn from battery during
                              discharge (reverse_current) (A).
+        ocv_table          : OCV-SOC lookup table for SocEstimator, as a
+                             sequence of (voltage_V, soc_pct) pairs sorted
+                             by voltage ascending.  None disables SOC
+                             estimation.
     '''
     def __init__(self, name,
                  v_min_input, v_cutoff, v_precharge, v_reg,
                  i_precharge, i_fast, i_term,
                  capacity_ah=0.0,
                  timeout_pre=3600, timeout_fast=18000, timeout_taper=7200,
-                 v_discharge_cutoff=None, i_discharge=None):
+                 v_discharge_cutoff=None, i_discharge=None,
+                 ocv_table=None):
         self.name        = name
         self.v_min_input = v_min_input
         self.v_cutoff    = v_cutoff
@@ -92,6 +122,7 @@ class ChargingProfile:
         # Discharge defaults: cutoff = v_cutoff, current = i_fast
         self.v_discharge_cutoff = v_discharge_cutoff if v_discharge_cutoff is not None else v_cutoff
         self.i_discharge        = i_discharge        if i_discharge        is not None else i_fast
+        self.ocv_table          = ocv_table
 
 
 # ---------------------------------------------------------------------------
@@ -114,6 +145,7 @@ LIFEPO4_2S_5AH = ChargingProfile(
     timeout_taper = 7200,   # 2 h
     v_discharge_cutoff = 5.2,  # 2.6 V/cell — stop discharge above hard cutoff
     i_discharge        = 5.0,  # 1.0 C continuous discharge
+    ocv_table          = _LIFEPO4_2S_OCV,
 )
 
 
@@ -139,6 +171,10 @@ class BatteryCharger:
         self._iterm_n   = 0      # consecutive below-i_term count
         self._charge_ah = 0.0   # accumulated charge delivered (Ah)
         self.fault_msg  = ''
+        if profile.ocv_table and profile.capacity_ah > 0.0:
+            self._soc_est = SocEstimator(profile.capacity_ah, profile.ocv_table)
+        else:
+            self._soc_est = None
 
     # --- Public API --------------------------------------------------------
 
@@ -150,12 +186,23 @@ class BatteryCharger:
     def state_name(self):
         return _STATE_NAMES[self._state]
 
+    def get_soc_str(self):
+        '''Return SOC as a display string ("67%") or "" if estimation unavailable.'''
+        if self._soc_est is None:
+            return ''
+        return self._soc_est.get_soc_str()
+
     def start(self, context):
         '''Enter WAITING state and begin polling for charge conditions.'''
         self._charge_ah = 0.0
         self._last_t    = time.time()
         self._iterm_n   = 0
         self.fault_msg  = ''
+        # Attempt OCV-based SOC anchor before charging begins.
+        # Only applies when SOC is completely unknown; if we already have a
+        # value from a previous charge/discharge cycle, leave it intact.
+        if self._soc_est is not None:
+            self._soc_est.anchor_ocv(context.get('vout'))
         self._enter_waiting()
         self._check_and_start(context)  # start immediately if conditions met
 
@@ -211,6 +258,11 @@ class BatteryCharger:
             return
 
         now = time.time()
+
+        # Tick SOC estimator.  Current is unsigned from the ADC; sign is
+        # determined by direction: negative while discharging (reverse mode).
+        if self._soc_est is not None:
+            self._soc_est.tick(context.get('vout'), context.get('iout'))
 
         # Detect hardware-triggered reverse mode (e.g. EN_AUTO_REV) and track as discharge
         if context.get('reverse_enable') and self._state != STATE_DISCHARGE:
@@ -346,6 +398,8 @@ class BatteryCharger:
         print('Charger: done  delivered={:.3f} Ah'.format(self._charge_ah))
         # Leave converter running at v_reg — float charges at near-zero current,
         # compensating self-discharge without overcharging (safe for LiFePO4).
+        if self._soc_est is not None:
+            self._soc_est.anchor(100.0)
         self._state = STATE_DONE
 
     def _fault(self, context, msg):

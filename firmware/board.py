@@ -229,6 +229,8 @@ class BoardContext:
             return bq.output_regulation_mode()
         elif key == 'charger_state':
             return _charger.state_name if _charger is not None else ''
+        elif key == 'soc':
+            return _charger.get_soc_str() if _charger is not None else ''
 
         # Ideal diode switch state and voltage sense
         elif key == 'switch0':

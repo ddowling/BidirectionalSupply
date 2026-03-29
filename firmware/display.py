@@ -85,7 +85,7 @@ def display_convertor_info(context):
 
     reverse = context.get('reverse_enable')
     current = context.get('iout') if reverse else context.get('iin')
-    power_flow = abs(current) > 0.05
+    power_flow = abs(current) > 0.005
 
     if power_flow:
         arrow_offset = int(time.ticks_ms() / 100) % 10
@@ -114,6 +114,12 @@ def display_convertor_info(context):
         fixed_font.write(charger_state,
                          display.width - len(charger_state) * char_w,
                          char_h)
+
+    soc = context.get('soc')
+    if soc:
+        fixed_font.write(soc,
+                         display.width - len(soc) * char_w,
+                         char_h * 2)
 
     display.show()
 

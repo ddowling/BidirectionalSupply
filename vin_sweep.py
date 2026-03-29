@@ -56,10 +56,10 @@ else:
 fieldnames = ['set_voltage', 'psu_voltage', 'psu_voltage_std',
               'vin_adc', 'vin_adc_std', 'vin_error_mv']
 
-print(f'Connecting to OWON PSU on {args.psu_port}...')
 port = args.board_port or find_rp2350_port() or '/dev/ttyACM0'
 print(f'Connecting to board on {port}...')
 
+print(f'Connecting to OWON PSU on {args.psu_port}...')
 with Owon(args.psu_port) as psu, RemoteRepl(port) as repl:
     psu.set_remote(True)
     psu.set_current(args.current_limit)

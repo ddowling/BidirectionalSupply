@@ -61,13 +61,13 @@ parser.add_argument('--c-rate', type=float, default=1.0,
                     help='Discharge rate as a fraction of capacity (1.0 = 1C)')
 parser.add_argument('--cutoff-voltage', type=float, default=5.2,
                     help='Stop discharge when battery voltage drops below this (V)')
-parser.add_argument('--rest-interval-pct', type=float, default=10.0,
+parser.add_argument('--rest-interval-pct', type=float, default=5.0,
                     help='Pause for OCV measurement every this many %% of capacity discharged')
-parser.add_argument('--rest-time', type=float, default=30.0,
+parser.add_argument('--rest-time', type=float, default=60.0,
                     help='Seconds to rest the battery at each OCV measurement point')
-parser.add_argument('--rest-sample-interval', type=float, default=1.0,
+parser.add_argument('--rest-sample-interval', type=float, default=0.1,
                     help='Seconds between voltage samples during rest period')
-parser.add_argument('--poll-interval', type=float, default=5.0,
+parser.add_argument('--poll-interval', type=float, default=10.0,
                     help='Seconds between load measurements during discharge')
 parser.add_argument('--load-port', default='/dev/it8511',
                     help='Serial port for IT8511 DC load')

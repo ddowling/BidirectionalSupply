@@ -99,7 +99,7 @@ with RemoteRepl(port) as repl, open(outfile, 'w', newline='') as f:
             vin   = float(parts[2])
             iin   = float(parts[3])
             mode  = parts[4]
-            stage = parts[5]
+            stage = parts[5] if len(parts) > 5 else ''
         except (ValueError, IndexError):
             print('WARNING: bad reading: {!r}'.format(raw))
             time.sleep(args.interval)
